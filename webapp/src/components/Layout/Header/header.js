@@ -11,6 +11,7 @@ const StyledHeader = styled.header`
     height: 80px;
     padding: 4px 8px; /* 위아래 4px, 양옆 8px */
     background-color: #dde0ea;
+    z-index : 10; /* z-index 수치가 높을수록 우선순위가 높다 */
 `;
 
 const StyledContent = styled.div`
@@ -103,9 +104,12 @@ const Header = () => {
                     <StyledImg alt="logo" src={require("img/logo192.png")} />
                 </RouterLink>
                 <StyledUl>
-                    <StyledLi>
-                        방 찾기
-                    </StyledLi>
+                    <Link to="/app/RoomBoardReadList">
+                        <StyledLi>
+                        
+                            방 찾기
+                        </StyledLi>
+                    </Link>
                     <Link to="/app/RoomBoardRegister">
                         <StyledLi>
                             방 내놓기

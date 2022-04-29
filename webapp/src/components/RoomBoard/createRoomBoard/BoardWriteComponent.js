@@ -1,17 +1,22 @@
-import React, { useState } from 'react';
+import * as React from 'react';
+import { useState } from 'react';
 import { Link } from "react-router-dom";
+import moment from 'moment';
 import styled from "styled-components";
-import DatePicker from "react-datepicker"
-import "react-datepicker/dist/react-datepicker.css";
-import moment, { locale } from 'moment';
-import { FormGroup, FormControlLabel, Checkbox, Button } from '@material-ui/core'
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
+import { Button, TextField } from '@material-ui/core'
+import dayjs from "dayjs";
 import Api from 'API/Api';
+
 
 const StyledH5 = styled.h5`
 `;
 
 const StyledDiv = styled.div`
     padding: 6px 8px;
+    overflow:auto;
 `;
 
 const StyledInput = styled.input`
@@ -25,13 +30,15 @@ const StyledInput = styled.input`
 const BoardWriteComponent = () => {
     
 
-    const [id, setId] = useState(0);
+    const [id, setId] = useState('');
     const [title, setTitle] = useState(''); // 제목
     const [location, setLocation] = useState(''); // 양도 매물 주소 - 주소
     const [location_detail, setLocation_detail] = useState(''); // 양도 매물 주소 - 상세 주소
     // 양도 기간(duraion)
     const [startDate, setStartDate] = useState(new Date()); // 시작 날짜
     const [endDate, setEndDate] = useState(new Date()); // 종료 날짜
+    const startDateFormat = dayjs(startDate).format("YYYY-MM-DD");
+    const endDateFormat = dayjs(endDate).format("YYYY-MM-DD");
     // 양도 거래금액
     const [price, setPrice] = useState('');
     // 원 계약보증금/월세
@@ -46,7 +53,9 @@ const BoardWriteComponent = () => {
     const [contain_admin_expense, setContain_admin_expense] = useState(''); // 관리비 포함 항목
     
     // 옵션 사용 가능 정보
-    const [options, setOptions] = useState([Boolean]);
+    const checkList = [ "에어컨", "냉장고", "세탁기", "가스레인지", "전자레인지", "책상", "책장", "옷장", "신발장"]
+    const [checked, setChecked] = useState([]);
+    const [options, setOptions] = useState(''); // 에어컨, 냉장고, 세탁기, 가스레인지, 전자레인지, 책상, 책장, 옷장, 신발장
     const [add_options, setAdd_options] = useState(''); // 옵션 사용 가능 정보 - 추가
 
     // 이미지 - 컴포넌트 연결
@@ -58,8 +67,8 @@ const BoardWriteComponent = () => {
         user: { "id" : id },
         location: location,
         location_detail: location_detail,
-        durationStart: startDate,
-        durationEnd: endDate,
+        durationStart: startDateFormat,
+        durationEnd: endDateFormat,
         price: price,
         contract_deposit: contract_deposit,
         contractMonthlyFee: contractMonthlyFee,
@@ -151,6 +160,18 @@ const BoardWriteComponent = () => {
         }
     }
 
+    // check 박스 children
+    // 에어컨, 냉장고, 세탁기, 가스레인지, 전자레인지, 책상, 책장, 옷장, 신발장
+    const handleCheck = (event) => {
+        var updatedList = [...checked];
+        if (event.target.checked) {
+          updatedList = [...checked, event.target.value];
+        } else {
+          updatedList.splice(checked.indexOf(event.target.value), 1);
+        }
+        setChecked(updatedList);
+      };
+
 
     return (
         <div>
@@ -180,40 +201,35 @@ const BoardWriteComponent = () => {
             </StyledDiv>
 
             <StyledH5>양도 기간</StyledH5>
-            <StyledDiv>
-                <DatePicker
-                    popperModifiers={{
-                        preventOverflow: {enable: true}
-                    }}
-                    popperPlacement="auto"
-                    dateFormat="yyyy-MM-dd"
-                    selected={startDate}
-                    onChange={date => setStartDate(date)}
-                    selectsStart
-                    startDate={startDate}
-                    endDate={endDate}
-                    required
-                />
-                
-                <DatePicker
-                    popperModifiers={{
-                        preventOverflow: {enable: true}
-                    }}
-                    popperPlacement="auto"
-                    dateFormat="yyyy-MM-dd"
-                    selected={endDate}
-                    onChange={date => setEndDate(date)}
-                    selectsEnd
-                    startDate={startDate}
-                    endDate={endDate}
-                    minDate={startDate}
-                    required
-                />
+            <div>
+                <StyledDiv>
+                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                        <DesktopDatePicker
+                            value={startDate}
+                            inputFormat={"yyyy-MM-dd"}
+                            mask={"____-__-__"}
+                            onChange={date => setStartDate(date)}
+                            renderInput={(params) => <TextField {...params} />}
+                        />
+                    </LocalizationProvider>
+                </StyledDiv>
+                <StyledDiv>
+                    <LocalizationProvider  dateAdapter={AdapterDateFns}>  
+                        <DesktopDatePicker 
+                            value={endDate}
+                            inputFormat={"yyyy-MM-dd"}
+                            mask={"____-__-__"}
+                            onChange={date => setEndDate(date)}
+                            required
+                            renderInput={(params) => <TextField {...params} />}
+                        />
+                    </LocalizationProvider>
+                </StyledDiv>
                 <StyledDiv className="text-gray-500 mt-4">
                     시작날짜: {moment(startDate).format("YYYY-MM-DD")} ~  
                     종료날짜: {moment(endDate).format("YYYY-MM-DD")} 
                 </StyledDiv>
-            </StyledDiv>
+            </div>
 
             <StyledH5>양도 거래금액</StyledH5>
             <StyledDiv>
@@ -291,23 +307,21 @@ const BoardWriteComponent = () => {
 
             <StyledH5>옵션 사용 가능 정보</StyledH5>
             <StyledDiv>
-                <button>+</button>
-                <button>-</button>
-                <FormGroup>
-                    <FormControlLabel 
-                        control={<Checkbox defaultChecked />} 
-                        label="책상"
+                <StyledDiv>
+                    {checkList.map((item, index) => (
+                        <div key={index}>
+                            <input value={item} type="checkbox"  />
+                            <span>{item}</span>
+                        </div>
+                    ))}
+                </StyledDiv>
+                <StyledDiv>
+                    <StyledInput id="outlined-basic" 
+                        type="text"
+                        placeholder="추가 옵션 가능 정보"
+                        onChange={(event) => setAdd_options(event.target.value)}
                     />
-                    <FormControlLabel 
-                        control={<Checkbox defaultChecked />} 
-                        label="냉장고" 
-                    />
-                </FormGroup>
-                <StyledInput id="outlined-basic" 
-                    type="text"
-                    placeholder="추가 옵션 가능 정보"
-                    onChange={(event) => setAdd_options(event.target.value)}
-                />
+                </StyledDiv>
             </StyledDiv>
 
             
@@ -331,14 +345,7 @@ const BoardWriteComponent = () => {
                   variant="contained"
                   color="success"
                   onClick={CreateRoomBoard}
-                >
-                  <h3
-                    style={{
-                      color: 'orange'
-                    }}
-                  >
-                    등록
-                  </h3>
+                >등록
             </Button>
             
         </div>

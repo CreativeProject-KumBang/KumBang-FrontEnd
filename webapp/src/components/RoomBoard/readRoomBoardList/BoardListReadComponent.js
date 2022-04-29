@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import moment, { locale } from 'moment';
-import { FormGroup, FormControlLabel, Checkbox, Button } from '@material-ui/core'
 import Api from 'API/Api';
 
 const StyledH5 = styled.h5`
@@ -12,34 +11,43 @@ const StyledDiv = styled.div`
     padding: 6px 8px;
 `;
 
-const BoardReadComponent = () => {
+const StyledInput = styled.input`
+    border-radius: 2px; /* 테두리 둥글게 */
+    border-width: thin;
+    box-shadow: 0px;
+    width: 200px;
+    height: 30px;
+`;
+
+// axios 통신을 통해 받아온 RoomBoard 정보
+const RoomBoard = useState({
+    title: title,
+    user: { "id" : id },
+    location: location,
+    location_detail: location_detail,
+    durationStart: startDate,
+    durationEnd: endDate,
+    price: price,
+    image: {
+        "0": "showImages[0]",
+        "1": "showImages[1]",
+    }
+})
+
+const BoardListReadComponent = () => {
     
     const [id, setId] = useState(0);
-    const [title, setTitle] = useState(''); // 제목
-    const [location, setLocation] = useState(''); // 양도 매물 주소 - 주소
-    const [location_detail, setLocation_detail] = useState(''); // 양도 매물 주소 - 상세 주소
+    const [writer, setWriter] = useState([]); // 작성자
+    const [title, setTitle] = useState([]); // 제목
+    const [location, setLocation] = useState([]); // 양도 매물 주소 - 주소
+    const [location_detail, setLocation_detail] = useState([]); // 양도 매물 주소 - 상세 주소
     // 양도 기간(duraion)
     const [startDate, setStartDate] = useState(new Date()); // 시작 날짜
     const [endDate, setEndDate] = useState(new Date()); // 종료 날짜
     // 양도 거래금액
-    const [price, setPrice] = useState('');
-    // 원 계약보증금/월세
-    const [contract_deposit, setContract_deposit] = useState('');
-    const [contractMonthlyFee, setContractMonthlyFee] = useState('');
-    // 매물 정보 HomeInfo
-    const [park, setPark] = useState(''); // 주차
-    const [elevator, setElevator] = useState(''); // 엘리베이터
-    const [structure, setStructure] = useState(''); // 구조
-    const [admin_expense, setAdmin_expense] = useState(''); // 관리비
-    const [area, setArea] = useState(''); // 면적
-    const [contain_admin_expense, setContain_admin_expense] = useState(''); // 관리비 포함 항목
-    
-    // 옵션 사용 가능 정보
-    const [options, setOptions] = useState([Boolean]);
-    const [add_options, setAdd_options] = useState(''); // 옵션 사용 가능 정보 - 추가
-
+    const [price, setPrice] = useState([]);
     // 이미지 - 컴포넌트 연결
-    const [showImages, setShowImages] = useState([]);
+    const [showImages, setShowImages] = useState([[]]);
 
 /* !--------------------------------Body--------------------------------! */
     const[postBody, setPostBody] = useState({
@@ -196,4 +204,4 @@ const BoardReadComponent = () => {
     )
 }
 
-export default BoardReadComponent
+export default BoardListReadComponent

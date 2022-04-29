@@ -4,7 +4,7 @@ import styled from "styled-components";
 const StyledMain = styled.div`
     display: flex;
     min-height: calc(100vh - 180px);
-
+    
 `;
 
 const StyledBoard = styled.div`

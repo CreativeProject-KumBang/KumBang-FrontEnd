@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from "styled-components";
-import BoardReadComponent from 'components/RoomBoard/readRoomBoardDetail/BoardReadComponent'
 
 const StyledH2 = styled.h2`
     display: inline-block;
@@ -12,13 +11,12 @@ const StyledImg = styled.img`
     object-fit: contain;
 `;
 
-const ReadRoomBoardDetail = () => {
+const ReadRoomBoardList = () => {
     return (
         <div>
-            <BoardReadComponent> </BoardReadComponent>
         </div>
         
     )
 }
 
-export default ReadRoomBoardDetail
+export default ReadRoomBoardList

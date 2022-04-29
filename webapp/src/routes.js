@@ -1,9 +1,12 @@
-import RoomBoardLayout from 'components/RoomBoard/RoomBoardLayout/RoomBoardLayout';
 import { Navigate } from 'react-router-dom';
-import MainLayout from './components/Layout/Main/MainLayout';
-import CreateRoomBoard from './components/RoomBoard/createRoomBoard/createRoomBoard';
+
+import MainLayout from 'components/Layout/Main/MainLayout';
 import Login from 'components/Login/Login';
-import Map from 'components/NaverMap/Map';
+
+import RoomBoardLayout from 'components/RoomBoard/RoomBoardLayout';
+import CreateRoomBoard from 'components/RoomBoard/createRoomBoard/createRoomBoard';
+import ReadRoomBoardDetail from 'components/RoomBoard/readRoomBoardDetail/readRoomBoardDetail';
+import ReadRoomBoardList from 'components/RoomBoard/readRoomBoardList/ReadRoomBoardList';
 
 const routes = [
 	{
@@ -17,7 +20,8 @@ const routes = [
 		element: <RoomBoardLayout />,
 		children: [
 			{ path: "RoomBoardRegister", element: <CreateRoomBoard /> },
-			{ path: "map", element: <Map /> },
+			{ path: "RoomBoardRead", element: <ReadRoomBoardList /> },
+			{ path: "RoomBoardRead/:id", element: <ReadRoomBoardDetail /> },
 		]
 	},
 	{
@@ -25,13 +29,6 @@ const routes = [
 		element: <Login />,
 		children: [
 		  { path: "login", element: <Login /> },
-		],
-	},
-	{
-		path: "map",
-		element: <Map />,
-		children: [
-		  { path: "map", element: <Map /> },
 		],
 	},
 ];

@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 import App from './App'
-import { RenderAfterNavermapsLoaded } from 'react-naver-maps';
 
 const rootNode = document.getElementById('root');
 
