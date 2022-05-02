@@ -5,6 +5,8 @@ import Login from 'components/Login/Login';
 
 import RoomBoardLayout from 'components/RoomBoard/RoomBoardLayout';
 import CreateRoomBoard from 'components/RoomBoard/createRoomBoard/createRoomBoard';
+
+import BoardMapLayout from 'components/RoomBoard/BoardMapLayout';
 import ReadRoomBoardDetail from 'components/RoomBoard/readRoomBoardDetail/readRoomBoardDetail';
 import ReadRoomBoardList from 'components/RoomBoard/readRoomBoardList/ReadRoomBoardList';
 
@@ -20,8 +22,14 @@ const routes = [
 		element: <RoomBoardLayout />,
 		children: [
 			{ path: "RoomBoardRegister", element: <CreateRoomBoard /> },
+		]
+	},
+	{
+		path: 'map',
+		element: <BoardMapLayout />,
+		children: [
 			{ path: "RoomBoardRead", element: <ReadRoomBoardList /> },
-			{ path: "RoomBoardRead/:id", element: <ReadRoomBoardDetail /> },
+			{ path: "RoomBoardDetail/:id", element: <ReadRoomBoardDetail /> },
 		]
 	},
 	{

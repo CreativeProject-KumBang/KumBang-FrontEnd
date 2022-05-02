@@ -135,11 +135,49 @@ const Api = {
         return await postJsonReqest('/auth/email', { emailId, authStr });
     },
 
-    // 방 양도 글 등록
-    postRoomBoard: async(RoomBoard) => {
-        return await postJsonReqest('/roomboard', { RoomBoard });
-    }
+    // RoomBoards--------------------------------------------------------------------------------
 
+    // 방 양도 글 등록
+    postRoomBoard: async(board) => {
+        return await postJsonReqest('/roomboard', { board });
+    },
+    // 방 양도 글 수정
+    postUpdateRoomBoard: async(boardId, board) => {
+        return await postJsonReqest(`/roomboard/${boardId}`, board);
+    },
+    // 방 양도 글 상세조회
+    getRoomBoard: async(boardId) => {
+        return await getRequest(`/roomboard/${boardId}`);
+    },
+    // 방 양도 글 전체조회
+    getAllRoomBoard: async(pageNum, pageCount) => {
+        return await getRequest('/roomboard', { pageNum, pageCount });
+    },
+    // 방 양도 글 삭제
+    deleteRoomBoard: async(boardId) => {
+        return await deleteJsonReqest(`/roomboard/${boardId}`);
+    },
+
+    // likes------------------------------------------------------------------------------------
+    // 좋아요 여부 확인
+    getBoardIsLike: async(boardId) => {
+        return await getRequest('/board/isLike', { boardId });
+    },
+    // 좋아요
+    getBoardLike: async(boardId) => {
+        return await getRequest('/board/like', { boardId });
+    },
+    // 좋아요 취소
+    getBoardUnlike: async(boardId) => {
+        return await getRequest('/board/unlike', { boardId });
+    },
+    // 사용자의 좋아요한 양도 글 리스트 조회
+    getLikedProject: async(userId, pageNum, pageCount) => {
+        return await getRequest(`/user/${userId}/like-boards`, {
+            pageNum,
+            pageCount
+        });
+    },
 
 };
 

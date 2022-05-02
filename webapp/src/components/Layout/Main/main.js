@@ -10,11 +10,10 @@ const StyledMain = styled.div`
 const StyledBoard = styled.div`
     display: flex;
     width: 30%;
-    background-color: pink;
+    background-color: white;
     @media only screen and (max-width: 768px) {
         width: 100%;
     }
-
 `;
 
 const StyledMap = styled.div`
@@ -24,7 +23,6 @@ const StyledMap = styled.div`
     @media only screen and (max-width: 768px) {
         width: 0%
     }
-
 `;
 
 const Main = () => {

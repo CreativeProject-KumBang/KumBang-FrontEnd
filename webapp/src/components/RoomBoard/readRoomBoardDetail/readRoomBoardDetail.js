@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
-import BoardReadComponent from 'components/RoomBoard/readRoomBoardDetail/BoardReadComponent'
+import BoardDetail from 'components/RoomBoard/readRoomBoardDetail/BoardDetail'
 
 const StyledH2 = styled.h2`
     display: inline-block;
@@ -15,7 +15,7 @@ const StyledImg = styled.img`
 const ReadRoomBoardDetail = () => {
     return (
         <div>
-            <BoardReadComponent> </BoardReadComponent>
+            <BoardDetail> </BoardDetail>
         </div>
         
     )
