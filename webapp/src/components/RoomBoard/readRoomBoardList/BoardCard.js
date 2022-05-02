@@ -24,20 +24,21 @@ const BoardCard = (props) => {
     const postBody = {
 		item: [{
 			"boardId": 1,
-			"title": "제목",
+			"title": "test title",
 			"image": "image1",
-			"price": "60000",
-			"startDate": "2022-03-08",
-			"endDate": "2022-04-05"
+			"price": "5000",
+			"startDate": "2022-04-25",
+			"endDate": "2022-04-28"
 		}, {
 			"boardId": 2,
-			"title": "제목2",
+			"title": "test title2",
 			"image": "image2",
-			"price": "220000",
-			"startDate": "2044-03-08",
-			"endDate": "2044-04-05"
+			"price": "5000",
+			"startDate": "2022-04-26",
+			"endDate": "2022-04-30"
 		}]
     };
+	
 
 	const { id, title, image, price, startDate, endDate } = postBody;
 

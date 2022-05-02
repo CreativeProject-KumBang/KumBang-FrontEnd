@@ -84,15 +84,6 @@ const StyledToggle = styled.button`
     }
 `;
 
-// onclick 시에 false 일 경우에 StyledUI를 보여주고 setOpen 수행
-// true이면 StyledUI를 숨기고 setOpen 수행
-
-/*
-const setShow = () => {
-    setOpen(!open);
-}
-*/
-
 const Header = () => {
     const [open, setOpen] = useState("none");
     const [account, setAccount] = useState("");
@@ -104,13 +95,13 @@ const Header = () => {
                     <StyledImg alt="logo" src={require("img/logo192.png")} />
                 </RouterLink>
                 <StyledUl>
-                    <Link to="/map/RoomBoardRead">
+                    <Link to="/map/RoomBoardRead" style={{textDecoration: 'none', color: 'black'}}>
                         <StyledLi>
                         
                             방 찾기
                         </StyledLi>
                     </Link>
-                    <Link to="/app/RoomBoardRegister">
+                    <Link to="/app/RoomBoardRegister" style={{textDecoration: 'none', color: 'black'}}>
                         <StyledLi>
                             방 내놓기
                         </StyledLi>

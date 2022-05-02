@@ -18,6 +18,9 @@ const StyledDiv = styled.div`
 const BoardDetailContent = (props) => {
 
     const board_id = 1;
+    let response = await Api.getRoomBoard(board_id);
+    const postBody = response;
+    
     const[postBody, setPostBody] = useState({
       "title":"test title",
       "content":"test content",
@@ -42,10 +45,11 @@ const BoardDetailContent = (props) => {
           "areaSize":"15평"
       }
   });
+  
  
     return (
         <div>
-
+            
             <StyledH5>이미지 슬라이드</StyledH5>
             <StyledDiv>
                 {showImages.map((image, id) => (

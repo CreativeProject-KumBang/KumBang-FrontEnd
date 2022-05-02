@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Header from 'components/Layout/Header/header';
 import Map from 'components/Map/Map';
 
+
 const StyledLayout = styled.div`
     padding-top: 80px;
     margin: 0; /* margin default값으로 흰선 발생, 이를 제거 */

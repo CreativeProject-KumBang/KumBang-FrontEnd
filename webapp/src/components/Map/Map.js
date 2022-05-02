@@ -1,7 +1,7 @@
 /* global kakao */
 import React, { useEffect, useState } from "react";
 import cn from "classnames";
-import setMapData from "components/RoomBoard/readRoomBoardList/ReadRoomBoardList";
+
 
 //스크립트로 kakao maps api를 가져오면 window전역 객체에 들어감. 사용하려면 window에서 kakao 객체 뽑아서 사용
 const { kakao } = window;
@@ -25,8 +25,7 @@ const Map = (props) => {
     center.innerHTML = options.level;
 
     let map = new window.kakao.maps.Map(container, options);
-    
-    setMapData(lat, lng, center);
+
     console.log("loading kakaomap");
 
 
@@ -46,6 +45,7 @@ const Map = (props) => {
       //축적 값 전달
       var center = document.getElementById('level');
       center.innerHTML = level;
+
   
     });
 

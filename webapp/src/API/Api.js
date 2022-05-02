@@ -1,18 +1,30 @@
 import axios from 'axios';
 
-const api = 'http://ip주소:port번호/api';
+const api = 'http://192.168.236.121:8080/api';
 
 const getRequest = async(path, params = {}) => {
     try {
         const token = sessionStorage.getItem('user_token');
-        const response = await axios.get(api + path, {
-            headers: {
-                authorization: `Bearer ${token}`,
-                Accept: '*/*'
-            },
-            params
-        });
-        return response;
+        if (token) {
+            const response = await axios.get(api + path, {
+                headers: {
+                    authorization: `Bearer ${token}`,
+                    Accept: '*/*'
+                },
+                params
+            });
+            console.log("1", response);
+            return response;
+        } else {
+            const response = await axios.get(api + path, {
+                headers: {
+                    Accept: '*/*'
+                },
+                params
+            });
+            console.log("2", response);
+            return response;
+        }
     } catch (e) {
         console.log(e);
         return [];
@@ -139,7 +151,7 @@ const Api = {
 
     // 방 양도 글 등록
     postRoomBoard: async(board) => {
-        return await postJsonReqest('/roomboard', { board });
+        return await postJsonReqest('/board/new', board);
     },
     // 방 양도 글 수정
     postUpdateRoomBoard: async(boardId, board) => {
@@ -147,11 +159,11 @@ const Api = {
     },
     // 방 양도 글 상세조회
     getRoomBoard: async(boardId) => {
-        return await getRequest(`/roomboard/${boardId}`);
+        return await getRequest(`/board/${boardId}`);
     },
     // 방 양도 글 전체조회
-    getAllRoomBoard: async(pageNum, pageCount) => {
-        return await getRequest('/roomboard', { pageNum, pageCount });
+    getAllRoomBoard: async(x, y, level) => {
+        return await getRequest(`/board/list?x=${x}&y=${y}&level=${level}`);
     },
     // 방 양도 글 삭제
     deleteRoomBoard: async(boardId) => {

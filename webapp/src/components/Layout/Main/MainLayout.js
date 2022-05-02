@@ -28,7 +28,7 @@ const MainLayoutContent = styled.div`
     flex: 1 1 auto;
     height: 100%;
     overflow: auto;
-    backgrond-color: yellow;
+    backgrond-color: white;
 `;
 
 

@@ -1,21 +1,42 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import moment, { locale } from 'moment';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Api from 'API/Api';
+import Divider from '@mui/material/Divider';
 
+const StyledH3 = styled.h3`
+  padding: 4px 15px;
+`;
 
-const StyledH5 = styled.h5`
+const StyledH = styled.h4`
+  padding: 0px 20px;
+  font-weight: bolder;
+`;
+
+const StyledH4 = styled.h4`
+  padding: 0px 20px;
+  font-weight: normal;
 `;
 
 const StyledDiv = styled.div`
-    padding: 6px 8px;
+  padding: 2px 15px;
 `;
 
-
 const BoardDetail = () => {
+  const board_id = 1;
+  /*const[postBody, setPostBody] = useState();
+
+  const response = async () => await Api.getRoomBoard(board_id);
+  useEffect(() => {
+    const getdata = async () => {
+      const data = await response();
+      setPostBody(data);
+    };
+  }, []);
+*/
     /*const board_id = location.href
                     .split('/')
                     [location.href.split('/').length - 1].split('.')[0];
@@ -41,7 +62,6 @@ const BoardDetail = () => {
         }
     });*/
 
-    const board_id = 1;
     const[postBody, setPostBody] = useState({
       "title":"test title",
       "content":"test content",
@@ -66,7 +86,7 @@ const BoardDetail = () => {
           "areaSize":"15평"
       }
   });
-    
+  
   /*
     useEffect(async () => {
         const list = [];
@@ -127,9 +147,10 @@ const BoardDetail = () => {
                 ))}
             </StyledDiv>
                 */}
-            <StyledH5>제목</StyledH5>
+            <StyledH3>제목</StyledH3>
+            <Divider variant="middle" />
             <StyledDiv>
-                <h4>{postBody.title}</h4>
+              <StyledH4>{postBody.title}</StyledH4>
             </StyledDiv>
               
             {/*
@@ -145,10 +166,10 @@ const BoardDetail = () => {
                   fontSize: 40
                 }}
               />
-              <h4 style={{ display: 'inline-block' }}>
+              <StyledH4 style={{ display: 'inline-block' }}>
                 &nbsp;
                 {hit}
-              </h4>
+              </StyledH4>
               {bookmark ? (
                 <FavoriteIcon
                   sx={{
@@ -170,71 +191,71 @@ const BoardDetail = () => {
                   onClick={() => handleBookmark(id)}
                 />
               )}
-              <h4 style={{ display: 'inline-block' }}>
+              <StyledH4 style={{ display: 'inline-block' }}>
                 &nbsp;
                 {likes}
-              </h4>
+              </StyledH4>
             </Box>
             */}
-            <StyledH5>양도 매물 주소</StyledH5>
+            <StyledH3>양도 매물 주소</StyledH3>
+            <Divider variant="middle" />
             <StyledDiv>
-                <h4>{postBody.location}</h4>
-            </StyledDiv>
-            <StyledDiv>
-                <h4>{postBody.locationDetail}</h4>
-            </StyledDiv>
-
-            <StyledH5>양도 기간</StyledH5>
-            <StyledDiv>
-                <StyledDiv className="text-gray-500 mt-4">
-                    시작날짜: {moment(postBody.durationStart).format("YYYY-MM-DD")} ~  
-                    종료날짜: {moment(postBody.durationEnd).format("YYYY-MM-DD")} 
-                </StyledDiv>
+                <StyledH4>{postBody.location}</StyledH4>
+                <StyledH4>{postBody.locationDetail}</StyledH4>
             </StyledDiv>
 
-            <StyledH5>양도 거래금액</StyledH5>
+            <StyledH3>양도 기간</StyledH3>
+            <Divider variant="middle" />
             <StyledDiv>
-                <h4>{postBody.price}</h4>
+              <StyledH4>
+                시작날짜: {moment(postBody.durationStart).format("YYYY-MM-DD")} ~  
+                종료날짜: {moment(postBody.durationEnd).format("YYYY-MM-DD")} 
+              </StyledH4>
             </StyledDiv>
 
-            <StyledH5>원 계약보증금/월세</StyledH5>
+            <StyledH3>양도 거래금액</StyledH3>
+            <Divider variant="middle" />
             <StyledDiv>
-              <h4>계약보증금 {postBody.contractDeposit}</h4>
-            </StyledDiv>
-            <StyledDiv>
-              <h4>월세 {postBody.contractMonthlyFee}</h4>
+                <StyledH4>{postBody.price}</StyledH4>
             </StyledDiv>
 
-            <StyledH5>매물 정보</StyledH5>
+            <StyledH3>원 계약보증금/월세</StyledH3>
+            <Divider variant="middle" />
+            <StyledDiv>
+              <StyledH4>계약보증금: {postBody.contractDeposit}</StyledH4>
+              <StyledH4>월세: {postBody.contractMonthlyFee}</StyledH4>
+            </StyledDiv>
+
+            <StyledH3>매물 정보</StyledH3>
+            <Divider variant="middle" />
             <div>
                 <StyledDiv>
-                  <h4>주차 {postBody.details.parking}</h4>
-                </StyledDiv>
-                <StyledDiv>
-                  <h4>엘리베이터 {postBody.details.elevator}</h4>
-                </StyledDiv>
-                <StyledDiv>
-                  <h4>구조 {postBody.details.roomStructure}</h4>
-                </StyledDiv>
-                <StyledDiv>
-                  <h4>관리비 {postBody.details.managementFee}</h4>
-                </StyledDiv>
-                <StyledDiv>
-                  <h4>관리비 포함 항목 {postBody.details.containManageFee}</h4>
-                </StyledDiv>
-                <StyledDiv>
-                  <h4>면적 {postBody.details.areaSize}</h4>
+                  <StyledH4>주차: {postBody.details.parking}</StyledH4>
+
+                  <StyledH4>엘리베이터: {postBody.details.elevator}</StyledH4>
+
+                  <StyledH4>구조: {postBody.details.roomStructure}</StyledH4>
+
+                  <StyledH4>관리비: {postBody.details.managementFee}</StyledH4>
+
+                  <StyledH4>관리비 포함 항목: {postBody.details.containManageFee}</StyledH4>
+
+                  <StyledH4>면적: {postBody.details.areaSize}</StyledH4>
                 </StyledDiv>
             </div>
 
-            <StyledH5>옵션 사용 가능 정보</StyledH5>
+            <StyledH3>옵션 사용 가능 정보</StyledH3>
+            <Divider variant="middle" />
             <StyledDiv>
                 <StyledDiv>
-                    <StyledDiv>옵션
-                      <h4>{postBody.fixedOption}</h4>
-                    </StyledDiv>
-                    <StyledDiv>추가옵션
-                      <h4>{postBody.additionalOption}</h4>
+                    <StyledDiv>
+                      <StyledH>옵션</StyledH>
+                      <Divider variant="middle" />
+                      <StyledH4>{postBody.fixedOption}</StyledH4>
+
+                      <StyledH>추가옵션</StyledH>
+                      <Divider variant="middle" />
+                      <StyledH4>{postBody.additionalOption}</StyledH4>
                     </StyledDiv>
                 </StyledDiv>
             </StyledDiv>
