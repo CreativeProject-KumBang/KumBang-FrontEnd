@@ -59,13 +59,13 @@ const Nav = (props) => {
 
 const MenuApp = () => {
   const menu = [
-    {id: 1, title: '내 정보'},
-    {id: 2, title: '내가 쓴 글'},
-    {id: 3, title: '거래 내역'},
-    {id: 4, title: '채팅 내역'},
-    {id: 5, title: '찜 내역'},
-    {id: 6, title: '신고 내역'},
-    {id: 7, title: '회원 탈퇴'}
+    {id: 'info', title: '내 정보'},
+    {id: 'board', title: '내가 쓴 글'},
+    {id: 'transaction', title: '거래 내역'},
+    {id: 'chatbox', title: '채팅 내역'},
+    {id: 'wishlist', title: '찜 내역'},
+    {id: 'report', title: '신고 내역'},
+    {id: 'withdrawal', title: '회원 탈퇴'}
   ]
   return(
     <Nav menu={menu}></Nav>  
