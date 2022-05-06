@@ -192,12 +192,19 @@ const BoardWriteComponent = () => {
     
         setShowImages(imageUrlLists);
     };
-    */
+    
         // X버튼 클릭 시 이미지 삭제
+<<<<<<< HEAD
     // const handleDeleteImage = (id) => {
     //     setShowImages(showImages.filter((_, index) => index !== id));
     // };
 
+=======
+    const handleDeleteImage = (id) => {
+        setShowImages(showImages.filter((_, index) => index !== id));
+    };
+*/
+>>>>>>> e4c74828e2313d723e7498ba89c297a7e8438ef5
 
 
     const CreateRoomBoard = async () => {
