@@ -75,8 +75,8 @@ const BoardDetail = () => {
       "price":"5000",  // 양도가격
       "priceType":"DAILY", // 양도가격 타입 "DAILY" or "FULL"
       "deposit":"100000", // 양도 보증금
-      "fixedOption":"1,1,0,0,1,0,1,0",
-      "additionalOption":"선풍기 1|건조기 1|드라이기 1",
+      // "fixedOption":"1,1,0,0,1,0,1,0",
+      "additionalOption":"선풍기 1, 건조기 1, 드라이기 1",
       "details":{
           "parking":"지하주차장",
           "elevator":"있음",
@@ -249,9 +249,9 @@ const BoardDetail = () => {
             <StyledDiv>
                 <StyledDiv>
                     <StyledDiv>
-                      <StyledH>옵션</StyledH>
+                      {/* <StyledH>옵션</StyledH>
                       <Divider variant="middle" />
-                      <StyledH4>{postBody.fixedOption}</StyledH4>
+                      <StyledH4>{postBody.fixedOption}</StyledH4> */}
 
                       <StyledH>추가옵션</StyledH>
                       <Divider variant="middle" />

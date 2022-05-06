@@ -3,6 +3,8 @@ import { Navigate } from 'react-router-dom';
 import MainLayout from 'components/Layout/Main/MainLayout';
 import Login from 'components/Login/Login';
 
+import MypageLayout from 'components/Mypage/MypageLayout';
+
 import RoomBoardLayout from 'components/RoomBoard/RoomBoardLayout';
 import CreateRoomBoard from 'components/RoomBoard/createRoomBoard/createRoomBoard';
 
@@ -35,6 +37,13 @@ const routes = [
 	{
 		path: "login",
 		element: <Login />,
+		children: [
+		  { path: "login", element: <Login /> },
+		],
+	},
+	{
+		path: "mypage",
+		element: <MypageLayout />,
 		children: [
 		  { path: "login", element: <Login /> },
 		],

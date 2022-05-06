@@ -194,9 +194,9 @@ const BoardWriteComponent = () => {
     };
     */
         // X버튼 클릭 시 이미지 삭제
-    const handleDeleteImage = (id) => {
-        setShowImages(showImages.filter((_, index) => index !== id));
-    };
+    // const handleDeleteImage = (id) => {
+    //     setShowImages(showImages.filter((_, index) => index !== id));
+    // };
 
 
 
