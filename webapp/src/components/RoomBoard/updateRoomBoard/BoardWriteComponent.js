@@ -9,21 +9,13 @@ import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 import { Button, TextField } from '@material-ui/core'
 import dayjs from "dayjs";
 import Api from 'API/Api';
-import Images from 'components/RoomBoard/createRoomBoard/Images'
-import DaumPost from 'components/RoomBoard/createRoomBoard/DaumPost'
 
 const StyledH4 = styled.h4`
-
+  padding: 4px 10px;
 `;
-
-const StyledH5 = styled.h5`
-    display: inline-block;
-    width: 130px;
-`;
-
 
 const StyledDiv = styled.div`
-    padding: 0px 15px;
+    padding: 2px 15px;
     overflow:auto;
 `;
 
@@ -31,28 +23,15 @@ const StyledInput = styled.input`
     border-radius: 2px; /* 테두리 둥글게 */
     border-width: thin;
     box-shadow: 0px;
-    width: 250px;
+    width: 200px;
     height: 30px;
 `;
-
-const StyledBigInput = styled.input`
-    border-radius: 2px; /* 테두리 둥글게 */
-    border-width: thin;
-    box-shadow: 0px;
-    width: 250px;
-    height: 100px;
-`;
-
-const data = JSON.parse(sessionStorage.getItem('user_data'));
-const server_path = 'http://ip주소:port번호/file/';
-const empty_path = 'http://ip주소:port번호/image\\file_name.png';
 
 const BoardWriteComponent = () => {
     const navigate = useNavigate();
 
     const [id, setId] = useState('');
     const [title, setTitle] = useState(''); // 제목
-    const [content, setContent] = useState(''); // 내용
     const [location, setLocation] = useState(''); // 양도 매물 주소 - 주소
     const [location_detail, setLocation_detail] = useState(''); // 양도 매물 주소 - 상세 주소
     // 양도 기간(duraion)
@@ -62,11 +41,9 @@ const BoardWriteComponent = () => {
     const endDateFormat = dayjs(endDate).format("YYYY-MM-DD");
     // 양도 거래금액
     const [price, setPrice] = useState('');
-    const [deposit, setDeposit] = useState('');
     // 원 계약보증금/월세
     const [contract_deposit, setContract_deposit] = useState('');
     const [contractMonthlyFee, setContractMonthlyFee] = useState('');
-    const [priceType, setPriceType] = useState('');
     // 매물 정보 HomeInfo
     const [park, setPark] = useState(''); // 주차
     const [elevator, setElevator] = useState(''); // 엘리베이터
@@ -82,9 +59,10 @@ const BoardWriteComponent = () => {
     const [add_options, setAdd_options] = useState(''); // 옵션 사용 가능 정보 - 추가
 
     // 이미지 - 컴포넌트 연결
-    const [pk_id, setPk] = useState([]);
+    //const [showImages, setShowImages] = useState([]);
+    //const [showImages, setShowImages] = useState([]);
 
-    /* !--------------------------------dummy--------------------------------! 
+/* !--------------------------------Body--------------------------------! */
     const postBody = {
         "title":"test title",
         "content":"test content",
@@ -109,26 +87,17 @@ const BoardWriteComponent = () => {
             "areaSize":"15평"
         }
     };
-
-    const postImage = {
-
-    };
-*/
-
-/* !--------------------------------API--------------------------------! */
-    const postBody = {
+   /* const[postBody, setPostBody] = useState({
         title: title,
-        content: content,
-        user: { "id" : id },
+        content: "test content",
+        user: { "id" : "1" },
         location: location,
         locationDetail: location_detail,
         durationStart: startDateFormat,
         durationEnd: endDateFormat,
-        price: price, // 양도 거래 금액
-        deposit: deposit, // 양도 거래 보증금
-        contractDeposit: contract_deposit, // 방 원래 주인이 계약한 보증금
-        contractMonthlyFee: contractMonthlyFee, // 방 원래 주인이 계약한 월세
-        priceType: priceType, // 'FULL'
+        price: price,
+        priceType: "FULL",
+        deposit:"100000",
         contractDeposit: contract_deposit,
         contractMonthlyFee: contractMonthlyFee,
         fixedOption: options,
@@ -141,19 +110,35 @@ const BoardWriteComponent = () => {
             "containManageFee": contain_admin_expense,
             "areaSize": area
         }
-    };
+        //images: showImages
+    });*/
 
-    // check 박스 children
-    // 에어컨, 냉장고, 세탁기, 가스레인지, 전자레인지, 책상, 책장, 옷장, 신발장
-    const handleCheck = (event) => {
-        var updatedList = [...checked];
-        if (event.target.checked) {
-          updatedList = [...checked, event.target.value];
-        } else {
-          updatedList.splice(checked.indexOf(event.target.value), 1);
+    /*const postBody = {
+        title: title,
+        content: "test content",
+        user: { "id" : "1" },
+        location: location,
+        locationDetail: location_detail,
+        durationStart: startDateFormat,
+        durationEnd: endDateFormat,
+        price: price,
+        priceType: "FULL",
+        deposit:"100000",
+        contractDeposit: contract_deposit,
+        contractMonthlyFee: contractMonthlyFee,
+        fixedOption: options,
+        additionalOption: add_options,
+        details : {
+            "parking": park,
+            "elevator":elevator,
+            "roomStructure":structure,
+            "managementFee": admin_expense,
+            "containManageFee": contain_admin_expense,
+            "areaSize": area
         }
-        setChecked(updatedList);
-      };
+
+    };*/
+    
 
     async function emptyCheck() {
         if (title.trim() === '') {
@@ -176,6 +161,44 @@ const BoardWriteComponent = () => {
             return;
         }
     }
+    /*
+    // 이미지 상대경로 저장
+    const handleAddImages = (event) => {
+        const imageLists = event.target.files;
+        let imageUrlLists = [...showImages];
+    
+        for (let i = 0; i < imageLists.length; i++) {
+            const currentImageUrl = URL.createObjectURL(imageLists[i]);
+            imageUrlLists.push(currentImageUrl);
+
+            const formData = new FormData();
+            formData.append('attachments', imageFile);
+            let response = await Api.getReadFile(formData);
+            if (response.sucess) {
+                let image_path = response.files[0].file_path.replace('file\\', '');
+                let image = server_path + image_path;
+                setPostBody({
+                    title: postBody.title,
+                    image: image,
+                    content: postBody.content
+                });
+            } else {
+                console.log('이미지 업로드 실패');
+            }
+    
+        if (imageUrlLists.length > 10) {
+            imageUrlLists = imageUrlLists.slice(0, 10);
+        }
+    
+        setShowImages(imageUrlLists);
+    };
+    
+        // X버튼 클릭 시 이미지 삭제
+    const handleDeleteImage = (id) => {
+        setShowImages(showImages.filter((_, index) => index !== id));
+    };
+*/
+
 
     const CreateRoomBoard = async () => {
 
@@ -186,18 +209,30 @@ const BoardWriteComponent = () => {
             );
             return false;
         }
-/*
-        let response = await Api.postRoomBoard(postBody); // API
+
+        //let response = await Api.postRoomBoard(postBody);
         navigate('/');
-        
+        /*
         if (response.status) {
             alert('생성되었습니다.', response.status);
-            navigate('/');  
+            navigate('/');
         } else {
             alert('생성 실패', response.status);
-        }
-*/
+        }*/
     }
+
+    // check 박스 children
+    // 에어컨, 냉장고, 세탁기, 가스레인지, 전자레인지, 책상, 책장, 옷장, 신발장
+    const handleCheck = (event) => {
+        var updatedList = [...checked];
+        if (event.target.checked) {
+          updatedList = [...checked, event.target.value];
+        } else {
+          updatedList.splice(checked.indexOf(event.target.value), 1);
+        }
+        setChecked(updatedList);
+      };
+
 
     return (
         <div>
@@ -210,23 +245,15 @@ const BoardWriteComponent = () => {
                 />
             </StyledDiv>
 
-            <StyledH4>내용</StyledH4>
-            <StyledDiv>
-                <StyledBigInput id="outlined-basic" required
-                    type="text"
-                    placeholder="내용"
-                    onChange={(event) => setContent(event.target.value)}
-                />
-            </StyledDiv>
-
             <StyledH4>양도 매물 주소</StyledH4>
             <StyledDiv>
-                <StyledH5>주소</StyledH5>
-                <DaumPost setLocation={setLocation}></DaumPost>
-                <StyledH5>{location}</StyledH5>
+                <StyledInput id="outlined-basic" required
+                    type="text"
+                    placeholder="주소"
+                    onChange={(event) => setLocation(event.target.value)}
+                />
             </StyledDiv>
             <StyledDiv>
-                <StyledH5>상세주소</StyledH5>
                 <StyledInput id="outlined-basic" required
                     type="text"
                     placeholder="상세 주소"
@@ -265,27 +292,17 @@ const BoardWriteComponent = () => {
                 </StyledDiv>
             </div>
 
-            <StyledH4>양도 거래금액/보증금</StyledH4>
+            <StyledH4>양도 거래금액</StyledH4>
             <StyledDiv>
-                <StyledH5>양도 거래금액</StyledH5>
                 <StyledInput id="outlined-basic" required
                     type="text"
                     placeholder="ex) 30000"
                     onChange={(event) => setPrice(event.target.value)}
                 />
             </StyledDiv>
-            <StyledDiv>
-                <StyledH5>양도 거래 보증금</StyledH5>
-                <StyledInput id="outlined-basic" required
-                    type="text"
-                    placeholder="ex) 30000"
-                    onChange={(event) => setDeposit(event.target.value)}
-                />
-            </StyledDiv>
 
             <StyledH4>원 계약보증금/월세</StyledH4>
             <StyledDiv>
-                <StyledH5>원 계약보증금</StyledH5>
                 <StyledInput id="outlined-basic"  required
                     type="text"
                     placeholder="계약보증금"
@@ -293,7 +310,6 @@ const BoardWriteComponent = () => {
                 />
             </StyledDiv>
             <StyledDiv>
-                <StyledH5>원 월세</StyledH5>
                 <StyledInput id="outlined-basic" required
                     type="text"
                     placeholder="월세"
@@ -304,7 +320,6 @@ const BoardWriteComponent = () => {
             <StyledH4>매물 정보</StyledH4>
             <div>
                 <StyledDiv>
-                    <StyledH5>주차</StyledH5>
                     <StyledInput id="outlined-basic"
                         type="text"
                         placeholder="ex) 1대 가능"
@@ -312,7 +327,6 @@ const BoardWriteComponent = () => {
                     />
                 </StyledDiv>
                 <StyledDiv>
-                    <StyledH5>엘리베이터</StyledH5>
                     <StyledInput id="outlined-basic"
                         type="text"
                         placeholder="ex) 없음"
@@ -320,7 +334,6 @@ const BoardWriteComponent = () => {
                     />
                 </StyledDiv>
                 <StyledDiv>
-                    <StyledH5>구조</StyledH5>
                     <StyledInput id="outlined-basic"
                         type="text"
                         placeholder="ex) 오픈형 원룸(욕실 1개)"
@@ -328,7 +341,6 @@ const BoardWriteComponent = () => {
                     />
                 </StyledDiv>
                 <StyledDiv>
-                    <StyledH5>관리비</StyledH5>
                     <StyledInput id="outlined-basic"
                         type="text"
                         placeholder="ex) 4만원 관리비 외 사용따라 부과"
@@ -336,7 +348,6 @@ const BoardWriteComponent = () => {
                     />
                 </StyledDiv>
                 <StyledDiv>
-                    <StyledH5>면적</StyledH5>
                     <StyledInput id="outlined-basic"
                         type="text"
                         placeholder="ex) 19.78m2"
@@ -358,18 +369,15 @@ const BoardWriteComponent = () => {
             <StyledH4>옵션 사용 가능 정보</StyledH4>
             <StyledDiv>
                 <StyledDiv>
-                    {checkList.map((item, index) => (
+                    {/*checkList.map((item, index) => (
                         <div key={index}>
                             <input value={item} type="checkbox"  />
                             <span>{item}</span>
                         </div>
-                    ))}
+                    ))*/}
                 </StyledDiv>
                 <StyledDiv>
-                    <StyledH5>추가 옵션 가능 정보</StyledH5>
-                </StyledDiv>
-                <StyledDiv>
-                <StyledBigInput id="outlined-basic" 
+                    <StyledInput id="outlined-basic" 
                         type="text"
                         placeholder="추가 옵션 가능 정보"
                         onChange={(event) => setAdd_options(event.target.value)}
@@ -377,18 +385,32 @@ const BoardWriteComponent = () => {
                 </StyledDiv>
             </StyledDiv>
 
+            
+    {/*
             <div>
                 <StyledH4>이미지 첨부</StyledH4>
                 <StyledDiv>
-                    <Images setPk={setPk}/>
+                    <label htmlFor="input-file"  onChange={handleAddImages}>
+                    <input type="file" id="input-file" accept="image/*" multiple />
+                    </label>
+            
+                    {showImages.map((image, id) => (
+                    <StyledDiv  key={id}>
+                        <img src={image} alt={`${image}-${id}`} />
+                        <button onClick={() => handleDeleteImage(id)}>❌</button>
+                    </StyledDiv>
+                    ))}
                 </StyledDiv>
             </div>
- 
+    */}
             <StyledDiv>
                 <Button variant="outlined" color="success" onClick={CreateRoomBoard}>
                     등록
                 </Button>
-            </StyledDiv> 
+            </StyledDiv>
+
+    
+            
         </div>
     )
 }

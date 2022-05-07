@@ -76,7 +76,7 @@ const BoardDetail = () => {
       "priceType":"DAILY", // 양도가격 타입 "DAILY" or "FULL"
       "deposit":"100000", // 양도 보증금
       "fixedOption":"1,1,0,0,1,0,1,0",
-      "additionalOption":"선풍기 1|건조기 1|드라이기 1",
+      "additionalOption":"선풍기 1, 건조기 1, 드라이기 1",
       "details":{
           "parking":"지하주차장",
           "elevator":"있음",

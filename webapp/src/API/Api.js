@@ -140,7 +140,7 @@ const Api = {
     },
     // 이메일 인증 번호 전송
     getEmail: async(email) => {
-        return await getRequest('/auth/email', { email });
+        return await getRequest('/auth/email', email);
     },
     // 이메일 인증 번호 확인
     postEmail: async(emailId, authStr) => {
@@ -189,6 +189,15 @@ const Api = {
             pageNum,
             pageCount
         });
+    },
+
+    // Files--------------------------------------------------------------------------------------
+    getReadFile: async(fileData) => {
+        return await postFormReqest(`/file/upload`, fileData);
+    },
+
+    deleteFile: async(pk_id) => {
+        return await deleteJsonReqest(`/file/${pk_id}`);
     },
 
 };
