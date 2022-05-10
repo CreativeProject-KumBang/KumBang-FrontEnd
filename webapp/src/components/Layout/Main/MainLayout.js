@@ -2,11 +2,12 @@ import React from 'react';
 import styled from "styled-components";
 import Footer from "components/Layout/Footer/footer"
 import Header from "components/Layout/Header/header"
+import ResponsiveAppBar from "components/Layout/Header/ResponsiveAppBar"
 import { Outlet } from 'react-router-dom';
 import Main from './main';
 
 const StyledLayout = styled.div`
-    padding-top: 80px;
+    padding-top: 0px;
     margin: 0; /* margin default값으로 흰선 발생, 이를 제거 */
     font-family: 'Source Sans Pro';
 `;

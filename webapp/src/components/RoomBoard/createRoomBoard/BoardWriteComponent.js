@@ -11,6 +11,7 @@ import dayjs from "dayjs";
 import Api from 'API/Api';
 import Images from 'components/RoomBoard/createRoomBoard/Images'
 import DaumPost from 'components/RoomBoard/createRoomBoard/DaumPost'
+import CheckboxList from 'components/RoomBoard/createRoomBoard/CheckboxList';
 
 const StyledH4 = styled.h4`
 
@@ -76,44 +77,13 @@ const BoardWriteComponent = () => {
     const [contain_admin_expense, setContain_admin_expense] = useState(''); // 관리비 포함 항목
     
     // 옵션 사용 가능 정보
-    const checkList = [ "에어컨", "냉장고", "세탁기", "가스레인지", "전자레인지", "책상", "책장", "옷장", "신발장"]
-    const [checked, setChecked] = useState([]);
+    const checkList = [ "에어컨", "냉장고", "세탁기", "가스레인지", "전자레인지", "책상", "책장", "옷장", "신발장"];
+    const [checked, setChecked] = React.useState([]);
     const [options, setOptions] = useState(''); // 에어컨, 냉장고, 세탁기, 가스레인지, 전자레인지, 책상, 책장, 옷장, 신발장
     const [add_options, setAdd_options] = useState(''); // 옵션 사용 가능 정보 - 추가
 
     // 이미지 - 컴포넌트 연결
     const [pk_id, setPk] = useState([]);
-
-    /* !--------------------------------dummy--------------------------------! 
-    const postBody = {
-        "title":"test title",
-        "content":"test content",
-        "user":{"id":"1"},
-        "durationStart":"2022-04-25",
-        "durationEnd":"2022-04-28",
-        "location":"구미시 대학로 61길", // 주소 입력받는 api등으로 정확한 주소 필요(좌표계산에 필요함)
-        "locationDetail":"디지털관 337호",
-        "contractDeposit":"1000000", // 방 원래 주인이 계약한 보증금
-        "contractMonthlyFee":"250000", // 방 원래 주인이 계약한 월세
-        "price":"5000",  // 양도가격
-        "priceType":"DAILY", // 양도가격 타입 "DAILY" or "FULL
-        "deposit":"100000", // 양도 보증금
-        "fixedOption":"1,1,0,0,1,0,1,0",
-        "additionalOption":"선풍기 1, 건조기 1, 드라이기 1",
-        "details":{
-            "parking":"지하주차장",
-            "elevator":"있음",
-            "roomStructure":"미니투룸",
-            "managementFee":"전기세",
-            "containManageFee":"수도세, 가스비",
-            "areaSize":"15평"
-        }
-    };
-
-    const postImage = {
-
-    };
-*/
 
 /* !--------------------------------API--------------------------------! */
     const postBody = {
@@ -153,8 +123,10 @@ const BoardWriteComponent = () => {
           updatedList.splice(checked.indexOf(event.target.value), 1);
         }
         setChecked(updatedList);
+        console.log(updatedList);
       };
-
+    
+/*
     async function emptyCheck() {
         if (title.trim() === '') {
             alert('제목을 입력해주세요');
@@ -176,16 +148,16 @@ const BoardWriteComponent = () => {
             return;
         }
     }
-
+*/
     const CreateRoomBoard = async () => {
 
-        const isEmpty = emptyCheck();
+        /*const isEmpty = emptyCheck();
         if (isEmpty === false) {
             alert(
               '필수항목란을 채워주세요'
             );
             return false;
-        }
+        }*/
 /*
         let response = await Api.postRoomBoard(postBody); // API
         navigate('/');
@@ -358,12 +330,7 @@ const BoardWriteComponent = () => {
             <StyledH4>옵션 사용 가능 정보</StyledH4>
             <StyledDiv>
                 <StyledDiv>
-                    {checkList.map((item, index) => (
-                        <div key={index}>
-                            <input value={item} type="checkbox"  />
-                            <span>{item}</span>
-                        </div>
-                    ))}
+                    <CheckboxList checked={checked} setChecked={setChecked}></CheckboxList>
                 </StyledDiv>
                 <StyledDiv>
                     <StyledH5>추가 옵션 가능 정보</StyledH5>
