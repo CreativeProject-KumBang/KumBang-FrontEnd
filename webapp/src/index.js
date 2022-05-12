@@ -8,11 +8,10 @@ const rootNode = document.getElementById('root');
 
 // 원래는 <App />이어야 함.
 ReactDOM.createRoot(rootNode).render(
-  <React.StrictMode>
-      <BrowserRouter>
-        <App /> 
-      </BrowserRouter>
-  </React.StrictMode>,
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+  ,
   document.getElementById('root')
 );
 

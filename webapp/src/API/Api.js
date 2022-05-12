@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const api = 'http://192.168.236.121:8080/api';
+const api = 'http://192.168.227.255:8080/api';
 
 const getRequest = async(path, params = {}) => {
     try {
@@ -145,6 +145,24 @@ const Api = {
     // 이메일 인증 번호 확인
     postEmail: async(emailId, authStr) => {
         return await postJsonReqest('/auth/email', { emailId, authStr });
+    },
+
+    // Mypage--------------------------------------------------------------------------------
+    // 내 정보 조회
+    getMyInfo: async(userId) => {
+        return await getRequest(`/mypage/${userId}`);
+    },
+    // 내 정보 수정
+    postUpdateMyInfo: async(userId, user) => {
+        return await postJsonReqest(`/mypage/${userId}`, user);
+    },
+    // 내가 쓴 글 조회
+     getMyPost: async(boardId) => {
+        return await getRequest(`/mypage/post/${boardId}`);
+    },
+    // 거래 내역 조회
+    getTransaction: async(transId) => {
+        return await getRequest(`/mypage/trans/${transId}`);
     },
 
     // RoomBoards--------------------------------------------------------------------------------

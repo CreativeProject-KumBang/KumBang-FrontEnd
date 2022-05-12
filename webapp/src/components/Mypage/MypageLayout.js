@@ -48,24 +48,16 @@ const StyledSection = styled.div`
     padding-bottom: 50px;
     padding-left: 50px;
     font-size: 22px;
-    background-color: green;
+    /*background-color: green;*/
 `;
 
-const StyledTop = styled.div`
-    display: block;
-    height: 40px;
-    margin-top: 15px;
-    margin-bottom: 50px;
-    margin-right: 50px;
-    font-size: 22px;
-    background-color: yellow;
-`;
+
 
 const StyledMypage = styled.div`
     display: block;
     margin-right: 50px;
     font-size: 22px;
-    background-color: #ffca09;
+    /*background-color: #ffca09;*/
 `;
 
 const MypageLayout = () => {
@@ -81,11 +73,8 @@ const MypageLayout = () => {
                             <MenuApp />
                         </StyledNav>
                         <StyledSection>
-                            <StyledTop>
-                                <h2>내 정보</h2>
-                            </StyledTop>
                             <StyledMypage>
-                                <MyInfo />
+                                <Outlet />
                             </StyledMypage>
                         </StyledSection>
                     </StyledMain>

@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from "styled-components";
 import Divider from '@mui/material/Divider';
-import Api from 'API/Api';
 
 const StyledBox = styled.div`
     height: 100%;
@@ -35,63 +34,38 @@ const Item = styled.li`
   }
 `;
 
-const MyPost = (props) => {
-  // const board_id = 1;
-  // const [postBody, setPostBody] = useState([]);
-  // const response = async () => Api.getMyPost(board_id);
-  
-  // useEffect(() => {
-  //     const data = response();
-  //     setPostBody(data);
-  // }, []); 
-
+const ReportHistory = (props) => {
+  const { id, title, image, date } = props;
   const postBody = {
     item: [{
-      "boardId": 1,
-      "title": "옥계중쪽 미투 양도",
-      "image": "image1",
+      "reportId": 1,
+      "title": "신고합니다.",
       "date": "2022-03-25",
-    }, {
-      "boardId": 2,
-      "title": "옥계중 앞 CU 쪽 미투 양도요!",
-      "image": "image2",
-      "date": "2022-04-26",
     }]
   };
 
   return (
     <StyledBox>
       <StyledTop>
-        <h2>내가 쓴 글</h2>
+        <h2>신고 내역</h2>
       </StyledTop>
       <Divider />
       <List>
         {
           postBody.item.map(row => (
             <>
-              <Item key={row.boardId}>
-                <a href={'/mypage/post/' + row.boardId}>
-                  <div id={row.boardId + '-row-image'}
-                    style={{
-                      float: 'left',
-                      width: '20%',
-                      height: '100%'
-                    }}>
-                    <img
-                      src={row.image}
-                      alt="profile"
-                    />
-                  </div>
+              <Item key={row.reportId}>
+                  <a href={'/mypage/report/' + row.reportId}>
                   <div
                     style={{
                       display: 'block',
-                      width: '80%',
+                      width: '100%',
                       height: '100%'
                     }}>
-                    <div id={row.boardId + '-row-title'}>
+                    <div id={row.reportId + '-row-title'}>
                       <span>{row.title}</span>
                     </div>
-                    <div id={row.boardId + '-row-date'}>
+                    <div id={row.reportId + '-row-date'}>
                       <span style={{ fontSize: 16 }}>{row.date}</span>
                     </div>
                   </div>
@@ -106,4 +80,4 @@ const MyPost = (props) => {
   );
 };
 
-export default MyPost
+export default ReportHistory
