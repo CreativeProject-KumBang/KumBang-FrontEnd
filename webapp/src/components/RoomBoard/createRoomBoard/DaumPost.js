@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import PopupDom from 'components/RoomBoard/createRoomBoard/PopupDom'
 import PopupPostCode from 'components/RoomBoard/createRoomBoard/PopupPostCode'
+import Button from '@mui/material/Button';
 
 const StyledBtn = styled.button`
     display: inline-block;
@@ -26,7 +27,7 @@ const DaumPost = (props) => {
  
     return(
         <div>
-            <StyledBtn type='button' onClick={openPostCode}>우편번호 검색</StyledBtn>
+            <Button variant="outlined" onClick={openPostCode}>우편번호 검색</Button>
 
             <div id='popupDom'>
                 {isPopupOpen && (

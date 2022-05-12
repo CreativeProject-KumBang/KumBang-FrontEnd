@@ -1,13 +1,10 @@
-import React from 'react';
-import styled from "styled-components";
-import Footer from "components/Layout/Footer/footer"
-import Header from "components/Layout/Header/header"
-import ResponsiveAppBar from "components/Layout/Header/ResponsiveAppBar"
+import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import Main from './main';
+import styled from "styled-components";
+import Header from 'components/Layout/Header/header';
 
 const StyledLayout = styled.div`
-    padding-top: 0px;
+    padding-top: 80px;
     margin: 0; /* margin default값으로 흰선 발생, 이를 제거 */
     font-family: 'Source Sans Pro';
 `;
@@ -31,21 +28,21 @@ const MainLayoutContent = styled.div`
     overflow: auto;
     backgrond-color: white;
 `;
+const MainLayout = () => {
+  const [isMobileNavOpen, setMobileNavOpen] = useState(false);
 
-
-const MainLayout = (props) => {
-    return (
-        <StyledLayout>
+  return (
+    <StyledLayout>
             <Header />
             <MainLayoutWrapper>
                 <MainLayoutContainer>
                     <MainLayoutContent>
-                        <Main />
+                        <Outlet />
                     </MainLayoutContent>
                 </MainLayoutContainer>
                 </MainLayoutWrapper>
         </StyledLayout>
-    )
-}
+  );
+};
 
-export default MainLayout
+export default MainLayout;

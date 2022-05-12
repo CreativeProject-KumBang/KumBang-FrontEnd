@@ -4,7 +4,7 @@ import styled from "styled-components";
 import moment, { locale } from 'moment';
 import Api from 'API/Api';
 import BoardCardContent from 'components/RoomBoard/readRoomBoardList/BoardCardContent';
-import { Box, Card, Grid } from '@material-ui/core';
+import { Box, Card, Grid } from '@mui/material';
 
 const BoardCard = (props) => {
     const { state } = props;
@@ -66,25 +66,6 @@ const BoardCard = (props) => {
 					}
 				</Grid>
 			</Box >
-			<Grid
-				item
-				lg={10}
-				md={10}
-				sm={12}
-				xs={12}
-			>
-				<Box
-					sx={
-						{
-							justifyContent: 'center',
-							alignItems: 'center',
-							display: 'flex'
-						}
-					}
-				>
-				</Box>
-			</Grid>
-            
         </div>
     )
 }

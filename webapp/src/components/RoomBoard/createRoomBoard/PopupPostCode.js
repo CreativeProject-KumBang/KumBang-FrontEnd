@@ -1,5 +1,6 @@
 import React from 'react';
 import DaumPostcode from "react-daum-postcode";
+import Button from '@mui/material/Button';
  
 const PopupPostCode = (props) => {
     const setLocation = props.setLocation;
@@ -22,7 +23,7 @@ const PopupPostCode = (props) => {
         console.log(data.zonecode)
 
         setLocation(fullAddress);
-        props.onClose()
+        props.onClose();
     }
  
     const postCodeStyle = {
@@ -36,9 +37,8 @@ const PopupPostCode = (props) => {
  
     return(
         <div>
-            <button type='button' onClick={() => {props.onClose()}} className='postCode_btn'>닫기</button>
+            <Button onClick={() => {props.onClose()}} className='postCode_btn'>닫기</Button>
             <DaumPostcode style={postCodeStyle} onComplete={handlePostCode} />
-            
         </div>
     )
 }

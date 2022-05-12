@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const api = 'http://192.168.236.121:8080/api';
+const api = 'http://192.168.227.255:8080/api';
 
 const getRequest = async(path, params = {}) => {
     try {
@@ -38,7 +38,7 @@ const postFormReqest = async(path, body) => {
             headers: {
                 authorization: `Bearer ${token}`,
                 Accept: 'application/json',
-                'Content-Type': 'multipart/form-data'
+                'Content-Type': 'multipart/form-data',
             }
         });
         return data;
@@ -173,15 +173,15 @@ const Api = {
     // likes------------------------------------------------------------------------------------
     // 좋아요 여부 확인
     getBoardIsLike: async(boardId) => {
-        return await getRequest('/board/isLike', { boardId });
+        return await getRequest('/board/isLike', boardId);
     },
     // 좋아요
     getBoardLike: async(boardId) => {
-        return await getRequest('/board/like', { boardId });
+        return await getRequest('/board/like', boardId);
     },
     // 좋아요 취소
     getBoardUnlike: async(boardId) => {
-        return await getRequest('/board/unlike', { boardId });
+        return await getRequest('/board/unlike', boardId);
     },
     // 사용자의 좋아요한 양도 글 리스트 조회
     getLikedProject: async(userId, pageNum, pageCount) => {

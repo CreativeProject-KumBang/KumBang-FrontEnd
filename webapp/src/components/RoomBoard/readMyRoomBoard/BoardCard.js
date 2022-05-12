@@ -4,7 +4,7 @@ import styled from "styled-components";
 import moment, { locale } from 'moment';
 import Api from 'API/Api';
 import BoardCardContent from 'components/RoomBoard/readMyRoomBoard/BoardCardContent';
-import { Box, Card, Grid } from '@material-ui/core';
+import { Box, Card, Grid } from '@mui/material';
 
 const BoardCard = (props) => {
 	const [page, setPage] = useState(1);
