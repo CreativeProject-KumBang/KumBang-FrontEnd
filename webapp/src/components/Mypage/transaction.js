@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from "styled-components";
 import Divider from '@mui/material/Divider';
 import Api from 'API/Api';
@@ -23,22 +23,21 @@ const List = styled.ul`
 `;
 
 const Item = styled.li`
-  padding: 8px 12px; /* 마우스 클릭영역 확보 */
+  padding: 12px 12px; /* 마우스 클릭영역 확보 */
 
   a {
     display: flex;
     position: relative;
-    margin: 10px 15px;
     font-size: 22px;
     text-decoration: none;
     color: black;
   }
 `;
 
-const MyPost = (props) => {
-  // const board_id = 1;
+const Transaction = () => {
+  // const transId = 1;
   // const [postBody, setPostBody] = useState([]);
-  // const response = async () => Api.getMyPost(board_id);
+  // const response = async () => Api.getTransaction(transId);
   
   // useEffect(() => {
   //     const data = response();
@@ -48,21 +47,25 @@ const MyPost = (props) => {
   const postBody = {
     item: [{
       "boardId": 1,
-      "title": "옥계중쪽 미투 양도",
+      "title": "신옥계 롯데리아 뒤 양도",
       "image": "image1",
-      "date": "2022-03-25",
+      "userId": "북극곰",
+      "startDate": "2022-01-25",
+      "endDate": "2022-02-25"
     }, {
       "boardId": 2,
-      "title": "옥계중 앞 CU 쪽 미투 양도요!",
+      "title": "옥계중 근처 양도!",
       "image": "image2",
-      "date": "2022-04-26",
+      "userId": "모나리자",
+      "startDate": "2021-07-01",
+      "endDate": "2021-08-30"
     }]
   };
 
   return (
     <StyledBox>
       <StyledTop>
-        <h2>내가 쓴 글</h2>
+        <h2>거래 내역</h2>
       </StyledTop>
       <Divider />
       <List>
@@ -91,8 +94,11 @@ const MyPost = (props) => {
                     <div id={row.boardId + '-row-title'}>
                       <span>{row.title}</span>
                     </div>
-                    <div id={row.boardId + '-row-date'}>
-                      <span style={{ fontSize: 16 }}>{row.date}</span>
+                    <div id={row.boardId + '-row-user'}>
+                      <span style={{ fontSize: 16 }}>{row.userId}</span>
+                    </div>
+                    <div id={row.boardId + '-row-period'}>
+                      <span style={{ fontSize: 16 }}>{row.startDate}~{row.endDate}</span>
                     </div>
                   </div>
                 </a>
@@ -106,4 +112,4 @@ const MyPost = (props) => {
   );
 };
 
-export default MyPost
+export default Transaction

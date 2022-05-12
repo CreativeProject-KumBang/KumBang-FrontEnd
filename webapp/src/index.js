@@ -11,8 +11,7 @@ ReactDOM.createRoot(rootNode).render(
 
       <BrowserRouter>
         <App /> 
-      </BrowserRouter>
-  ,
+      </BrowserRouter>,
   document.getElementById('root')
 );
 

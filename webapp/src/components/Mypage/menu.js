@@ -60,7 +60,7 @@ const Nav = (props) => {
 const MenuApp = () => {
   const menu = [
     {id: 'info', title: '내 정보'},
-    {id: 'board', title: '내가 쓴 글'},
+    {id: 'post', title: '내가 쓴 글'},
     {id: 'transaction', title: '거래 내역'},
     {id: 'chatbox', title: '채팅 내역'},
     {id: 'wishlist', title: '찜 내역'},

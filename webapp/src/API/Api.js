@@ -147,6 +147,24 @@ const Api = {
         return await postJsonReqest('/auth/email', { emailId, authStr });
     },
 
+    // Mypage--------------------------------------------------------------------------------
+    // 내 정보 조회
+    getMyInfo: async(userId) => {
+        return await getRequest(`/mypage/${userId}`);
+    },
+    // 내 정보 수정
+    postUpdateMyInfo: async(userId, user) => {
+        return await postJsonReqest(`/mypage/${userId}`, user);
+    },
+    // 내가 쓴 글 조회
+     getMyPost: async(boardId) => {
+        return await getRequest(`/mypage/post/${boardId}`);
+    },
+    // 거래 내역 조회
+    getTransaction: async(transId) => {
+        return await getRequest(`/mypage/trans/${transId}`);
+    },
+
     // RoomBoards--------------------------------------------------------------------------------
 
     // 방 양도 글 등록

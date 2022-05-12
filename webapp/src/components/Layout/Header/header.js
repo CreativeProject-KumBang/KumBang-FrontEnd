@@ -13,6 +13,7 @@ const StyledHeader = styled.header`
     padding: 4px 8px; /* 위아래 4px, 양옆 8px */
     background-color: white;
     z-index : 10; /* z-index 수치가 높을수록 우선순위가 높다 */
+    border-bottom: 1px solid gray;
 `;
 
 const StyledContent = styled.div`
