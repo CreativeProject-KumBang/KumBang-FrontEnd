@@ -21,6 +21,7 @@ const BoardDetailContent = (props) => {
     let response = await Api.getRoomBoard(board_id);
     const postBody = response;
     
+    /*
     const[postBody, setPostBody] = useState({
       "title":"test title",
       "content":"test content",
@@ -45,7 +46,7 @@ const BoardDetailContent = (props) => {
           "areaSize":"15평"
       }
   });
-  
+  */
  
     return (
         <div>
