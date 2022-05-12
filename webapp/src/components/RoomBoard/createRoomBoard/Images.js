@@ -71,10 +71,10 @@ const Images = (props) => {
 
   return (
     <div>
-      /*
-        <label htmlFor="input-file"  onChange={onSaveFiles}>
-          <input type="file" id="input-file" accept="image/*" multiple />
-    </label>*/
+
+      <label htmlFor="input-file" onChange={onSaveFiles}>
+        <input type="file" id="input-file" accept="image/*" multiple />
+      </label>
 
       {fileListUI.map((image, id) => (
         <div key={id}>
