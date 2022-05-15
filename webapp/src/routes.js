@@ -3,7 +3,10 @@ import { Navigate } from 'react-router-dom';
 import MainLayout from 'components/Layout/Main/MainLayout';
 import Main from 'components/Layout/Main/main';
 
-import Login from 'components/Login/Login';
+import Login from 'components/SignIn/loginn';
+import SignUpLayout from 'components/SignUp/signUpLayout';
+import Authentication from 'components/SignUp/authentication';
+import SignUp from 'components/SignUp/signup';
 
 import MypageLayout from 'components/Mypage/MypageLayout';
 import Info from 'components/Mypage/info';
@@ -51,6 +54,14 @@ const routes = [
 		element: <Login />,
 		children: [
 		  { path: "login", element: <Login /> },
+		],
+	},
+	{
+		path: "signup",
+		element: <SignUpLayout />,
+		children: [
+		  { path: "", element: <Authentication /> },
+		  { path: "detail", element: <SignUp /> },
 		],
 	},
 	{

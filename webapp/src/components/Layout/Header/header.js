@@ -63,10 +63,14 @@ const Header = () => {
                 </RouterLink>
                 <StyledUl>
                     <StyledLi>
-                        Sign in
+                        <a href='/login' style={{textDecoration: 'none', color:'black'}}>
+                            <span>Sign in</span>
+                        </a>
                     </StyledLi>
                     <StyledLi>
-                        Sign Up
+                        <a href='/signup' style={{textDecoration: 'none', color:'black'}}>
+                            Sign Up
+                        </a>
                     </StyledLi>
                 </StyledUl>
             </StyledContent>
