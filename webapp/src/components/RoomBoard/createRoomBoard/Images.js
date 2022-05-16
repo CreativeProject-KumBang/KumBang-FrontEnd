@@ -31,7 +31,7 @@ const Images = (props) => {
       imageUrlLists = imageUrlLists.slice(0, 10);
     }
 
-    setFileListUI(uploadFiles);
+    setFileListUI(imageUrlLists);
   };
 
   const onFileUpload = async () => {
@@ -75,6 +75,7 @@ const Images = (props) => {
       <label htmlFor="input-file" onChange={onSaveFiles}>
         <input type="file" id="input-file" accept="image/*" multiple />
       </label>
+      <Button onClick={onFileUpload}>파일 업로드</Button>
 
       {fileListUI.map((image, id) => (
         <div key={id}>
