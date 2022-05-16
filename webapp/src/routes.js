@@ -25,6 +25,10 @@ import ReadRoomBoardDetail from 'components/RoomBoard/readRoomBoardDetail/readRo
 import ReadRoomBoardList from 'components/RoomBoard/readRoomBoardList/ReadRoomBoardList';
 import Product from 'products';
 
+import ChatLayout from 'components/Chat/ChatLayout';
+import ReadChatList from 'components/Chat/readChatList/ReadChatList';
+import ReadChatDetail from 'components/Chat/readChatDetail/ReadChatDetail';
+
 const routes = [
 	{
 		path: "/",
@@ -75,6 +79,14 @@ const routes = [
 			{ path: "wishlist", element: <Wishlists /> },
 		  	{ path: "report", element: <ReportHistory /> },
 			{ path: "withdrawal", element: <Withdrawal /> }
+		],
+	},
+	{
+		path: "chat",
+		element: <ChatLayout />,
+		children: [
+			{ path: "list", element: <ReadChatList /> },
+			{ path: "detail", element: <ReadChatDetail /> },
 		],
 	},
 ];

@@ -5,7 +5,7 @@ import styled from "styled-components";
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
-import { Button, TextField } from '@mui/material'
+import { Button, TextField, Container } from '@mui/material'
 import dayjs from "dayjs";
 import Api from 'API/Api';
 import Images from 'components/RoomBoard/createRoomBoard/Images'
@@ -172,243 +172,250 @@ const BoardWriteComponent = () => {
    }
 
    return (
-      <Box sx={{marginRight: 2}}>
-         <StyledH4>제목</StyledH4>
-         <StyledDiv>
-            <TextField
-               fullWidth
-               hiddenLabel
-               id="filled-hidden-label-small"
-               variant="filled"
-               size="small"
-               placeholder="제목"
-               onChange={(event) => setTitle(event.target.value)}
-            />
-         </StyledDiv>
-
-         <StyledH4>내용</StyledH4>
-         <StyledDiv>
-            <TextField
-               fullWidth
-               hiddenLabel
-               id="filled-hidden-label-small"
-               variant="filled"
-               size="small"
-               placeholder="내용"
-               multiline
-               rows={5}
-               onChange={(event) => setContent(event.target.value)}
-            />
-         </StyledDiv>
-
-         <StyledH4>주소</StyledH4>
-         <StyledDiv>
-            <DaumPost setLocation={setLocation}></DaumPost>
-            <StyledH5>{location}</StyledH5>
-         </StyledDiv>
-
-         <StyledH4>상세주소</StyledH4>
-         <StyledDiv>
-            <TextField
-               fullWidth
-               hiddenLabel
-               id="filled-hidden-label-small"
-               variant="filled"
-               size="small"
-               placeholder="상세 주소"
-               onChange={(event) => setLocation_detail(event.target.value)}
-            />
-         </StyledDiv>
-
-         <StyledH4>양도 기간</StyledH4>
-
-         <StyledH5>시작일 : </StyledH5>
-         <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DesktopDatePicker
-               value={startDate}
-               inputFormat={"yyyy-MM-dd"}
-               mask={"____-__-__"}
-               onChange={date => setStartDate(date)}
-               renderInput={(params) => <TextField {...params} />}
-            />
-         </LocalizationProvider>
-      
-         <StyledH5>종료일 : </StyledH5>
-         <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DesktopDatePicker
-               value={endDate}
-               inputFormat={"yyyy-MM-dd"}
-               mask={"____-__-__"}
-               onChange={date => setEndDate(date)}
-               required
-               renderInput={(params) => <TextField {...params} />}
-            />
-         </LocalizationProvider>
-
-         <StyledH4>양도 거래금액</StyledH4>
-         <StyledDiv>
-            <TextField
-               fullWidth
-               hiddenLabel
-               id="filled-hidden-label-small"
-               variant="filled"
-               size="small"
-               placeholder="ex) 30000"
-               onChange={(event) => setPrice(event.target.value)}
-            />
-         </StyledDiv>
-
-         <StyledH4>양도 거래 보증금</StyledH4>
-         <StyledDiv>
-            <TextField
-               fullWidth
-               hiddenLabel
-               id="filled-hidden-label-small"
-               variant="filled"
-               size="small"
-               placeholder="ex) 30000"
-               onChange={(event) => setDeposit(event.target.value)}
-            />
-         </StyledDiv>
-
-         <StyledH4>원 계약보증금</StyledH4>
-         <StyledDiv>
-            <TextField
-               fullWidth
-               hiddenLabel
-               id="filled-hidden-label-small"
-               variant="filled"
-               size="small"
-               placeholder="계약보증금"
-               onChange={(event) => setContract_deposit(event.target.value)}
-            />
-         </StyledDiv>
-
-         <StyledH4>원 월세</StyledH4>
-         <StyledDiv>
-            <TextField
-               fullWidth
-               hiddenLabel
-               id="filled-hidden-label-small"
-               variant="filled"
-               size="small"
-               placeholder="월세"
-               onChange={(event) => setContractMonthlyFee(event.target.value)}
-            />
-         </StyledDiv>
-
-         <h4>매물 정보</h4>
-
-         <StyledH5>주차</StyledH5>
-         <StyledDiv>
-            <TextField
-               fullWidth
-               hiddenLabel
-               id="filled-hidden-label-small"
-               variant="filled"
-               size="small"
-               placeholder="ex) 1대 가능"
-               onChange={(event) => setPark(event.target.value)}
-            />
-         </StyledDiv>
-
-         <StyledH5>엘리베이터</StyledH5>
-         <StyledDiv>
-            <TextField
-               fullWidth
-               hiddenLabel
-               id="filled-hidden-label-small"
-               variant="filled"
-               size="small"
-               placeholder="ex) 없음"
-               onChange={(event) => setElevator(event.target.value)}
-            />
-         </StyledDiv>
-
-         <StyledH5>구조</StyledH5>
-         <StyledDiv>
-            <TextField
-               fullWidth
-               hiddenLabel
-               id="filled-hidden-label-small"
-               variant="filled"
-               size="small"
-               placeholder="ex) 오픈형 원룸(욕실 1개)"
-               onChange={(event) => setStructure(event.target.value)}
-            />
-         </StyledDiv>
-
-         <StyledH5>관리비</StyledH5>
-         <StyledDiv>
-            <TextField
-               fullWidth
-               hiddenLabel
-               id="filled-hidden-label-small"
-               variant="filled"
-               size="small"
-               placeholder="ex) 4만원 관리비 외 사용따라 부과"
-               onChange={(event) => setAdmin_expense(event.target.value)}
-            />
-         </StyledDiv>
-
-         <StyledH5>면적</StyledH5>
-         <StyledDiv>
-            <TextField
-               fullWidth
-               hiddenLabel
-               id="filled-hidden-label-small"
-               variant="filled"
-               size="small"
-               placeholder="ex) 19.78m2"
-               onChange={(event) => setArea(event.target.value)}
-            />
-         </StyledDiv>
-
-         <StyledH4>관리비 포함 항목</StyledH4>
-         <StyledDiv>
-            <TextField
-               fullWidth
-               hiddenLabel
-               id="filled-hidden-label-small"
-               variant="filled"
-               size="small"
-               placeholder="ex) 0만원(전기, 가스 별도)
-                    ex) 4만원(전기, 가스 별도) - wifi, 수도세, 티비"
-               onChange={(event) => setContain_admin_expense(event.target.value)}
-            />
-         </StyledDiv>
-
-         <StyledH4>옵션 사용 가능 정보</StyledH4>
-         <StyledDiv>
-            <CheckboxList checked={checked} setChecked={setChecked}></CheckboxList>
-         </StyledDiv>
-
-         <StyledH5>추가 옵션 가능 정보</StyledH5>
-         <StyledDiv>
-            <TextField
-               fullWidth
-               hiddenLabel
-               id="filled-hidden-label-small"
-               variant="filled"
-               size="small"
-               placeholder="추가 옵션 가능 정보"
-               onChange={(event) => setAdd_options(event.target.value)}
-            />
-         </StyledDiv>
-
-         <div>
-            <StyledH4>이미지 첨부</StyledH4>
+      <Container component="main" maxWidth="xs">
+         <Box sx={{
+            marginTop: 8,
+            marginRight: 2,
+            flexDirection: 'column',
+            alignItems: 'center',
+         }}>
+            <StyledH4>제목</StyledH4>
             <StyledDiv>
-               <Images setPk={setPk} />
+               <TextField
+                  fullWidth
+                  hiddenLabel
+                  id="filled-hidden-label-small"
+                  variant="filled"
+                  size="small"
+                  placeholder="제목"
+                  onChange={(event) => setTitle(event.target.value)}
+               />
             </StyledDiv>
-         </div>
 
-         <StyledDiv>
-            <Button variant="outlined" color="success" onClick={CreateRoomBoard}>
-               등록
-            </Button>
-         </StyledDiv>
-      </Box>
+            <StyledH4>내용</StyledH4>
+            <StyledDiv>
+               <TextField
+                  fullWidth
+                  hiddenLabel
+                  id="filled-hidden-label-small"
+                  variant="filled"
+                  size="small"
+                  placeholder="내용"
+                  multiline
+                  rows={5}
+                  onChange={(event) => setContent(event.target.value)}
+               />
+            </StyledDiv>
+
+            <StyledH4>주소</StyledH4>
+            <StyledDiv>
+               <DaumPost setLocation={setLocation}></DaumPost>
+               <StyledH5>{location}</StyledH5>
+            </StyledDiv>
+
+            <StyledH4>상세주소</StyledH4>
+            <StyledDiv>
+               <TextField
+                  fullWidth
+                  hiddenLabel
+                  id="filled-hidden-label-small"
+                  variant="filled"
+                  size="small"
+                  placeholder="상세 주소"
+                  onChange={(event) => setLocation_detail(event.target.value)}
+               />
+            </StyledDiv>
+
+            <StyledH4>양도 기간</StyledH4>
+
+            <StyledH5>시작일 : </StyledH5>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+               <DesktopDatePicker
+                  value={startDate}
+                  inputFormat={"yyyy-MM-dd"}
+                  mask={"____-__-__"}
+                  onChange={date => setStartDate(date)}
+                  renderInput={(params) => <TextField {...params} />}
+               />
+            </LocalizationProvider>
+
+            <StyledH5>종료일 : </StyledH5>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+               <DesktopDatePicker
+                  value={endDate}
+                  inputFormat={"yyyy-MM-dd"}
+                  mask={"____-__-__"}
+                  onChange={date => setEndDate(date)}
+                  required
+                  renderInput={(params) => <TextField {...params} />}
+               />
+            </LocalizationProvider>
+
+            <StyledH4>양도 거래금액</StyledH4>
+            <StyledDiv>
+               <TextField
+                  fullWidth
+                  hiddenLabel
+                  id="filled-hidden-label-small"
+                  variant="filled"
+                  size="small"
+                  placeholder="ex) 30000"
+                  onChange={(event) => setPrice(event.target.value)}
+               />
+            </StyledDiv>
+
+            <StyledH4>양도 거래 보증금</StyledH4>
+            <StyledDiv>
+               <TextField
+                  fullWidth
+                  hiddenLabel
+                  id="filled-hidden-label-small"
+                  variant="filled"
+                  size="small"
+                  placeholder="ex) 30000"
+                  onChange={(event) => setDeposit(event.target.value)}
+               />
+            </StyledDiv>
+
+            <StyledH4>원 계약보증금</StyledH4>
+            <StyledDiv>
+               <TextField
+                  fullWidth
+                  hiddenLabel
+                  id="filled-hidden-label-small"
+                  variant="filled"
+                  size="small"
+                  placeholder="계약보증금"
+                  onChange={(event) => setContract_deposit(event.target.value)}
+               />
+            </StyledDiv>
+
+            <StyledH4>원 월세</StyledH4>
+            <StyledDiv>
+               <TextField
+                  fullWidth
+                  hiddenLabel
+                  id="filled-hidden-label-small"
+                  variant="filled"
+                  size="small"
+                  placeholder="월세"
+                  onChange={(event) => setContractMonthlyFee(event.target.value)}
+               />
+            </StyledDiv>
+
+            <h4>매물 정보</h4>
+
+            <StyledH5>주차</StyledH5>
+            <StyledDiv>
+               <TextField
+                  fullWidth
+                  hiddenLabel
+                  id="filled-hidden-label-small"
+                  variant="filled"
+                  size="small"
+                  placeholder="ex) 1대 가능"
+                  onChange={(event) => setPark(event.target.value)}
+               />
+            </StyledDiv>
+
+            <StyledH5>엘리베이터</StyledH5>
+            <StyledDiv>
+               <TextField
+                  fullWidth
+                  hiddenLabel
+                  id="filled-hidden-label-small"
+                  variant="filled"
+                  size="small"
+                  placeholder="ex) 없음"
+                  onChange={(event) => setElevator(event.target.value)}
+               />
+            </StyledDiv>
+
+            <StyledH5>구조</StyledH5>
+            <StyledDiv>
+               <TextField
+                  fullWidth
+                  hiddenLabel
+                  id="filled-hidden-label-small"
+                  variant="filled"
+                  size="small"
+                  placeholder="ex) 오픈형 원룸(욕실 1개)"
+                  onChange={(event) => setStructure(event.target.value)}
+               />
+            </StyledDiv>
+
+            <StyledH5>관리비</StyledH5>
+            <StyledDiv>
+               <TextField
+                  fullWidth
+                  hiddenLabel
+                  id="filled-hidden-label-small"
+                  variant="filled"
+                  size="small"
+                  placeholder="ex) 4만원 관리비 외 사용따라 부과"
+                  onChange={(event) => setAdmin_expense(event.target.value)}
+               />
+            </StyledDiv>
+
+            <StyledH5>면적</StyledH5>
+            <StyledDiv>
+               <TextField
+                  fullWidth
+                  hiddenLabel
+                  id="filled-hidden-label-small"
+                  variant="filled"
+                  size="small"
+                  placeholder="ex) 19.78m2"
+                  onChange={(event) => setArea(event.target.value)}
+               />
+            </StyledDiv>
+
+            <StyledH4>관리비 포함 항목</StyledH4>
+            <StyledDiv>
+               <TextField
+                  fullWidth
+                  hiddenLabel
+                  id="filled-hidden-label-small"
+                  variant="filled"
+                  size="small"
+                  placeholder="ex) 0만원(전기, 가스 별도)
+                    ex) 4만원(전기, 가스 별도) - wifi, 수도세, 티비"
+                  onChange={(event) => setContain_admin_expense(event.target.value)}
+               />
+            </StyledDiv>
+
+            <StyledH4>옵션 사용 가능 정보</StyledH4>
+            <StyledDiv>
+               <CheckboxList checked={checked} setChecked={setChecked}></CheckboxList>
+            </StyledDiv>
+
+            <StyledH5>추가 옵션 가능 정보</StyledH5>
+            <StyledDiv>
+               <TextField
+                  fullWidth
+                  hiddenLabel
+                  id="filled-hidden-label-small"
+                  variant="filled"
+                  size="small"
+                  placeholder="추가 옵션 가능 정보"
+                  onChange={(event) => setAdd_options(event.target.value)}
+               />
+            </StyledDiv>
+
+            <div>
+               <StyledH4>이미지 첨부</StyledH4>
+               <StyledDiv>
+                  <Images setPk={setPk} />
+               </StyledDiv>
+            </div>
+
+            <StyledDiv>
+               <Button variant="outlined" color="success" onClick={CreateRoomBoard}>
+                  등록
+               </Button>
+            </StyledDiv>
+         </Box>
+      </Container>
    )
 }
 
