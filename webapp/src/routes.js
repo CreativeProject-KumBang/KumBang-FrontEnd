@@ -24,6 +24,7 @@ import BoardMapLayout from 'components/RoomBoard/BoardMapLayout';
 import ReadRoomBoardDetail from 'components/RoomBoard/readRoomBoardDetail/readRoomBoardDetail';
 import ReadRoomBoardList from 'components/RoomBoard/readRoomBoardList/ReadRoomBoardList';
 import Product from 'products';
+import Dashboard from 'components/Mypage/board';
 
 const routes = [
 	{
@@ -54,6 +55,14 @@ const routes = [
 		element: <Login />,
 		children: [
 		  { path: "login", element: <Login /> },
+		  { path: "boards", element: <Dashboard /> },
+		],
+	},
+	{
+		path: "boards",
+		element: <Dashboard />,
+		children: [
+		  { path: "boards", element: <Dashboard /> },
 		],
 	},
 	{
