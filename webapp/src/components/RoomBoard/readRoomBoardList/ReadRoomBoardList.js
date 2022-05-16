@@ -95,11 +95,11 @@ const ReadRoomBoardList = () => {
          </Box>
          <BoardCard></BoardCard>
 
-         <div>
-            <div id='latitude'></div>
-            <div id='longitude'></div>
-            <div id='level'></div>
-         </div>
+         <Box>
+            <Box id='latitude'></Box>
+            <Box id='longitude'></Box>
+            <Box id='level'></Box>
+         </Box>
       </div>
    )
 }
