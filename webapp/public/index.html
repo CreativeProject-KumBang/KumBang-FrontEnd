@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="Web site created using create-react-app" />
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+  <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
       Only files inside the `public` folder can be referenced from the HTML.
@@ -24,7 +22,7 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <!--
+  <!--
     <title>Hello WebSocket</title>
     <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/main.css" rel="stylesheet">
@@ -33,17 +31,133 @@
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
     <script src="/app.js"></script>
     -->
-    <title>React App</title>
+  <title>React App</title>
+  <style>
+    .wrap {
+      position: absolute;
+      left: 0;
+      bottom: 40px;
+      width: 288px;
+      height: 132px;
+      margin-left: -144px;
+      text-align: left;
+      overflow: hidden;
+      font-size: 12px;
+      font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
+      line-height: 1.5;
+    }
 
-  </head>
-  <body>
-    <noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
+    .wrap * {
+      padding: 0;
+      margin: 0;
+    }
+
+    .wrap .info {
+      width: 286px;
+      height: 120px;
+      border-radius: 5px;
+      border-bottom: 2px solid #ccc;
+      border-right: 1px solid #ccc;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .wrap .info:nth-child(1) {
+      border: 0;
+      box-shadow: 0px 1px 2px #888;
+    }
+
+    .info .title {
+      padding: 5px 0 0 10px;
+      height: 30px;
+      background: #eee;
+      border-bottom: 1px solid #ddd;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .info .close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      color: #888;
+      width: 17px;
+      height: 17px;
+      background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');
+    }
+
+    .info .close:hover {
+      cursor: pointer;
+    }
+
+    .info .body {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .info .desc {
+      position: relative;
+      margin: 13px 0 0 90px;
+      height: 75px;
+    }
+
+    .desc .ellipsis1 {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .desc .ellipsis2 {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .desc .jibun {
+      font-size: 11px;
+      color: #888;
+      margin-top: -2px;
+    }
+
+    .info .img {
+      position: absolute;
+      top: 6px;
+      left: 5px;
+      width: 73px;
+      height: 71px;
+      border: 1px solid #ddd;
+      color: #888;
+      overflow: hidden;
+    }
+
+    .info:after {
+      content: '';
+      position: absolute;
+      margin-left: -12px;
+      left: 50%;
+      bottom: 0;
+      width: 22px;
+      height: 12px;
+      background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
+    }
+
+    .info .link {
+      color: #5085BB;
+    }
+  </style>
+
+</head>
+
+<body>
+  <noscript>
+    <h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
       enabled. Please enable
-      Javascript and reload this page!</h2></noscript>
-    <div id="root"></div>
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1cd60c6880c04dfd919caa0af326cbf1"></script>
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <!--
+      Javascript and reload this page!</h2>
+  </noscript>
+  <div id="root"></div>
+  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1cd60c6880c04dfd919caa0af326cbf1"></script>
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
 
@@ -54,7 +168,7 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
 
-    <!--
+  <!--
       <div id="main-content" class="container">
       <div class="row">
           <div class="col-md-6">
@@ -92,6 +206,7 @@
       </div>
   </div>
     -->
-    
-  </body>
+
+</body>
+
 </html>

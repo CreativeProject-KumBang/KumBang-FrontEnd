@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import styled from "styled-components";
-import moment, { locale } from 'moment';
+import moment from 'moment';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import Divider from '@mui/material/Divider';
+import { Divider, Box } from '@mui/material';
 
 const StyledH3 = styled.h3`
   padding: 4px 15px;
 `;
 
-const StyledH = styled.h4`
+const StyledH5 = styled.h4`
   padding: 0px 20px;
   font-weight: bolder;
 `;
@@ -24,8 +24,34 @@ const StyledDiv = styled.div`
 `;
 
 const BoardDetail = (props) => {
-  const board = props.board;
-
+  const [bookmark, setBookmark] = useState(true);
+  // const board = props.board;
+  const board = {
+    "title":"test title",
+    "content":"test content",
+    "user":{"id":"1"},
+    "durationStart":"2022-04-25",
+    "durationEnd":"2022-04-28",
+    "location":"구미시 대학로 61길", // 주소 입력받는 api등으로 정확한 주소 필요(좌표계산에 필요함)
+    "locationDetail":"디지털관 337호",
+    "contractDeposit":"1000000", // 방 원래 주인이 계약한 보증금
+    "contractMonthlyFee":"250000", // 방 원래 주인이 계약한 월세
+    "price":"5000",  // 양도가격
+    "priceType":"DAILY", // 양도가격 타입 "DAILY" or "FULL
+    "deposit":"100000", // 양도 보증금
+    "fixedOption":"1,1,0,0,1,0,1,0",
+    "additionalOption":"선풍기 1, 건조기 1, 드라이기 1",
+    "details":{
+        "parking":"지하주차장",
+        "elevator":"있음",
+        "roomStructure":"미니투룸",
+        "managementFee":"전기세",
+        "containManageFee":"수도세, 가스비",
+        "areaSize":"15평"
+    },
+    "images": ["url_1", "url_2"]
+};
+/*
   const handleBookmark = async (id) => {
     if (sessionStorage.getItem('user_token')) {
         if (bookmark === false) {
@@ -48,17 +74,17 @@ const BoardDetail = (props) => {
         alert('로그인이 필요합니다');
     }
   };
-  
+  */
   return (
       <div>
         
           <StyledH5>이미지 슬라이드</StyledH5>
           <StyledDiv>
-              {board.imageList.map((image, id) => (
+              {/*board.imageList.map((image, id) => (
               <StyledDiv  key={id}>
                   <img src={image} alt={`${image}-${id}`} />
               </StyledDiv>
-              ))}
+              ))*/}
           </StyledDiv>
           <StyledH3>제목</StyledH3>
           <Divider variant="middle" />
@@ -72,13 +98,6 @@ const BoardDetail = (props) => {
               float: 'right'
             }}
           >
-            <RemoveRedEyeIcon
-              sx={{
-                display: 'inline-block',
-                marginLeft: 2,
-                fontSize: 40
-              }}
-            />
             {bookmark ? (
               <FavoriteIcon
                 sx={{
@@ -155,11 +174,11 @@ const BoardDetail = (props) => {
           <StyledDiv>
               <StyledDiv>
                   <StyledDiv>
-                    <StyledH>옵션</StyledH>
+                    <StyledH5>옵션</StyledH5>
                     <Divider variant="middle" />
                     <StyledH4>{board.fixedOption}</StyledH4> 
 
-                    <StyledH>추가옵션</StyledH>
+                    <StyledH5>추가옵션</StyledH5>
                     <Divider variant="middle" />
                     <StyledH4>{board.additionalOption}</StyledH4>
                   </StyledDiv>

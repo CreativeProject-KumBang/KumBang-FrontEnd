@@ -36,15 +36,17 @@ const Item = styled.li`
 `;
 
 const MyPost = (props) => {
-  // const board_id = 1;
-  // const [postBody, setPostBody] = useState([]);
-  // const response = async () => Api.getMyPost(board_id);
+  const user_id = 3;
+  const [postBody, setPostBody] = useState();
+  function response() { return Api.getMyPost(user_id)};
   
-  // useEffect(() => {
-  //     const data = response();
-  //     setPostBody(data);
-  // }, []); 
-
+  useEffect(() => {
+      const data = response();
+      console.log(data.response);
+      console.log(data.response[0]);
+      setPostBody(data.response[0].content);
+  }, []);
+/*
   const postBody = {
     item: [{
       "boardId": 1,
@@ -58,7 +60,7 @@ const MyPost = (props) => {
       "date": "2022-04-26",
     }]
   };
-
+*/
   return (
     <StyledBox>
       <StyledTop>
