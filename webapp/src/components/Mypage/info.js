@@ -5,6 +5,7 @@ import Divider from '@mui/material/Divider';
 import { border } from '@mui/system';
 import Api from 'API/Api';
 
+
 const StyledBox = styled.div`
     height: 100%;
     padding: 0px 0px;
@@ -20,14 +21,15 @@ const StyledTop = styled.div`
 `;
 
 const Info = () => {
-    const userId = 1;
-    const [item, setItem] = useState([]);
-    const response = async () => Api.getMyInfo(userId);
+    const api = 'http://192.168.227.255:8080/api';
+    const userId = 3;
+    // const [items, setItems] = useState();
+    // const response = async () => await Api.getMyInfo(userId);
 
-    useEffect(() => {
-        const data = response();
-        setItem(data);
-    }, []); 
+    // useEffect(() => {
+    //     const resBody = response();
+    //     setItems(resBody.data.response[0]);
+    // }, []); 
 
     const [items, setItems] = useState([
         { id: 'name', title: '이름', value: '한새라' },
@@ -83,7 +85,7 @@ const Info = () => {
         const Update = (props) => {
             const [body, setBody] = useState(props.body);
             return (
-                <form action="데이터를 전송할 서버 주소" onSubmit={e => {
+                <form action={api+'/update'} onSubmit={e => {
                     e.preventDefault();
                     const body = e.target.body.value;
                     props.onUpdate(body);

@@ -176,8 +176,8 @@ const Api = {
         return await postJsonReqest(`/roomboard/${boardId}`, board);
     },
     // 방 양도 글 상세조회
-    getRoomBoard: async(boardId) => {
-        return await getRequest(`/board/${boardId}`);
+    getRoomBoard: async(userId) => {
+        return await getRequest(`/board/${userId}`);
     },
     // 방 양도 글 전체조회
     getAllRoomBoard: async(x, y, level) => {
@@ -218,6 +218,10 @@ const Api = {
         return await deleteJsonReqest(`/file/${pk_id}`);
     },
 
+    // Maps--------------------------------------------------------------------------------------
+    postLocation: async(locationData) => {
+        return await postJsonReqest(`/location`, locationData);
+    }
 };
 
 export default Api;

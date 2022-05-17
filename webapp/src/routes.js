@@ -51,7 +51,7 @@ const routes = [
 		element: <BoardMapLayout />,
 		children: [
 			{ path: "RoomBoardRead", element: <ReadRoomBoardList /> },
-			{ path: "RoomBoardDetail/:id", element: <ReadRoomBoardDetail /> },
+			// { path: "RoomBoardDetail/:id", element: <ReadRoomBoardDetail /> },
 		]
 	},
 	{
@@ -81,8 +81,8 @@ const routes = [
 		path: "mypage",
 		element: <MypageLayout />,
 		children: [
-			{ path: "info", element: <Info /> },
-		  	{ path: "post", element: <MyPost /> },
+			{ path: "info/:id", element: <Info /> },
+		  	{ path: "post/:id", element: <MyPost /> },
 			{ path: "transaction", element: <Transaction /> },
 		  	{ path: "chatbox", element: <ChatBox /> },
 			{ path: "wishlist", element: <Wishlists /> },
