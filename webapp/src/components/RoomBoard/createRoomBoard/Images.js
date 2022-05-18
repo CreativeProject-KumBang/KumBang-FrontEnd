@@ -10,6 +10,8 @@ const StyleImg = styled.img`
 `;
 
 const Images = (props) => {
+  const pk_id = useState([]);
+  const setPk = props.setPk;
   const [fileList, setFileList] = useState([]);
   const [fileListUI, setFileListUI] = useState([]);
 
@@ -53,8 +55,8 @@ const Images = (props) => {
     let response = await Api.getReadFile(formData); // API File_pk 요청
     console.log(response);
 
-    props.setPk(response.response); // 부모에게 pk값 전달
-
+    pk_id = response.response;
+    setPk(pk_id); // 부모에게 pk값 전달
 
     if (response.status) {
       alert('업로드 완료.', response.status);
@@ -66,7 +68,17 @@ const Images = (props) => {
 
   // X버튼 클릭 시 이미지 삭제
   const handleDeleteImage = (id) => {
-    setFileList(fileList.filter((_, index) => index !== id));
+    setFileList(fileListUI.filter((_, index) => index !== id));
+    /* 
+      // api 코드 - 삭제
+    let delete_pk = pk_id[id];
+    let response = await Api.getReadFile(delete_pk);
+    if (response.status) {
+      alert('삭제 완료.', response.status);
+    } else {
+      alert('삭제 실패', response.status);
+    }
+    */
   };
 
   return (

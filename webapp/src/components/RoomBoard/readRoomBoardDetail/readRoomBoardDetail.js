@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from "styled-components";
 import BoardDetail from 'components/RoomBoard/readRoomBoardDetail/BoardDetail'
 import SkeletonBoardDetail from 'components/RoomBoard/readRoomBoardDetail/SkeletonBoardDetail'
@@ -9,19 +9,20 @@ const StyledDiv = styled.div`
 `;
 
 const ReadRoomBoardDetail = () => {
-    const [isLoad, setIsLoad] = useState(false); // skeleton 
+    const [isLoad, setIsLoad] = useState(true); // skeleton 
 
     const [board, setBoard] = useState(null);
-    const [likes, setlikes] = useState(like);
+    //const [likes, setlikes] = useState(like);
     const [bookmark, setBookmark] = useState(false);
 
     const response = useState();
     const back = useState();
 
+    const board_id = 1;
     /*const board_id = location.href
                 .split('/')
                 [location.href.split('/').length - 1].split('.')[0];*/
-
+/*
     useEffect(() => {
         setTimeout(async () => {
           console.log("load");
@@ -44,18 +45,22 @@ const ReadRoomBoardDetail = () => {
             setBookmark(false);
           }
       }, []);
-
+*/
 
     return (
         <div>
             <StyledDiv>
-            {isLoad ? (
-                <BoardDetail board={board}> </BoardDetail> // 로딩 완료 후
-            ) : (
-                <SkeletonBoardDetail></SkeletonBoardDetail> // 로딩 완료 전:Skeleton
-            )}   
+              {isLoad ? (
+                  <BoardDetail board={board}> </BoardDetail> // 로딩 완료 후
+              ) : (
+                  <SkeletonBoardDetail></SkeletonBoardDetail> // 로딩 완료 전:Skeleton
+              )}   
                 
             </StyledDiv>
+
+            <div id='latitude'></div>
+            <div id='longitude'></div>
+            <div id='level'></div>
         </div>
     )
 }

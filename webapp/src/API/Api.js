@@ -1,30 +1,11 @@
-import axios from 'axios';
 
-const api = 'http://192.168.227.255:8080/api';
+import client from 'API/axiosConfig';
 
 const getRequest = async(path, params = {}) => {
     try {
-        const token = sessionStorage.getItem('user_token');
-        if (token) {
-            const response = await axios.get(api + path, {
-                headers: {
-                    authorization: `Bearer ${token}`,
-                    Accept: '*/*'
-                },
-                params
-            });
-            console.log("1", response);
-            return response;
-        } else {
-            const response = await axios.get(api + path, {
-                headers: {
-                    Accept: '*/*'
-                },
-                params
-            });
-            console.log("2", response);
-            return response;
-        }
+        console.log(client.getUri);
+        const data = await client.get(path);
+        return
     } catch (e) {
         console.log(e);
         return [];
@@ -33,14 +14,13 @@ const getRequest = async(path, params = {}) => {
 
 const postFormReqest = async(path, body) => {
     try {
-        const token = sessionStorage.getItem('user_token');
-        const { data } = await axios.post(api + path, body, {
+        const data = await client.post(path, body, {
             headers: {
-                authorization: `Bearer ${token}`,
                 Accept: 'application/json',
                 'Content-Type': 'multipart/form-data',
             }
-        });
+        })
+
         return data;
     } catch (e) {
         console.log(e);
@@ -49,6 +29,7 @@ const postFormReqest = async(path, body) => {
 
 const postJsonReqest = async(path, body) => {
     try {
+<<<<<<< HEAD
         const token = sessionStorage.getItem('user_token');
         if (token) {
             const  data  = await axios.post(api + path, body, {
@@ -67,6 +48,16 @@ const postJsonReqest = async(path, body) => {
             });
             return data;
         }
+=======
+        const data = await client.post(path, body, {
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+
+        return data;
+>>>>>>> 48c52e94097875bb143dfa5baa7d1f78cf37b2eb
     } catch (e) {
         console.log(e);
     }
@@ -74,23 +65,14 @@ const postJsonReqest = async(path, body) => {
 
 const putJsonReqest = async(path, body) => {
     try {
-        const token = sessionStorage.getItem('token');
-        if (token) {
-            const { data } = await axios.put(api + path, body, {
-                headers: {
-                    authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-            return data;
-        } else {
-            const { data } = await axios.put(api + path, body, {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-            return data;
-        }
+        const data = await client.put(path, body, {
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+
+        return data;
     } catch (e) {
         console.log(e);
     }
@@ -98,23 +80,14 @@ const putJsonReqest = async(path, body) => {
 
 const deleteJsonReqest = async(path) => {
     try {
-        const token = sessionStorage.getItem('user_token');
-        if (token) {
-            const { data } = await axios.delete(api + path, {
-                headers: {
-                    authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-            return data;
-        } else {
-            const { data } = await axios.delete(api + path, {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-            return data;
-        }
+        const data = await client.delete(path, body, {
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+
+        return data;
     } catch (e) {
         console.log(e);
     }
