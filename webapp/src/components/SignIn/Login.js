@@ -64,8 +64,7 @@ export default function Login() {
     if (response.data.result === "success") {
       alert('로그인 성공');
       const target = '/';
-      sessionStorage.setItem('user_data', JSON.stringify(response.user));
-      sessionStorage.setItem('user_token', response.token);
+      sessionStorage.setItem('user', JSON.stringify(response.data, ['accessToken', 'refreshToken']))
       window.location.href = target;
     } else {
       alert('로그인 실패');

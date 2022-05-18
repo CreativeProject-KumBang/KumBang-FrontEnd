@@ -5,7 +5,7 @@ const getRequest = async(path, params = {}) => {
     try {
         console.log(client.getUri);
         const data = await client.get(path);
-        return
+        return data;
     } catch (e) {
         console.log(e);
         return [];
@@ -29,26 +29,6 @@ const postFormReqest = async(path, body) => {
 
 const postJsonReqest = async(path, body) => {
     try {
-<<<<<<< HEAD
-        const token = sessionStorage.getItem('user_token');
-        if (token) {
-            const  data  = await axios.post(api + path, body, {
-                headers: {
-                    authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-            return data;
-        } else {
-            console.log(body)
-            const  data  = await axios.post(api + path, body, {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-            return data;
-        }
-=======
         const data = await client.post(path, body, {
             headers: {
                 Accept: 'application/json',
@@ -57,7 +37,6 @@ const postJsonReqest = async(path, body) => {
         })
 
         return data;
->>>>>>> 48c52e94097875bb143dfa5baa7d1f78cf37b2eb
     } catch (e) {
         console.log(e);
     }
@@ -80,7 +59,7 @@ const putJsonReqest = async(path, body) => {
 
 const deleteJsonReqest = async(path) => {
     try {
-        const data = await client.delete(path, body, {
+        const data = await client.delete(path, {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json'
@@ -110,7 +89,7 @@ const Api = {
     },
     // 로그아웃
     postLogout: async() => {
-        return await postRequest('/auth/logout', null);
+        return await postJsonReqest('/auth/logout', null);
     },
     // 이메일 인증 번호 전송
     getEmail: async(email) => {
@@ -131,8 +110,8 @@ const Api = {
         return await postJsonReqest(`/mypage/${userId}`, user);
     },
     // 내가 쓴 글 조회
-     getMyPost: async(boardId) => {
-        return await getRequest(`/mypage/post/${boardId}`);
+     getMyPost: async() => {
+        return await getRequest(`/mypage/post`);
     },
     // 거래 내역 조회
     getTransaction: async(transId) => {

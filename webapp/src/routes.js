@@ -84,7 +84,7 @@ const routes = [
 		element: <MypageLayout />,
 		children: [
 			{ path: "info/:id", element: <Info /> },
-		  	{ path: "post/:id", element: <MyPost /> },
+		  	{ path: "post", element: <MyPost /> },
 			{ path: "transaction", element: <Transaction /> },
 		  	{ path: "chatbox", element: <ChatBox /> },
 			{ path: "wishlist", element: <Wishlists /> },
