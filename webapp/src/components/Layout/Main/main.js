@@ -99,7 +99,7 @@ const Main = () => {
             <Box >
                <Grid container spacing={3}>
                   <Grid item lg={6} md={6} sm={12} xs={12}>
-                     <Link to="/map/RoomBoardRead" style={{ textDecoration: 'none', color: 'black' }}>
+                     <Link to="/map/list" style={{ textDecoration: 'none', color: 'black' }}>
                         <Card
                            sx={{
                               boxShadow: 5,
@@ -123,7 +123,7 @@ const Main = () => {
                      </Link>
                   </Grid>
                   <Grid item lg={6} md={6} sm={12} xs={12}>
-                     <Link to="/app/RoomBoardRegister" style={{ textDecoration: 'none', color: 'black' }}>
+                     <Link to="/room/register" style={{ textDecoration: 'none', color: 'black' }}>
                         <Card
                            sx={{
                               boxShadow: 5,

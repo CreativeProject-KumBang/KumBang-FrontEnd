@@ -6,17 +6,15 @@ const client = axios.create({
 
 client.interceptors.request.use(
     function (config) {
-        const user = localStorage.getItem('user'); // 토큰 받아오기
+        const user = sessionStorage.getItem('user'); // 토큰 받아오기
         // 토큰 유무 판단 코드
         if (!user) {
-            config.headers["accessToken"] = null;
-            config.headers["refreshToken"] = null;
+            config.headers["X-AUTH-TOKEN"] = null;
+
             return config
         }
         const { accessToken, refreshToken } = JSON.parse(user)
-        config.headers["accessToken"] = accessToken;
-        config.headers["refreshToken"] = refreshToken;
-
+        config.headers["X-AUTH-TOKEN"] = accessToken;
 
         return config
     }
@@ -30,13 +28,20 @@ client.interceptors.response.use(
       if (error.response && error.response.status === 403) {
           try {
               const originalRequest = error.config;
-              const data = await client.get('auth/refreshtoken')
+        
+              const user = sessionStorage.getItem('user'); // 토큰 받아오기
+              const { accessToken, refreshToken } = JSON.parse(user)
+              const data = await client.get('auth/refreshtoken', {
+                headers: {
+                    "X-AUTH-TOKEN": accessToken,
+                    REFRESHTOKEN: refreshToken
+                }
+            })
               if (data) {
                   const {accessToken, refreshToken} = data.data
-                  localStorage.removeItem('user')
-                  localStorage.setItem('user', JSON.stringify(data.data, ['accessToken', 'refreshToken']))
+                  sessionStorage.removeItem('user')
+                  sessionStorage.setItem('user', JSON.stringify(data.data, ['accessToken', 'refreshToken']))
                   originalRequest.headers['accessToken'] = accessToken;
-                  originalRequest.headers['refreshToken'] = refreshToken;
                   return await client.request(originalRequest);
                   }
           } catch (error){

@@ -24,8 +24,9 @@ const StyledDiv = styled.div`
 `;
 
 const BoardDetail = (props) => {
+  // const board = props.board; // props로 board 데이터를 전달 받아서 씀. (필요 코드)
   const [bookmark, setBookmark] = useState(true);
-  // const board = props.board;
+
   const board = {
     "title":"test title",
     "content":"test content",

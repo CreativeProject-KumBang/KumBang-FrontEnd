@@ -27,11 +27,17 @@ const DaumPost = (props) => {
 
     const postCodeStyle = {
         width: "95%",
-      };
+    };
+
+    const divStyle = {
+        padding: "10px 0px 10px 0px"
+    };
  
     return(
         <div>
-            <Button variant="outlined" onClick={openPostCode} style={postCodeStyle}>우편번호 검색</Button>
+            <div style={divStyle}>
+                <Button variant="outlined" onClick={openPostCode} style={postCodeStyle}>우편번호 검색</Button>
+            </div>
 
             <div id='popupDom'>
                 {isPopupOpen && (

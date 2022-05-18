@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import styled from "styled-components";
 import BoardDetail from 'components/RoomBoard/readRoomBoardDetail/BoardDetail'
 import SkeletonBoardDetail from 'components/RoomBoard/readRoomBoardDetail/SkeletonBoardDetail'
@@ -9,19 +10,18 @@ const StyledDiv = styled.div`
 `;
 
 const ReadRoomBoardDetail = () => {
-    const [isLoad, setIsLoad] = useState(true); // skeleton 
+  const board_id = 1; // dummycode
+  //const board_id = useLocation().state.boardId;
 
-    const [board, setBoard] = useState(null);
-    //const [likes, setlikes] = useState(like);
-    const [bookmark, setBookmark] = useState(false);
+  const [isLoad, setIsLoad] = useState(true); // skeleton 
 
-    const response = useState();
-    const back = useState();
+  const [board, setBoard] = useState(null); // board
+  const [bookmark, setBookmark] = useState(false); // bookmark
+  //const [likes, setlikes] = useState(like);
 
-    const board_id = 1;
-    /*const board_id = location.href
-                .split('/')
-                [location.href.split('/').length - 1].split('.')[0];*/
+  const response = useState(); // front
+  const back = useState();
+
 /*
     useEffect(() => {
         setTimeout(async () => {

@@ -19,16 +19,18 @@ import Withdrawal from 'components/Mypage/withdrawal';
 
 import RoomBoardLayout from 'components/RoomBoard/RoomBoardLayout';
 import CreateRoomBoard from 'components/RoomBoard/createRoomBoard/createRoomBoard';
+import UpdateRoomBoard from 'components/RoomBoard/updateRoomBoard/updateRoomBoard';
 
 import BoardMapLayout from 'components/RoomBoard/BoardMapLayout';
 import ReadRoomBoardDetail from 'components/RoomBoard/readRoomBoardDetail/readRoomBoardDetail';
 import ReadRoomBoardList from 'components/RoomBoard/readRoomBoardList/ReadRoomBoardList';
-import Product from 'products';
-import Dashboard from 'components/Mypage/board';
 
 import ChatLayout from 'components/Chat/ChatLayout';
 import ReadChatList from 'components/Chat/readChatList/ReadChatList';
 import ReadChatDetail from 'components/Chat/readChatDetail/ReadChatDetail';
+
+import Product from 'products';
+import Dashboard from 'components/Mypage/board';
 
 const routes = [
 	{
@@ -40,18 +42,19 @@ const routes = [
    
 	},
 	{
-		path: 'app',
+		path: 'room',
 		element: <RoomBoardLayout />,
 		children: [
-			{ path: "RoomBoardRegister", element: <CreateRoomBoard /> },
+			{ path: "register", element: <CreateRoomBoard /> },
+			{ path: "update", element: <UpdateRoomBoard /> },
 		]
 	},
 	{
 		path: 'map',
 		element: <BoardMapLayout />,
 		children: [
-			{ path: "RoomBoardRead", element: <ReadRoomBoardList /> },
-			// { path: "RoomBoardDetail/:id", element: <ReadRoomBoardDetail /> },
+			{ path: "list", element: <ReadRoomBoardList /> },
+			{ path: "detail/:id", element: <ReadRoomBoardDetail /> },
 		]
 	},
 	{

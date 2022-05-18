@@ -22,8 +22,8 @@ const BoardCardContent = (props) => {
           <CardContent>
             <Link
               to={{
-                pathname: `/map/RoomBoardDetail/${id}`,
-                state: { index: id }
+                pathname: `/map/detail/${id}`,
+                state: { boardId: id }
               }}
             >
               <Box
