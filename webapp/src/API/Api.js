@@ -1,30 +1,11 @@
-import axios from 'axios';
 
-const api = 'http://192.168.227.255:8080/api';
+import client from 'API/axiosConfig';
 
 const getRequest = async(path, params = {}) => {
     try {
-        const token = sessionStorage.getItem('user_token');
-        if (token) {
-            const response = await axios.get(api + path, {
-                headers: {
-                    authorization: `Bearer ${token}`,
-                    Accept: '*/*'
-                },
-                params
-            });
-            console.log("1", response);
-            return response;
-        } else {
-            const response = await axios.get(api + path, {
-                headers: {
-                    Accept: '*/*'
-                },
-                params
-            });
-            console.log("2", response);
-            return response;
-        }
+        console.log(client.getUri);
+        const data = await client.get(path);
+        return
     } catch (e) {
         console.log(e);
         return [];
@@ -33,14 +14,13 @@ const getRequest = async(path, params = {}) => {
 
 const postFormReqest = async(path, body) => {
     try {
-        const token = sessionStorage.getItem('user_token');
-        const { data } = await axios.post(api + path, body, {
+        const data = await client.post(path, body, {
             headers: {
-                authorization: `Bearer ${token}`,
                 Accept: 'application/json',
                 'Content-Type': 'multipart/form-data',
             }
-        });
+        })
+
         return data;
     } catch (e) {
         console.log(e);
@@ -49,23 +29,14 @@ const postFormReqest = async(path, body) => {
 
 const postJsonReqest = async(path, body) => {
     try {
-        const token = sessionStorage.getItem('user_token');
-        if (token) {
-            const { data } = await axios.post(api + path, body, {
-                headers: {
-                    authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-            return data;
-        } else {
-            const { data } = await axios.post(api + path, body, {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-            return data;
-        }
+        const data = await client.post(path, body, {
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+
+        return data;
     } catch (e) {
         console.log(e);
     }
@@ -73,23 +44,14 @@ const postJsonReqest = async(path, body) => {
 
 const putJsonReqest = async(path, body) => {
     try {
-        const token = sessionStorage.getItem('token');
-        if (token) {
-            const { data } = await axios.put(api + path, body, {
-                headers: {
-                    authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-            return data;
-        } else {
-            const { data } = await axios.put(api + path, body, {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-            return data;
-        }
+        const data = await client.put(path, body, {
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+
+        return data;
     } catch (e) {
         console.log(e);
     }
@@ -97,23 +59,14 @@ const putJsonReqest = async(path, body) => {
 
 const deleteJsonReqest = async(path) => {
     try {
-        const token = sessionStorage.getItem('user_token');
-        if (token) {
-            const { data } = await axios.delete(api + path, {
-                headers: {
-                    authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-            return data;
-        } else {
-            const { data } = await axios.delete(api + path, {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-            return data;
-        }
+        const data = await client.delete(path, body, {
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+
+        return data;
     } catch (e) {
         console.log(e);
     }
@@ -176,8 +129,8 @@ const Api = {
         return await postJsonReqest(`/roomboard/${boardId}`, board);
     },
     // 방 양도 글 상세조회
-    getRoomBoard: async(boardId) => {
-        return await getRequest(`/board/${boardId}`);
+    getRoomBoard: async(userId) => {
+        return await getRequest(`/board/${userId}`);
     },
     // 방 양도 글 전체조회
     getAllRoomBoard: async(x, y, level) => {
@@ -218,6 +171,10 @@ const Api = {
         return await deleteJsonReqest(`/file/${pk_id}`);
     },
 
+    // Maps--------------------------------------------------------------------------------------
+    postLocation: async(locationData) => {
+        return await postJsonReqest(`/location`, locationData);
+    }
 };
 
 export default Api;

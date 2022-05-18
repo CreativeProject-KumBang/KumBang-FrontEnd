@@ -13,36 +13,24 @@ import DaumPost from 'components/RoomBoard/createRoomBoard/DaumPost'
 import CheckboxList from 'components/RoomBoard/createRoomBoard/CheckboxList';
 import Box from '@mui/material/Box';
 
-const StyledH4 = styled.h4`
-
-`;
-
-const StyledH5 = styled.h5`
-`;
-
+const StyledH4 = styled.h4``;
+const StyledH5 = styled.h5``;
 
 const StyledDiv = styled.div`
-    overflow:auto;
+   overflow:auto;
    @media only screen and (min-width: 400px) {
         width: 400px;
     }
 `;
 
-const StyledInput = styled.input`
-    border-radius: 2px; /* 테두리 둥글게 */
-    border-width: thin;
-    box-shadow: 0px;
-    width: 250px;
-    height: 30px;
+const StyledContainer = styled.div`
+   overflow:auto;
+   padding: 30px 10px 30px 0px;
+   @media only screen and (min-width: 400px) {
+        width: 400px;
+    }
 `;
 
-const StyledBigInput = styled.input`
-    border-radius: 2px; /* 테두리 둥글게 */
-    border-width: thin;
-    box-shadow: 0px;
-    width: 250px;
-    height: 100px;
-`;
 
 const data = JSON.parse(sessionStorage.getItem('user_data'));
 const server_path = 'http://ip주소:port번호/file/';
@@ -78,7 +66,7 @@ const BoardWriteComponent = () => {
 
    // 옵션 사용 가능 정보
    const checkList = ["에어컨", "냉장고", "세탁기", "가스레인지", "전자레인지", "책상", "책장", "옷장", "신발장"];
-   const [checked, setChecked] = React.useState([]);
+   const [checked, setChecked] = React.useState([0, 0, 0, 0, 0, 0, 0, 0, 0]);
    const [options, setOptions] = useState(''); // 에어컨, 냉장고, 세탁기, 가스레인지, 전자레인지, 책상, 책장, 옷장, 신발장
    const [add_options, setAdd_options] = useState(''); // 옵션 사용 가능 정보 - 추가
 
@@ -111,19 +99,6 @@ const BoardWriteComponent = () => {
          "containManageFee": contain_admin_expense,
          "areaSize": area
       }
-   };
-
-   // check 박스 children
-   // 에어컨, 냉장고, 세탁기, 가스레인지, 전자레인지, 책상, 책장, 옷장, 신발장
-   const handleCheck = (event) => {
-      var updatedList = [...checked];
-      if (event.target.checked) {
-         updatedList = [...checked, event.target.value];
-      } else {
-         updatedList.splice(checked.indexOf(event.target.value), 1);
-      }
-      setChecked(updatedList);
-      console.log(updatedList);
    };
 
    /*
@@ -409,11 +384,12 @@ const BoardWriteComponent = () => {
                </StyledDiv>
             </div>
 
-            <StyledDiv>
-               <Button variant="outlined" color="success" onClick={CreateRoomBoard}>
+            <StyledContainer>
+               <Button variant="outlined" color="success" sx={{float: 'right'}}
+                  onClick={CreateRoomBoard}>
                   등록
                </Button>
-            </StyledDiv>
+            </StyledContainer>
          </Box>
       </Container>
    )

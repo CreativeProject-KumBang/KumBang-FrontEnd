@@ -66,20 +66,16 @@ const MypageLayout = () => {
     return (
         <StyledLayout>
             <Header />
-            {/* <MainLayoutWrapper>
-                <MainLayoutContainer> */}
-                    <StyledMain>
-                        <StyledNav>
-                            <MenuApp />
-                        </StyledNav>
-                        <StyledSection>
-                            <StyledMypage>
-                                <Outlet />
-                            </StyledMypage>
-                        </StyledSection>
-                    </StyledMain>
-                {/* </MainLayoutContainer>
-            </MainLayoutWrapper> */}
+                <StyledMain>
+                    <StyledNav>
+                        <MenuApp />
+                    </StyledNav>
+                    <StyledSection>
+                        <StyledMypage>
+                            <Outlet />
+                        </StyledMypage>
+                    </StyledSection>
+                </StyledMain>
             <Footer />
         </StyledLayout>
     )

@@ -1,7 +1,8 @@
 /* global kakao */
 import React, { useEffect, useState } from "react";
 import cn from "classnames";
-import Card from '@mui/material';
+import Api from "API/Api";
+
 
 //스크립트로 kakao maps api를 가져오면 window전역 객체에 들어감. 사용하려면 window에서 kakao 객체 뽑아서 사용
 const { kakao } = window;
@@ -132,6 +133,9 @@ const Map = (props) => {
       var latlng = map.getCenter();
       //지도의 레벨
       var level = map.getLevel();
+      
+      const response = async () => await Api.postLocation({ lat: latlng.getLat(), lng: latlng.getLng(), level: level })
+      console.log(response());
 
       //위도 값 전달 
       var lat = document.getElementById('latitude');
@@ -143,7 +147,23 @@ const Map = (props) => {
       var center = document.getElementById('level');
       center.innerHTML = level;
 
+      console.log(level, latlng.getLat(), latlng.getLng());
+    });
 
+    // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+    var zoomControl = new kakao.maps.ZoomControl();
+    map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
+    // 지도가 확대 또는 축소되면 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
+    kakao.maps.event.addListener(map, 'zoom_changed', function () {
+
+      var latlng = map.getCenter();
+      var level = map.getLevel();
+
+      const response = async () => await Api.postLocation({ lat: latlng.getLat(), lng: latlng.getLng(), level: level })
+      console.log(response());
+
+      console.log(level, latlng.getLat(), latlng.getLng());
     });
 
   }, []);
@@ -154,7 +174,8 @@ const Map = (props) => {
         width: '100vw',
         height: '100vh'
       }}></div>
-      {/* <div id='result'></div> */}
+      <div id='result'></div>
+      <div id='result1'></div>
     </div>
   );
 };
