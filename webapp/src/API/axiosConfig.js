@@ -7,6 +7,7 @@ const client = axios.create({
 client.interceptors.request.use(
     function (config) {
         const user = sessionStorage.getItem('user'); // 토큰 받아오기
+        
         // 토큰 유무 판단 코드
         if (!user) {
             config.headers["X-AUTH-TOKEN"] = null;
@@ -33,15 +34,15 @@ client.interceptors.response.use(
               const { accessToken, refreshToken } = JSON.parse(user)
               const data = await client.get('auth/refreshtoken', {
                 headers: {
-                    "X-AUTH-TOKEN": accessToken,
                     REFRESHTOKEN: refreshToken
                 }
             })
+                console.log(data);
               if (data) {
                   const {accessToken, refreshToken} = data.data
                   sessionStorage.removeItem('user')
                   sessionStorage.setItem('user', JSON.stringify(data.data, ['accessToken', 'refreshToken']))
-                  originalRequest.headers['accessToken'] = accessToken;
+                  originalRequest.headers['X-AUTH-TOKEN'] = accessToken;
                   return await client.request(originalRequest);
                   }
           } catch (error){

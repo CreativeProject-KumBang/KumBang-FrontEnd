@@ -59,7 +59,7 @@ const putJsonReqest = async(path, body) => {
 
 const deleteJsonReqest = async(path) => {
     try {
-        const data = await client.delete(path, body, {
+        const data = await client.delete(path, {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json'
@@ -89,7 +89,7 @@ const Api = {
     },
     // 로그아웃
     postLogout: async() => {
-        return await postRequest('/auth/logout', null);
+        return await postJsonReqest('/auth/logout', null);
     },
     // 이메일 인증 번호 전송
     getEmail: async(email) => {
@@ -110,8 +110,8 @@ const Api = {
         return await postJsonReqest(`/mypage/${userId}`, user);
     },
     // 내가 쓴 글 조회
-     getMyPost: async(boardId) => {
-        return await getRequest(`/mypage/post/${boardId}`);
+     getMyPost: async() => {
+        return await getRequest(`/mypage/post`);
     },
     // 거래 내역 조회
     getTransaction: async(transId) => {
