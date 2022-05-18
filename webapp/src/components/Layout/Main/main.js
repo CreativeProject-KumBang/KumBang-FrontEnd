@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from "styled-components";
-import { Hidden, Box } from '@mui/material';
+import { Hidden, Box, Container } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import SearchIcon from '@mui/icons-material/Search';
 import LocationSearchingIcon from '@mui/icons-material/LocationSearching';
-import { Grid, Card, CardContent } from '@material-ui/core';
+import { Grid, Card, CardContent } from '@mui/material';
 import { Link, Link as RouterLink } from 'react-router-dom';
 
 const StyledMain = styled.div`
