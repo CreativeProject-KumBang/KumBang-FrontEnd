@@ -51,7 +51,7 @@ const postJsonReqest = async(path, body) => {
     try {
         const token = sessionStorage.getItem('user_token');
         if (token) {
-            const { data } = await axios.post(api + path, body, {
+            const  data  = await axios.post(api + path, body, {
                 headers: {
                     authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json'
@@ -59,7 +59,8 @@ const postJsonReqest = async(path, body) => {
             });
             return data;
         } else {
-            const { data } = await axios.post(api + path, body, {
+            console.log(body)
+            const  data  = await axios.post(api + path, body, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -128,15 +129,15 @@ const Api = {
 
 
     // 로그인
-    postLogin: async(user_login_id, user_password) => {
+    postLogin: async(email, password) => {
         return await postJsonReqest('/auth/login', {
-            user_login_id,
-            user_password
+            email,
+            password
         });
     },
     // 로그아웃
-    getLogout: async() => {
-        return await getRequest('/auth/logout');
+    postLogout: async() => {
+        return await postRequest('/auth/logout', null);
     },
     // 이메일 인증 번호 전송
     getEmail: async(email) => {
