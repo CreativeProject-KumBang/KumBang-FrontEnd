@@ -1,34 +1,54 @@
-import { Helmet } from 'react-helmet';
-import { useState } from 'react';
-import {
-  Box,
-  Card,
-  CardContent,
-  Grid,
-  TextField,
-  InputAdornment,
-  SvgIcon,
-  Button
-} from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Api from 'API/Api';
 
-const Login = () => {
+const theme = createTheme({
+  palette: {
+      primary: {
+          main: '#ffca00',
+      },
+      secondary: {
+          main: '#ffb000',
+      },
+  },
+});
+
+export default function Login() {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    console.log({
+      email: data.get('email'),
+      password: data.get('password'),
+    });
+  };
+
   const [postBody, setPostBody] = useState({
-    id: '',
-    pw: ''
+    email: '',
+    password: ''
   });
 
   const handleidChange = (event) => {
     setPostBody((prev) => ({
       ...prev,
-      id: event.target.value
+      email: event.target.value
     }));
   };
   const handlepwChange = (event) => {
     setPostBody((prev) => ({
       ...prev,
-      pw: event.target.value
+      password: event.target.value
     }));
   };
   const handleLogin = async () => {
@@ -37,10 +57,12 @@ const Login = () => {
       alert('아이디, 비밀번호를 입력하세요');
       return false;
     }
-    let response = await Api.postLogin(postBody.id, postBody.pw);
-    if (response.sucess === true) {
+
+    let response = await Api.postLogin(postBody.email, postBody.password);
+
+    if (response.data.result === "success") {
       alert('로그인 성공');
-      const target = '/app/dashboard';
+      const target = '/';
       sessionStorage.setItem('user_data', JSON.stringify(response.user));
       sessionStorage.setItem('user_token', response.token);
       window.location.href = target;
@@ -49,205 +71,74 @@ const Login = () => {
     }
   };
   const emptyCheck = () => {
-    if (postBody.id === '' || postBody.pw === '') {
+    if (postBody.email === '' || postBody.password === '') {
       return false;
     }
   };
   return (
-    <>
-      <Helmet>
-        <title>Login</title>
-      </Helmet>
-      <Box>
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
         <Box
           sx={{
-            minHeight: '100%',
-            py: 3
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
           }}
-        />
-        <Grid item lg={10} md={10} sm={12} xs={12}>
-          <Card
-            sx={{
-              borderBottomRightRadius: 10,
-              borderBottomLeftRadius: 10,
-              borderTopRightRadius: 10,
-              borderTopLeftRadius: 10,
-              boxShadow: 5
-            }}
-          >
-            <CardContent>
-              <h2 style={{ color: '#006400' }}>로그인</h2>
-              <Box
-                sx={{
-                  minHeight: '100%',
-                  py: 2,
-                  borderBottom: '1px solid grey'
-                }}
-              />
-              <Box
-                sx={{
-                  backgroundColor: '#ffffff',
-                  paddingLeft: 0.5
-                }}
-              >
-                <Box
-                  sx={{
-                    minHeight: '100%',
-                    py: 1.5
-                  }}
-                />
-                <h3>아이디</h3>
-                <Box
-                  sx={{
-                    minHeight: '100%',
-                    py: 0.5
-                  }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            로그인
+          </Typography>
+          {/* <Box component="form" onSubmit={handleLogin} noValidate sx={{ mt: 1 }}> */}
+            <Box sx={{ mt: 1 }}>
+                <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                    autoFocus
+                    defaultValue={postBody.email}
+                    onChange={handleidChange}
                 />
                 <TextField
-                  id="id_field"
-                  fullWidth
-                  sx={{
-                    flex: '1',
-                    flexDirection: 'row',
-                    boxShadow: 5,
-                    borderBottomRightRadius: 5,
-                    borderBottomLeftRadius: 5,
-                    borderTopRightRadius: 5,
-                    borderTopLeftRadius: 5,
-                    backgroundColor: 'primary.smoothgreen'
-                  }}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <SvgIcon fontSize="small" color="action" />
-                      </InputAdornment>
-                    )
-                  }}
-                  // 새로 추가한 부분 - > defaultValue
-                  defaultValue={postBody.id}
-                  placeholder="아이디 입력"
-                  variant="outlined"
-                  onChange={handleidChange}
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="current-password"
+                    defaultValue={postBody.password}
+                    onChange={handlepwChange}
                 />
-                <Box
-                  sx={{
-                    minHeight: '100%',
-                    py: 2
-                  }}
+                <FormControlLabel
+                    control={<Checkbox value="remember" color="primary" />}
+                    label="Remember me"
                 />
-                <h3>비밀번호</h3>
-                <Box
-                  sx={{
-                    minHeight: '100%',
-                    py: 0.5
-                  }}
-                />
-                <TextField
-                  id="pw_field"
-                  fullWidth
-                  sx={{
-                    flex: '1',
-                    flexDirection: 'row',
-                    boxShadow: 5,
-                    borderBottomRightRadius: 5,
-                    borderBottomLeftRadius: 5,
-                    borderTopRightRadius: 5,
-                    borderTopLeftRadius: 5,
-                    backgroundColor: 'primary.smoothgreen'
-                  }}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <SvgIcon fontSize="small" color="action" />
-                      </InputAdornment>
-                    )
-                  }}
-                  // 새로 추가한 부분 - > defaultValue
-                  defaultValue={postBody.pw}
-                  type="password"
-                  placeholder="비밀번호 입력"
-                  variant="outlined"
-                  onChange={handlepwChange}
-                />
-                <Box
-                  sx={{
-                    minHeight: '100%',
-                    py: 2
-                  }}
-                />
-                <Link to="/login/password">
-                  <Button
-                    variant="contained"
-                    size="medium"
-                    color="success"
-                    sx={{
-                      marginTop: 1
-                    }}
-                  >
-                    <h3
-                      style={{
-                        color: '#ffffff'
-                      }}
-                    >
-                      비밀번호 찾기
-                    </h3>
-                  </Button>
-                </Link>
-                <Box
-                  sx={{
-                    minHeight: '100%',
-                    py: 2
-                  }}
-                />
-                <Link to="/sign/up">
-                  <Button
-                    variant="contained"
-                    size="medium"
-                    color="success"
-                    sx={{
-                      float: 'right'
-                    }}
-                  >
-                    <h3
-                      style={{
-                        color: '#ffffff'
-                      }}
-                    >
-                      회원가입
-                    </h3>
-                  </Button>
-                </Link>
                 <Button
-                  variant="contained"
-                  size="medium"
-                  color="success"
-                  sx={{
-                    float: 'left'
-                  }}
-                  // 새로 추가한 부분
-                  onClick={handleLogin}
+                    // type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="secondary"
+                    sx={{ mt: 3, mb: 2 }}
+                    onClick={handleLogin}
                 >
-                  <h3
-                    style={{
-                      color: '#ffffff'
-                    }}
-                  >
                     로그인
-                  </h3>
                 </Button>
-                <Box
-                  sx={{
-                    minHeight: '100%',
-                    py: 2
-                  }}
-                />
-              </Box>
-            </CardContent>
-          </Card>
-        </Grid>
-      </Box>
-    </>
+            </Box>
+            <Link href="signup" variant="body2" color="#000" >
+                회원가입
+            </Link>
+        </Box>
+      </Container>
+    </ThemeProvider>
   );
-};
-
-export default Login;
+}
