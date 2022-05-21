@@ -76,7 +76,7 @@ const routes = [
 		element: <SignUpLayout />,
 		children: [
 		  { path: "", element: <Authentication /> },
-		  { path: "detail", element: <SignUp /> },
+		  { path: "detail", element: <SignUp /> }
 		],
 	},
 	{

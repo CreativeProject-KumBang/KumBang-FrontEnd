@@ -37,7 +37,13 @@ client.interceptors.response.use(
                     REFRESHTOKEN: refreshToken
                 }
             })
-                console.log(data);
+            console.log(data);
+            if(data.data.result === 'fail'){
+                sessionStorage.removeItem('user')
+                window.location.href = '/login';
+                alert('세션이 만료되었습니다.');
+                return null;
+            }
               if (data) {
                   const {accessToken, refreshToken} = data.data
                   sessionStorage.removeItem('user')

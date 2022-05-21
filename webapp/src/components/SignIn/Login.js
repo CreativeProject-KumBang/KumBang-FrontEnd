@@ -1,9 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
@@ -62,11 +61,11 @@ export default function Login() {
     let response = await Api.postLogin(postBody.email, postBody.password);
 
     if (response.data.result === "success") {
-      alert('로그인 성공');
       const target = '/';
       sessionStorage.setItem('user', JSON.stringify(response.data, ['accessToken', 'refreshToken']))
       window.location.href = target;
-    } else {
+    }
+    else if(response.data.result === "fail") {
       alert('로그인 실패');
     }
   };
@@ -93,7 +92,6 @@ export default function Login() {
           <Typography component="h1" variant="h5">
             로그인
           </Typography>
-          {/* <Box component="form" onSubmit={handleLogin} noValidate sx={{ mt: 1 }}> */}
             <Box sx={{ mt: 1 }}>
                 <TextField
                     margin="normal"
@@ -119,12 +117,7 @@ export default function Login() {
                     defaultValue={postBody.password}
                     onChange={handlepwChange}
                 />
-                <FormControlLabel
-                    control={<Checkbox value="remember" color="primary" />}
-                    label="Remember me"
-                />
                 <Button
-                    // type="submit"
                     fullWidth
                     variant="contained"
                     color="secondary"
