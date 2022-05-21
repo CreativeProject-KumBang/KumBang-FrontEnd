@@ -91,7 +91,8 @@ const BoardWriteComponent = () => {
          "managementFee": admin_expense,
          "containManageFee": contain_admin_expense,
          "areaSize": area
-      }
+      },
+      files: pk_id[0]
    };
 
 /*
@@ -132,11 +133,11 @@ const BoardWriteComponent = () => {
 
       console.log(response);
 
-      if (response.status) {
-         alert('생성되었습니다.', response.status);
+      if (response.data.status) {
+         alert('등록되었습니다.', response.data.status);
          navigate('/');
       } else {
-         alert('생성 실패', response.status);
+         alert('등록 실패하였습니다.', response.data.status);
       }
 
    }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
-import { Link, Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 /* width: 100%를 header와 content에 적용 시에 margin이 갑자기 생김 */
 const StyledHeader = styled.header`
@@ -52,27 +53,38 @@ const StyledImg = styled.img`
 
 
 const Header = () => {
-    const [open, setOpen] = useState("none");
-    const [account, setAccount] = useState("");
-    
+    const user = sessionStorage.getItem('user'); // 토큰 받아오기
+
     return (
         <StyledHeader>
             <StyledContent>
                 <RouterLink to="/">
                     <StyledImg alt="logo" src={require("img/logo192.png")} />
                 </RouterLink>
-                <StyledUl>
-                    <StyledLi>
-                        <a href='/login' style={{textDecoration: 'none', color:'black'}}>
-                            <span>Sign in</span>
-                        </a>
-                    </StyledLi>
-                    <StyledLi>
-                        <a href='/signup' style={{textDecoration: 'none', color:'black'}}>
-                            Sign Up
-                        </a>
-                    </StyledLi>
-                </StyledUl>
+
+                {(!(user === null)) ? (
+                    <StyledUl>
+                        <StyledLi>
+                            <a href='/logout' style={{ textDecoration: 'none', color: 'black' }}>
+                                <span>Sign out</span>
+                            </a>
+                        </StyledLi>
+                        <StyledLi>
+                            <a href='/mypage' style={{ textDecoration: 'none', color: 'black' }}>
+                                <AccountCircleIcon></AccountCircleIcon>
+                            </a>
+                        </StyledLi>
+                    </StyledUl>
+                ) : (
+                    <StyledUl>
+                        <StyledLi>
+                            <a href='/login' style={{ textDecoration: 'none', color: 'black' }}>
+                                <span>Sign in</span>
+                            </a>
+                        </StyledLi>
+                    </StyledUl>
+                )}
+
             </StyledContent>
         </StyledHeader>
     )

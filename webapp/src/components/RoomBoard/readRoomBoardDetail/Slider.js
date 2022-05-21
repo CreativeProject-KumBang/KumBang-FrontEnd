@@ -3,18 +3,33 @@ import styled from 'styled-components';
 
 const IMG = styled.img`
   width: 100%;
-  height: 70vh;
+  //height: 70vh;
 `;
 
 const Container = styled.div`
-  width: 60%;
+  width: 100%;
+  height: 400px;
   overflow: hidden;
 `;
-const Button = styled.button`
+const ButtonPrev = styled.button`
   all: unset;
   border: 1px solid coral;
   padding: 0.5em 2em;
   color: coral;
+  border-radius: 10px;
+  &:hover {
+    transition: all 0.3s ease-in-out;
+    background-color: coral;
+    color: #fff;
+  }
+`;
+
+const ButtonNext = styled.button`
+  all: unset;
+  border: 1px solid coral;
+  padding: 0.5em 2em;
+  color: coral;
+  float: right;
   border-radius: 10px;
   &:hover {
     transition: all 0.3s ease-in-out;
@@ -61,21 +76,23 @@ function Slider(props) {
     if (slideRef) {
       slideRef.style.transition = "all 0.5s ease-in-out";
       slideRef.style.transform = `translateX(-${currentSlide}00%)`;
-    } 
+    }
 
-    //slideRef.style.transition = "all 0.5s ease-in-out";
-    //slideRef.style.transform = `translateX(-${currentSlide}00%)`; 
   }, [currentSlide]);
   return (
     <div>
       {(!(files.length === 0)) ? (
-        <Container>
-          <div id="slider" style={divStyle} >
-            {files.map((img, i) => <IMG src={img} key={i} />)}
+        <div>
+          <Container>
+            <div id="slider" style={divStyle} >
+              {files.map((img, i) => <IMG src={"http://192.168.239.130:8080" + img.path} key={i} />)}
+            </div>
+          </Container>
+          <div>
+            <ButtonPrev onClick={prevSlide}>◀</ButtonPrev>
+            <ButtonNext onClick={nextSlide}>▶</ButtonNext>
           </div>
-          <Button onClick={prevSlide}>Previous Slide</Button>
-          <Button onClick={nextSlide}>Next Slide</Button>
-        </Container>
+        </div>
       ) : (
         <div>이미지 없음</div>
       )}
