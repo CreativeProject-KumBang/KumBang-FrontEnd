@@ -20,7 +20,7 @@ const rows = [
 ];
 
 const PriceTable = (props) => {
-  const prices = props.priceList;
+  const prices = props.prices;
     
   return (
     <TableContainer component={Paper}>

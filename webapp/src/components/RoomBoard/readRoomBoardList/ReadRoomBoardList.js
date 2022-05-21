@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
 import BoardCard from 'components/RoomBoard/readRoomBoardList/BoardCard';
-import Box from '@mui/material/Box';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
+import SearchIcon from '@mui/icons-material/Search';
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import MapIcon from '@mui/icons-material/Map';
+import { Box, TextField, Hidden } from '@mui/material';
 import dayjs from "dayjs";
-import { TextField } from '@mui/material'
 
 const StyledImg = styled.img`
     width: 10%;
@@ -59,12 +61,18 @@ const ReadRoomBoardList = () => {
             <StyledImg alt="icon" src={require("img/금방_수요자.png")} />
             <StyledH2>방 찾기</StyledH2>
          </Box>
-         <Box sx={{marginBottom : 3}}>
+         <Box sx={{ marginBottom: 3 }}>
             <Box>
                검색창
+               <FilterAltIcon sx={{ fontSize: 30 }} style={{ marginRight: '1%' }} />
+               <SearchIcon sx={{ fontSize: 30 }} style={{ marginRight: '1%' }} />
+               <Hidden mdUp>
+                  <MapIcon sx={{ fontSize: 30 }} style={{ marginRight: '1%' }} ></MapIcon>
+               </Hidden>
             </Box>
+
             <Box
-               sx={{ display: 'inline-block', marginRight: 5}}
+               sx={{ display: 'inline-block', marginRight: 5 }}
             >
                <StyledH1>시작일 : </StyledH1>
                <LocalizationProvider dateAdapter={AdapterDateFns} sx={{ marginTop: 2 }}>

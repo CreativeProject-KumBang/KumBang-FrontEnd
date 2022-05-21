@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import styled from "styled-components";
 import BoardCard from 'components/RoomBoard/readMyRoomBoard/BoardCard';
 import Divider from '@mui/material/Divider';
+import SearchIcon from '@mui/icons-material/Search';
 import Api from 'API/Api';
 
 const StyledDiv = styled.div`

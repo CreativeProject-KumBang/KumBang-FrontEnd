@@ -31,11 +31,6 @@ const StyledContainer = styled.div`
     }
 `;
 
-
-const data = JSON.parse(sessionStorage.getItem('user_data'));
-const server_path = 'http://ip주소:port번호/file/';
-const empty_path = 'http://ip주소:port번호/image\\file_name.png';
-
 const BoardWriteComponent = () => {
    const navigate = useNavigate();
 
@@ -55,7 +50,6 @@ const BoardWriteComponent = () => {
    // 원 계약보증금/월세
    const [contract_deposit, setContract_deposit] = useState('');
    const [contractMonthlyFee, setContractMonthlyFee] = useState('');
-   const [priceType, setPriceType] = useState('');
    // 매물 정보 HomeInfo
    const [park, setPark] = useState(''); // 주차
    const [elevator, setElevator] = useState(''); // 엘리베이터
@@ -86,10 +80,9 @@ const BoardWriteComponent = () => {
       deposit: deposit, // 양도 거래 보증금
       contractDeposit: contract_deposit, // 방 원래 주인이 계약한 보증금
       contractMonthlyFee: contractMonthlyFee, // 방 원래 주인이 계약한 월세
-      priceType: priceType, // 'FULL'
       contractDeposit: contract_deposit,
       contractMonthlyFee: contractMonthlyFee,
-      fixedOption: options,
+      fixedOption: checked,
       additionalOption: add_options,
       details: {
          "parking": park,
@@ -101,49 +94,51 @@ const BoardWriteComponent = () => {
       }
    };
 
-   /*
-      async function emptyCheck() {
-         if (title.trim() === '') {
-            alert('제목을 입력해주세요');
-            return;
-         } else if (location.trim() === '') {
-            alert('주소를 입력해주세요');
-            return;
-         } else if (location_detail.trim() === '') {
-            alert('상세주소를 입력해주세요');
-            return;
-         } else if (price.trim() === '') {
-            alert('양도 거래 가격을 입력해주세요');
-            return;
-         } else if (contract_deposit.trim() === '') {
-            alert('원 계약보증금을 입력해주세요');
-            return;
-         } else if (contractMonthlyFee.trim() === '') {
-            alert('원 월세를 입력해주세요');
-            return;
-         }
+/*
+   async function emptyCheck() {
+      if (title.trim() === '') {
+         alert('제목을 입력해주세요');
+         return;
+      } else if (location.trim() === '') {
+         alert('주소를 입력해주세요');
+         return;
+      } else if (location_detail.trim() === '') {
+         alert('상세주소를 입력해주세요');
+         return;
+      } else if (price.trim() === '') {
+         alert('양도 거래 가격을 입력해주세요');
+         return;
+      } else if (contract_deposit.trim() === '') {
+         alert('원 계약보증금을 입력해주세요');
+         return;
+      } else if (contractMonthlyFee.trim() === '') {
+         alert('원 월세를 입력해주세요');
+         return;
       }
-   */
+   }
+*/
    const CreateRoomBoard = async () => {
-
-      /*const isEmpty = emptyCheck();
+/*
+      const isEmpty = emptyCheck();
       if (isEmpty === false) {
          alert(
-           '필수항목란을 채워주세요'
+            '필수항목란을 채워주세요'
          );
          return false;
-      }*/
-      /*
-            let response = await Api.postRoomBoard(postBody); // API
-            navigate('/');
-             
-            if (response.status) {
-               alert('생성되었습니다.', response.status);
-               navigate('/');  
-            } else {
-               alert('생성 실패', response.status);
-            }
-      */
+      }
+*/
+      console.log(postBody);
+      let response = await Api.postRoomBoard(postBody); // API
+
+      console.log(response);
+
+      if (response.status) {
+         alert('생성되었습니다.', response.status);
+         navigate('/');
+      } else {
+         alert('생성 실패', response.status);
+      }
+
    }
 
    return (
@@ -380,12 +375,12 @@ const BoardWriteComponent = () => {
             <div>
                <StyledH4>이미지 첨부</StyledH4>
                <StyledDiv>
-                  <Images setPk={setPk} />
+                  <Images pk_id={pk_id} setPk={setPk} />
                </StyledDiv>
             </div>
 
             <StyledContainer>
-               <Button variant="outlined" color="success" sx={{float: 'right'}}
+               <Button variant="outlined" color="success" sx={{ float: 'right' }}
                   onClick={CreateRoomBoard}>
                   등록
                </Button>
