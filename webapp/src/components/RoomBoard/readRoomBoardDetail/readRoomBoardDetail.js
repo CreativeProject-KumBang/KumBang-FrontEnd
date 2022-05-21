@@ -11,13 +11,14 @@ const StyledDiv = styled.div`
 `;
 
 const ReadRoomBoardDetail = () => {
-  const board_id = 2; // dummycode
+  const board_id = 9; // dummycode
   //const board_id = useLocation().state.boardId;
 
-  //const [board, setBoard] = useState([]); // board
+  const [board, setBoard] = useState([]); // board
   const [bookmark, setBookmark] = useState(false); // bookmark
   const [isImage, setIsImage] = useState(true); // 이미지 존재 여부 확인해서 변수에 담고 렌더링
   //const [likes, setlikes] = useState(like);
+  /*
   const board = {
     "title": "test title",
     "content": "test content",
@@ -43,10 +44,10 @@ const ReadRoomBoardDetail = () => {
     },
     "files": ["urls"]
   };
-
+*/
   //const response = useState(); // front
   //const back = useState();
-/*
+
   const response = async () => await Api.getRoomBoard(board_id);
 
   useEffect(() => {
@@ -60,7 +61,7 @@ const ReadRoomBoardDetail = () => {
     }
     getData();
   }, []);
-*/
+
   /*
       useEffect(() => {
           setTimeout(async () => {

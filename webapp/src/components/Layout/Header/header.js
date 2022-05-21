@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
 import { Link, Link as RouterLink } from 'react-router-dom';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+
 
 /* width: 100%를 header와 content에 적용 시에 margin이 갑자기 생김 */
 const StyledHeader = styled.header`
@@ -52,8 +54,11 @@ const StyledImg = styled.img`
 
 
 const Header = () => {
+    const user = sessionStorage.getItem('user'); // 토큰 받아오기
+    console.log(user);
     const [open, setOpen] = useState("none");
     const [account, setAccount] = useState("");
+
     
     return (
         <StyledHeader>
@@ -62,16 +67,18 @@ const Header = () => {
                     <StyledImg alt="logo" src={require("img/logo192.png")} />
                 </RouterLink>
                 <StyledUl>
+                    {(!(user===null)) ? (
+                        <div>thwjd</div>
+
+                    ) : (
                     <StyledLi>
                         <a href='/login' style={{textDecoration: 'none', color:'black'}}>
                             <span>Sign in</span>
                         </a>
                     </StyledLi>
-                    <StyledLi>
-                        <a href='/signup' style={{textDecoration: 'none', color:'black'}}>
-                            Sign Up
-                        </a>
-                    </StyledLi>
+                    )}
+
+                    
                 </StyledUl>
             </StyledContent>
         </StyledHeader>
