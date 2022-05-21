@@ -3,8 +3,8 @@ import client from 'API/axiosConfig';
 
 const getRequest = async(path, params = {}) => {
     try {
-        console.log(client.getUri);
-        const data = await client.get(path);
+        console.log(client.getUri());
+        const data = await client.get(path, params);
         return data;
     } catch (e) {
         console.log(e);
@@ -28,6 +28,7 @@ const postFormReqest = async(path, body) => {
 };
 
 const postJsonReqest = async(path, body) => {
+    console.log(body);
     try {
         const data = await client.post(path, body, {
             headers: {
@@ -35,7 +36,6 @@ const postJsonReqest = async(path, body) => {
                 'Content-Type': 'application/json'
             }
         })
-
         return data;
     } catch (e) {
         console.log(e);
@@ -79,7 +79,6 @@ const Api = {
     // 한 페이지당 보여줄 컨텐츠 개수
     pageCount: 3,
 
-
     // 로그인
     postLogin: async(email, password) => {
         return await postJsonReqest('/auth/login', {
@@ -92,14 +91,19 @@ const Api = {
         return await postJsonReqest('/auth/logout', null);
     },
     // 이메일 인증 번호 전송
-    getEmail: async(email) => {
-        return await getRequest('/auth/email', email);
+    postEmail: async(email) => {
+        return await postJsonReqest('/auth/sendmail', { email }
+        );
     },
     // 이메일 인증 번호 확인
-    postEmail: async(emailId, authStr) => {
-        return await postJsonReqest('/auth/email', { emailId, authStr });
+    postAuthEmail: async(email, authkey) => {
+        console.log(email, authkey)
+        return await postJsonReqest('/auth/authmail', { email, authkey });
     },
-
+    // 회원가입
+    postSignup: async(info) => {
+        return await postJsonReqest('/auth/signup', info);
+    },
     // Mypage--------------------------------------------------------------------------------
     // 내 정보 조회
     getMyInfo: async(userId) => {
@@ -172,8 +176,8 @@ const Api = {
     },
 
     // Maps--------------------------------------------------------------------------------------
-    postLocation: async(locationData) => {
-        return await postJsonReqest(`/location`, locationData);
+    getLocation: async(x, y, level) => {
+        return await getRequest(`/region/average?x=${x}&y=${y}&level=${level}`);
     }
 };
 
