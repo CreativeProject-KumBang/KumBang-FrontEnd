@@ -10,7 +10,7 @@ const StyleImg = styled.img`
 `;
 
 const Images = (props) => {
-  const pk_id = useState([]);
+  const pk_id = props.pk_id;
   const setPk = props.setPk;
   const [fileList, setFileList] = useState([]);
   const [fileListUI, setFileListUI] = useState([]);
@@ -47,30 +47,25 @@ const Images = (props) => {
       console.log(pair[0] + ', ' + pair[1]);
     }
 
-    // formData.append('stringFoodDto', JSON.stringify(foodDto)); // 직렬화하여 객체 저장
+    let resBody = await Api.getReadFile(formData); // API File_pk 요청
 
-    /*let respose = {
-      status: true
-    }*/
-    let response = await Api.getReadFile(formData); // API File_pk 요청
-    console.log(response);
+    let pk_id_test = resBody.data.response;
+    setPk(pk_id_test); // 부모에게 pk값 전달
 
-    pk_id = response.response;
-    setPk(pk_id); // 부모에게 pk값 전달
 
-    if (response.status) {
-      alert('업로드 완료.', response.status);
+    if (resBody.data.status) {
+      alert('업로드 완료.', resBody.data.status);
     } else {
-      alert('업로드 실패', response.status);
+      alert('업로드 실패', resBody.data.status);
     }
 
   };
 
   // X버튼 클릭 시 이미지 삭제
-  const handleDeleteImage = (id) => {
+  const handleDeleteImage = async(id) => {
     setFileList(fileListUI.filter((_, index) => index !== id));
-    /* 
-      // api 코드 - 삭제
+     
+    // api 코드 - 삭제
     let delete_pk = pk_id[id];
     let response = await Api.getReadFile(delete_pk);
     if (response.status) {
@@ -78,7 +73,7 @@ const Images = (props) => {
     } else {
       alert('삭제 실패', response.status);
     }
-    */
+    
   };
 
   return (

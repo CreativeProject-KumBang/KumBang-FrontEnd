@@ -133,8 +133,8 @@ const Api = {
         return await postJsonReqest(`/roomboard/${boardId}`, board);
     },
     // 방 양도 글 상세조회
-    getRoomBoard: async(userId) => {
-        return await getRequest(`/board/${userId}`);
+    getRoomBoard: async(board_id) => {
+        return await getRequest(`/board/${board_id}`);
     },
     // 방 양도 글 전체조회
     getAllRoomBoard: async(x, y, level) => {

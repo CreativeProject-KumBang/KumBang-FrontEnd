@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 const SkeletonBoardDetail = ({ type }) => {
-    const classes = `skeleton ${type}`;
-    return <div className={classes}></div>;
+    return <div> 로딩중 ~</div>;
   };
   
   export default SkeletonBoardDetail;
