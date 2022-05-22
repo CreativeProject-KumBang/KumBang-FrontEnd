@@ -45,14 +45,15 @@ const BoardCardContent = (props) => {
                       height: '100%'
                     }}>
                     {isImage ?
-                      <img
+                      (<img
                         src={"http://192.168.227.255:8080" + image}
                         alt="profile"
-                      /> : <img src="http://192.168.227.255:8080/image/bf8354c1-6156-4ba1-8b48-b4028c614f61.png" alt="profile" />
-                    }
+                      />) : (
+                      <img src="http://192.168.227.255:8080/image/bf8354c1-6156-4ba1-8b48-b4028c614f61.png" alt="profile" />
+                    )}
                   </div>
-
                 </Grid>
+
                 <div
                   style={{
                     display: 'block',
@@ -63,14 +64,11 @@ const BoardCardContent = (props) => {
                     float: 'right',
                   }}>
                   <h3>{title}</h3>
-                  <h4>작성자 | {writer}</h4>
-                  <h4>보증금 | {deposit} 원</h4>
-                  <h4>금액   | {price} 원/1박</h4>
-                  <h4>{durationStart} ~ {durationEnd}</h4>
+                  <span>작성자 | {writer}</span>
+                  <span>보증금 | {deposit} 원</span>
+                  <span>금액   | {price} 원/1박</span>
+                  <span>{durationStart} ~ {durationEnd}</span>
                 </div>
-
-
-
               </Box>
             </Link>
             <Box
