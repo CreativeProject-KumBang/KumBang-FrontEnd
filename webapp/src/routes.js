@@ -89,7 +89,8 @@ const routes = [
 		  	{ path: "chatbox", element: <ChatBox /> },
 			{ path: "wishlist", element: <Wishlists /> },
 		  	{ path: "report", element: <ReportHistory /> },
-			{ path: "withdrawal", element: <Withdrawal /> }
+			{ path: "withdrawal", element: <Withdrawal /> },
+			{ path: "chatlist", element: <ReadChatList /> }
 		],
 	},
 	{

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from "styled-components";
 import Button from '@mui/material/Button';
 import Api from 'API/Api';
+import { FilterListOutlined } from '@material-ui/icons';
 
 
 const StyleImg = styled.img`
@@ -14,6 +15,7 @@ const Images = (props) => {
   const setPk = props.setPk;
   const [fileList, setFileList] = useState([]);
   const [fileListUI, setFileListUI] = useState([]);
+  const [isUpload, setIsUpload] = useState(false);
 
   // 이미지 상대경로 저장
   const onSaveFiles = (event) => {
@@ -54,6 +56,7 @@ const Images = (props) => {
 
 
     if (resBody.data.status) {
+      setIsUpload(true); // 업로드 완료 상태 저장
       alert('업로드 완료.', resBody.data.status);
     } else {
       alert('업로드 실패', resBody.data.status);
@@ -63,17 +66,33 @@ const Images = (props) => {
 
   // X버튼 클릭 시 이미지 삭제
   const handleDeleteImage = async(id) => {
-    setFileList(fileListUI.filter((_, index) => index !== id));
+    
+    const dummy = fileListUI.filter((_, index) => index !== id);
+    setFileList(dummy);
+    setFileListUI(dummy);
      
     // api 코드 - 삭제
-    let delete_pk = pk_id[id];
-    let response = await Api.getReadFile(delete_pk);
-    if (response.status) {
-      alert('삭제 완료.', response.status);
+    if (isUpload) {
+
+      let delete_pk_llist = pk_id[0];
+      let delete_pk = delete_pk_llist[id];
+  
+      let response = await Api.deleteFile(delete_pk.id);
+  
+      if (response.data.status) {
+        alert('삭제 완료.', response.data.status);
+
+        const dummyPk = delete_pk_llist.filter((_, index) => index !== id);
+        setPk(dummyPk);
+      } else {
+        alert('삭제 실패', response.data.status);
+      }
+
     } else {
-      alert('삭제 실패', response.status);
+      console.log("업로드 전 이미지 삭제 완료");
     }
-    
+    console.log(fileList, fileListUI);
+    console.log(pk_id);
   };
 
   return (
