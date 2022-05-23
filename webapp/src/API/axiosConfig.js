@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const client = axios.create({
-    baseURL: 'http://192.168.235.35:8080/api'
+    baseURL: 'http://jueleejue.iptime.org:80/api'
 })
 
 client.interceptors.request.use(

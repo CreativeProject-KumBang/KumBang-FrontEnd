@@ -109,7 +109,7 @@ const Map = () => {
                 )
             });
             console.log(postBody);
-            markerCityTown(infos, 'yellow');
+            markerCityTown(infos, 'green');
         }
         else if (level >= 5) {
             const infos = postBody.map(info => {
@@ -129,7 +129,7 @@ const Map = () => {
                 map: mapRef.current, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
                 averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
                 minClusterSize: 1,
-                calculator: [10, 30],
+                calculator: [1, 3, 5, 10],
                 disableClickZoom: true 
             });
 
@@ -189,7 +189,7 @@ const Map = () => {
                   '       </div>' +
                   '       <div class="body">' +
                   '            <div class="img">' +
-                  `               <img src="http://192.168.235.35:8080${el.img}" width="100" height="100">` +
+                  `               <img src="http://jueleejue.iptime.org:80${el.img}" width="100" height="100">` +
                   '            </div>' + 
                   '            <div class="desc">' + 
                   `               <p class="accommPeriod">양도 기간</p>` +
