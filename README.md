@@ -3,8 +3,8 @@
 
 ## git 사용
 // push an existing repository 
-git remote add origin https://github.com/CreativeProject-KumBang/FrontEnd.git
-git branch -M main
-git push -u origin master
+`git remote add origin https://github.com/CreativeProject-KumBang/FrontEnd.git`
+`git branch -M main`
+`git push -u origin master`
 
 
