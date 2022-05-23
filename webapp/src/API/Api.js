@@ -183,8 +183,8 @@ const Api = {
 
     // Chatting--------------------------------------------------------------------------------------
     // 채팅을 위한 내 정보 요청(프론트가 알아야 해서)
-    getMyInfo: async (token) => {
-        return await getRequest(``, token);
+    getMyInfo: async () => {
+        return await getRequest(`/whoami`);
     },
 
     // 채팅방 생성(게시물 정보)
