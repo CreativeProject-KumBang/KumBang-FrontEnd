@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Box, Paper, Button, TextField } from '@mui/material'
+import { Box, Paper, Button, TextField, Grid } from '@mui/material'
 import { MessageLeft, MessageRight } from "components/Chat/readChatDetail/Message"
 import TextInput from "components/Chat/readChatDetail/TextInput"
 import { createStyles, makeStyles } from "@mui/styles";
@@ -9,11 +9,14 @@ import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import $ from "jquery";
 import Api from "API/Api";
+import * as ReactDOM from 'react-dom';
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 
 const api = "http://jueleejue.iptime.org:80/api";
-const socket = "http://jueleejue.iptime.org:80";
+const socketurl = "http://jueleejue.iptime.org:80";
+
+var stompClient = null;
 
 const useStyles = makeStyles((theme) =>
    createStyles({
@@ -21,7 +24,7 @@ const useStyles = makeStyles((theme) =>
          display: "flex",
          justifyContent: "center",
          width: "95%",
-         //margin: `${theme.spacing(0)} auto`
+         margin: "auto",
       },
       wrapText: {
          width: "100%"
@@ -34,15 +37,12 @@ const useStyles = makeStyles((theme) =>
          margin: 10,
          overflowY: "scroll",
          height: "calc( 100% - 80px )"
-       }
+      }
    })
 );
 
-var stompClient = null;
 
 const ReadChatDetail = () => {
-
-
    const location = useLocation();
    const [postBody, setPostBody] = useState([]);
    const [myId, setMyId] = useState([]);
@@ -56,47 +56,44 @@ const ReadChatDetail = () => {
    const classes = useStyles();
    const [message, setMessage] = useState();
 
+   const response = async () => await Api.getMyInfo();
+
 
    function setConnected(connected) {
-      /*
-      $("#connect").prop("disabled", connected);
-      $("#disconnect").prop("disabled", !connected);
-      if (connected) {
-          $("#conversation").show();
-      }
-      else {
-          $("#conversation").hide();
-      }
-      $("#greetings").html("");*/
+
    }
 
    function connect(data) {
-      var socket = new SockJS( socket + '/ws');
+      var socket = new SockJS(socketurl + '/ws');
       stompClient = Stomp.over(socket);
       console.log(stompClient);
       stompClient.connect({}, function (frame) {
          setConnected(true);
          console.log('Connected: ' + frame);
          console.log(data);
-         stompClient.subscribe(`/user/`+ data +`/queue/messages`, function (greeting) {
-            showGreeting(JSON.parse(greeting.body).content);
+         stompClient.subscribe(`/user/` + data + `/queue/messages`, function (greeting) {
+            showMessage(JSON.parse(greeting.body).content);
          });
       });
    }
 
-
-   function showGreeting(message) {
-      $("#style-1").append("<tr><td>" + message + "</td></tr>");
+   function showMessage(message) {
+      const rootElement = document.getElementById('style-1');
+      const elemet = React.createElement('div', {
+         children:
+            <MessageRight message={message}></MessageRight>
+      })
+      ReactDOM.render(elemet, rootElement);
+      /*
+      // if 내가 sender 라면?
+         <MessageRight message={message}></MessageRight>
+      // else 남이 sender 라면?
+         <MessageLeft message={message}></MessageLeft> */
    }
-
-   const response = async () => await Api.getMyInfo();
-
-
-
 
    useEffect(() => {
       const getData = async () => {
-         
+
          setRoomId(location.state.roomId);
          setBoardId(location.state.boardId);
          setBoardTitle(location.state.boardTitle);
@@ -116,40 +113,34 @@ const ReadChatDetail = () => {
       sender: { id: myId }
    };
 
-   function sendName() {
+   function sendMessage() {
       console.log(stompClient);
       stompClient.send("/broadcast/publish", {}, JSON.stringify(chatData));
    }
-
-
-   /*
-      const response = async () => await Api.getMyPost();
-      useEffect(() => {
-         const getData = async() => {
-           const resBody = await response();
-           console.log(resBody);
-           setPostBody(resBody.data.response[0].content);
-           if(postBody.thumbnail === undefined){
-             setIsImage(false);
-           }
-         }
-           getData();
-       }, []);
-   */
 
    return (
       <div >
          <Paper>
             <Paper zDepth={2} >
-               <Box sx={{ paddingTop: "4px", height: "30px" }}>
-                  {roomId} | {opponent} | {boardTitle}
-                  <Button sx={{ float: "right" }}>방 정보</Button>
-                  <ArticleOutlinedIcon sx={{ float: "right" }}></ArticleOutlinedIcon>
-                  <HelpOutlineIcon sx={{ float: "right" }}></HelpOutlineIcon>
+               <Box sx={{ paddingTop: "4px", height: "50px" }}>
+                  <Grid container>
+                     <Grid lg={8} md={8} sm={8} xs={12}>
+                        <Box>
+                           {opponent} | {boardTitle}
+                        </Box>
+                     </Grid>
+                     <Grid lg={4} md={4} sm={4} xs={0}>
+                        <Box sx={{ float: "right" }}>
+                           <HelpOutlineIcon sx={{ paddingTop: "4px" }}></HelpOutlineIcon>
+                           <ArticleOutlinedIcon sx={{ paddingTop: "4px" }}></ArticleOutlinedIcon>
+                           <Button sx={{ paddingLeft: "4px" }}>방 정보</Button>
+                        </Box>
+                     </Grid>
+                  </Grid>
                </Box>
             </Paper>
             <Paper zDepth={2}>
-               <Paper id="style-1">
+               <Paper id="style-1" className={classes.messagesBody} >
 
                </Paper>
                <form className={classes.wrapForm} noValidate autoComplete="off">
@@ -159,11 +150,12 @@ const ReadChatDetail = () => {
                      className={classes.wrapText}
 
                      onChange={(event) => setMessage(event.target.value)}
-                     sx={{ height: "100%" }}
+                     sx={{ height: "100%", 
+                           margin:"normal"}}
                   //margin="normal"
                   />
                   <Button variant="contained" color="primary" className={classes.button}
-                     sx={{ float: "bottom" }} onClick={sendName}>
+                     sx={{ float: "bottom" }} onClick={sendMessage}>
                      <SendSharpIcon />
                   </Button>
                </form>
