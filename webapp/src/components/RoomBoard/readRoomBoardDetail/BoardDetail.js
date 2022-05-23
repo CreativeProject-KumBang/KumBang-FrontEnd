@@ -7,6 +7,7 @@ import { Divider, Box } from '@mui/material';
 import Slider from 'components/RoomBoard/readRoomBoardDetail/Slider';
 import SkeletonBoardDetail from 'components/RoomBoard/readRoomBoardDetail/SkeletonBoardDetail'
 import PriceTable from 'components/RoomBoard/readRoomBoardDetail/PriceTable';
+import Api from 'API/Api';
 
 const StyledH3 = styled.h3`
   padding: 4px 15px;
@@ -42,31 +43,31 @@ const BoardDetail = (props) => {
     createData('Cupcake', 305, 3.7, 67, 4.3),
     createData('Gingerbread', 356, 16.0, 49, 3.9),
   ];
-
-  /*
-    const handleBookmark = async (id) => {
-      if (sessionStorage.getItem('user_token')) {
-          if (bookmark === false) {
-              await Api.getBoardLike(id);
-              const getdata = async () => {
-                  const data = await response(); // 우려 사항: 이거 필요없을 수도 있음
-                  setlikes(true);
-              };
-              getdata();
-          } else {
-              await Api.getBoardUnlike(id);
-              const getdata = async () => {
-                  const data = await response(); // 우려 사항: 이거 필요없을 수도 있음
-                  setlikes(false);
-              };
-              getdata();
-          }
-          setBookmark(!bookmark);
-      } else {
-          alert('로그인이 필요합니다');
-      }
-    };
-    */
+    const id = 3; 
+    function handleBookmark() {}
+    // const handleBookmark = async (id) => {
+    //   if (sessionStorage.getItem('user_token')) {
+    //       if (bookmark === false) {
+    //           const response = async () => await Api.getBoardLike(id);
+    //           const getdata = async () => {
+    //               const data = await response(); // 우려 사항: 이거 필요없을 수도 있음
+    //               setlikes(true);
+    //           };
+    //           getdata();
+    //       } else {
+    //         const response = async () => await Api.getBoardUnlike(id);
+    //           const getdata = async () => {
+    //               const data = await response(); // 우려 사항: 이거 필요없을 수도 있음
+    //               setlikes(false);
+    //           };
+    //           getdata();
+    //       }
+    //       setBookmark(!bookmark);
+    //   } else {
+    //       alert('로그인이 필요합니다');
+    //   }
+    // };
+    
   return (
     <div>
 
