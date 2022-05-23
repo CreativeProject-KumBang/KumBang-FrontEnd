@@ -6,7 +6,8 @@
 `git remote add origin https://github.com/CreativeProject-KumBang/FrontEnd.git`  
 `git branch -M master`  
 `git add .`  
-`git commit -m "message"`  
+`git commit -m "message"` 
+`git pull origin master`  
 `git push -u origin master`  
 
 
