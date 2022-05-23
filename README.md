@@ -5,6 +5,8 @@
 // push an existing repository  
 `git remote add origin https://github.com/CreativeProject-KumBang/FrontEnd.git`  
 `git branch -M master`  
+`git add .`  
+`git commit -m "message"`  
 `git push -u origin master`  
 
 
