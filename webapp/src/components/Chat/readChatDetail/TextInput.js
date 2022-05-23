@@ -9,8 +9,9 @@ import $ from "jquery";
 var stompClient = null;
 
 function sendName() {
-    stompClient.send("/app/hello", {}, JSON.stringify({ 'name': $("#name").val() }));
+    stompClient.send(api + "/broadcast", {}, JSON.stringify({'name': $("#name").val()}));
 }
+ 
 
 function showGreeting(message) {
     const rootElement = document.getElementById('style-1');

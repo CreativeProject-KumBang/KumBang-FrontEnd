@@ -43,6 +43,8 @@ const BoardDetail = (props) => {
     createData('Gingerbread', 356, 16.0, 49, 3.9),
   ];
 
+  const handleBookmark = async (id) => {};
+
   /*
     const handleBookmark = async (id) => {
       if (sessionStorage.getItem('user_token')) {

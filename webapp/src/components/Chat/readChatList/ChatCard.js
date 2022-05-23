@@ -76,17 +76,18 @@ const ChatCard = () => {
                     <Item>
 
 
+                        {console.log(getbody)}
                         {getbody.map(row => (<>
 
                                 <
                                     ChatCardContent key={row.chatRoomId}
-                                    id={row.chatRoomId}
+                                    roomId={row.chatRoomId}
                                     boardId={row.roomBoard.id}
                                     title={row.roomBoard.title}
                                     image={(row.roomBoard.thumbnail === null) ?
                                         (imageurl) : (row.roomBoard.thumbnail)}
                                     opponent={(row.isBuyer) ?
-                                        row.roomBoard.author.nickname : row.buyernickname}
+                                        row.roomBoard.author.nickname : row.buyer.nickname}
                                     date={row.updatedAt}
                                 />
                                 <Divider />
