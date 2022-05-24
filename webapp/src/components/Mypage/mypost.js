@@ -44,13 +44,9 @@ const MyPost = (props) => {
   useEffect(() => {
     const getData = async() => {
       const resBody = await response();
-      console.log(resBody);
       setPostBody(resBody.data.response[0].content);
-      if(postBody.thumbnail === undefined){
-        setIsImage(false);
-      }
     }
-      getData();
+    getData();
   }, []);
 
   return (
@@ -69,13 +65,18 @@ const MyPost = (props) => {
                     style={{
                       float: 'left',
                       width: '20%',
-                      height: '100%'
+                      height: '100%',
                     }}>
-                    {isImage ? 
-                    <img
-                      src={"http://192.168.227.255:8080"+row.thumbnail}
-                      alt="profile"
-                    /> : <img src = "http://192.168.227.255:8080/image/bf8354c1-6156-4ba1-8b48-b4028c614f61.png" alt="profile"/>
+                    {(row.thumbnail != null)? 
+                      <img
+                        src={"http://jueleejue.iptime.org:80"+row.thumbnail.path}
+                        width="100px" height="100px"
+                      /> : 
+                      <img 
+                        //src = "http://192.168.227.255:8080/image/bf8354c1-6156-4ba1-8b48-b4028c614f61.png" 
+                        alt="profile"
+                        width="100px" height="100px"
+                      />
                     }
                   </div>
                   <div

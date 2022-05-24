@@ -5,8 +5,11 @@ import Api from 'API/Api';
 
 const { kakao } = window;
 
+let markerList=[];
+
 const Map = () => {
     const mapRef = useRef();
+    let clusterer = useRef();
 
     const [cordX, setCordX] = useState(128.41015);
     const [cordY, setCordY] = useState(36.13654);
@@ -26,6 +29,17 @@ const Map = () => {
         var zoomControl = new kakao.maps.ZoomControl();
         mapRef.current.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
+        clusterer.current = new kakao.maps.MarkerClusterer({
+            map: mapRef.current, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
+            averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
+            minClusterSize: 1,
+            minLevel: 3,
+            calculator: [1, 3, 5, 10],
+            disableClickZoom: true 
+        });
+    },[]);
+    
+    useEffect(() => {
         if (level >= 5) {
             const response = async () => await Api.getLocation(cordX, cordY, level)
             const getData = async () => {
@@ -66,11 +80,17 @@ const Map = () => {
         });
 
     }, [cordX, cordY, level]);
-
+    
+    //마커들 비우기
+    function resetMarkers() {
+        markerList.forEach(m => {m.setMap(null)});
+        markerList=[];
+        clusterer.current.clear();
+    }
     //동, 시 마커 디자인
     function markerCityTown(infoList, color) {
         infoList.forEach(info => {
-            var content = `<div class="box" 
+            let content = `<div class="box" 
             style="display:block; border-radius:6px; border: 1px solid #ccc;
             border-bottom:2px solid #ddd; text-align:center; font-size:15px;
             background:#fff;">
@@ -80,22 +100,24 @@ const Map = () => {
                 <span class="number" style="padding:5px">${info.price}원</span>
             </div>`;
             // 커스텀 오버레이가 표시될 위치입니다 
-            var position = new kakao.maps.LatLng(info.lat, info.lng);
+            let position = new kakao.maps.LatLng(info.lat, info.lng);
             // 커스텀 오버레이를 생성합니다
-            var customOverlay = new kakao.maps.CustomOverlay({
+            let customOverlay = new kakao.maps.CustomOverlay({
                 position: position,
                 content: content
             });
             // 커스텀 오버레이를 지도에 표시합니다
             customOverlay.setMap(mapRef.current);
+            markerList.push(customOverlay);
         })
     }
 
     /*------------------------마커 띄우기------------------------------*/
-    var imageSrc = 'https://ifh.cc/g/SafXNw.png'; //금방 마커이미지
+    let imageSrc = 'https://ifh.cc/g/SafXNw.png'; //금방 마커이미지
     useEffect(() => {
-        var imageSize = new kakao.maps.Size(50, 50); // 마커이미지의 크기
-        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+        let imageSize = new kakao.maps.Size(50, 50); // 마커이미지의 크기
+        let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+        resetMarkers();
         /*------------------------레벨 조건 시작-----------------------------*/
         if (level >= 9) {
             const infos = postBody.map(info => {
@@ -109,7 +131,7 @@ const Map = () => {
                 )
             });
             console.log(postBody);
-            markerCityTown(infos, 'green');
+            markerCityTown(infos, 'limeGreen');
         }
         else if (level >= 5) {
             const infos = postBody.map(info => {
@@ -124,108 +146,97 @@ const Map = () => {
               });
             markerCityTown(infos, 'orange');
         }
-        else if(level >= 3) {
-            var clusterer = new kakao.maps.MarkerClusterer({
-                map: mapRef.current, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
-                averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
-                minClusterSize: 1,
-                calculator: [1, 3, 5, 10],
-                disableClickZoom: true 
-            });
-
-            var markers = postBody.map(cl => {
-                return new kakao.maps.Marker({
-                    position : new kakao.maps.LatLng(cl.enty, cl.entx)
-                });
-            })
-            
-            clusterer.addMarkers(markers);
-            kakao.maps.event.addListener(clusterer, 'clusterclick', function(cluster) {
-                // 현재 지도 레벨에서 1레벨 확대한 레벨
-                var level = mapRef.current.getLevel()-1;
-                // 지도를 클릭된 클러스터의 마커의 위치를 기준으로 확대합니다
-                mapRef.current.setLevel(level, {anchor: cluster.getCenter()});
-            });
-        }
         else {
-          const overlayInfos = postBody.map(info => {
-              if(info.thumbnail === null) {
-                return (
-                  {
+            const overlayInfos = postBody.map(info => {
+                if(info.thumbnail === null) {
+                    return (
+                      {
+                        title: info.title,
+                        start: info.durationStart,
+                        end: info.durationEnd,
+                        price: info.price,
+                        lat: info.enty,
+                        lng: info.entx,
+                        img: "/image/bf8354c1-6156-4ba1-8b48-b4028c614f61.png",
+                      }
+                    )
+                }
+                return ({
                     title: info.title,
                     start: info.durationStart,
                     end: info.durationEnd,
                     price: info.price,
                     lat: info.enty,
                     lng: info.entx,
-                    img: "/image/bf8354c1-6156-4ba1-8b48-b4028c614f61.png",
+                    img: info.thumbnail.path,
+                });
+            });
+
+            console.log(level);
+
+            overlayInfos.forEach(el => {
+                let marker = new kakao.maps.Marker({
+                    map: mapRef.current,
+                    position: new kakao.maps.LatLng(el.lat, el.lng),
+                    title: el.title,
+                    image: markerImage
+                });
+
+                //배열에 마커 추가
+                markerList.push(marker);
+
+                let content =
+                    '<div class="wrap">' +
+                    '    <div class="info">' +
+                    '       <div class="title">' +
+                    `         <h3 class="accommName">${el.title}</h3>` +
+                    '       </div>' +
+                    '       <div class="body">' +
+                    '            <div class="img">' +
+                    `               <img src="http://jueleejue.iptime.org:80${el.img}" width="100" height="100">` +
+                    '            </div>' + 
+                    '            <div class="desc">' + 
+                    `               <p class="accommPeriod">양도 기간</p>` +
+                    `               <p class="accommPeriod">${el.start}~${el.end}</p>` +
+                    `               <h3 class="accommPrice">₩${Number(el.price).toLocaleString()}/박</h3>` +
+                    '            </div>' +
+                    '       </div>' +
+                    '    </div>' +
+                    '</div>';
+
+                let position = new kakao.maps.LatLng(el.lat, el.lng);
+                let customOverlay = new kakao.maps.CustomOverlay({
+                    position: position,
+                    content: content,
+                    clickable: true,
+                });
+
+                let toggle = true;
+                kakao.maps.event.addListener(marker, 'click', function () {
+                  if(toggle === true){
+                      customOverlay.setMap(mapRef.current);
+                      return toggle = false;
                   }
-                )
-              }
-              return ({
-                  title: info.title,
-                  start: info.durationStart,
-                  end: info.durationEnd,
-                  price: info.price,
-                  lat: info.enty,
-                  lng: info.entx,
-                  img: info.thumbnail.path,
-              });
-          });
-          console.log(level);
-          overlayInfos.forEach(el => {
-              let marker = new kakao.maps.Marker({
-                  map: mapRef.current,
-                  position: new kakao.maps.LatLng(el.lat, el.lng),
-                  title: el.title,
-                  image: markerImage
-              });
-              console.log(marker.getPosition(), level)
-              let content =
-                  '<div class="wrap">' +
-                  '    <div class="info">' +
-                  '       <div class="title">' +
-                  `         <h3 class="accommName">${el.title}</h3>` +
-                  '       </div>' +
-                  '       <div class="body">' +
-                  '            <div class="img">' +
-                  `               <img src="http://jueleejue.iptime.org:80${el.img}" width="100" height="100">` +
-                  '            </div>' + 
-                  '            <div class="desc">' + 
-                  `               <p class="accommPeriod">양도 기간</p>` +
-                  `               <p class="accommPeriod">${el.start}~${el.end}</p>` +
-                  `               <h3 class="accommPrice">₩${Number(el.price).toLocaleString()}/박</h3>` +
-                  '            </div>' +
-                  '       </div>' +
-                  '    </div>' +
-                  '</div>';
-              let position = new kakao.maps.LatLng(el.lat, el.lng);
-              let customOverlay = new kakao.maps.CustomOverlay({
-                  position: position,
-                  content: content,
-                  clickable: true,
-              });
-              let toggle = true;
-              kakao.maps.event.addListener(marker, 'click', function () {
-                if(toggle === true){
-                    customOverlay.setMap(mapRef.current);
-                    return toggle = false;
-                }
-                if(toggle === false){
-                    customOverlay.setMap(null);
-                    return toggle = true;
-                }
-              });
-              // 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
-              function closeOverlay() {
-                customOverlay.setMap(null);     
-              }
+                  if(toggle === false){
+                      customOverlay.setMap(null);
+                      return toggle = true;
+                  }
+                });
+
+                clusterer.current.addMarker(marker);
+                
             //   kakao.maps.event.addListener(marker, 'mouseout', function () {
             //       setTimeout(function () {
             //           customOverlay.setMap(null);
             //       },1000);
             //   });
-          });
+            });
+            kakao.maps.event.addListener(clusterer.current, 'clusterclick', function(cluster) {
+                // 현재 지도 레벨에서 1레벨 확대한 레벨
+                let level = mapRef.current.getLevel()-1;
+                // 지도를 클릭된 클러스터의 마커의 위치를 기준으로 확대합니다
+                mapRef.current.setLevel(level, {anchor: cluster.getCenter()});
+            });
         }
     }, [postBody]);
 

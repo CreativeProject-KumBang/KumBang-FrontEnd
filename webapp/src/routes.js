@@ -30,6 +30,7 @@ import ReadRoomBoardDetail from 'components/RoomBoard/readRoomBoardDetail/readRo
 import ReadRoomBoardList from 'components/RoomBoard/readRoomBoardList/ReadRoomBoardList';
 import Product from 'products';
 import Dashboard from 'components/Mypage/board';
+import MypageLayout2 from 'components/Mypage/MypageLayout2';
 
 const routes = [
 	{
@@ -78,6 +79,10 @@ const routes = [
 		  { path: "", element: <Authentication /> },
 		  { path: "detail", element: <SignUp /> }
 		],
+	},
+	{
+		path: "mypage",
+		element: <MypageLayout2/>
 	},
 	{
 		path: "mypage",
