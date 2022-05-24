@@ -29,7 +29,6 @@ const postFormReqest = async (path, body) => {
 };
 
 const postJsonReqest = async (path, body) => {
-    console.log(body);
     try {
         const data = await client.post(path, body, {
             headers: {

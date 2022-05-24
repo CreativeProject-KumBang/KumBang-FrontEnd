@@ -87,7 +87,7 @@ const ReadChatDetail = () => {
          children:
             <MessageRight message={message}></MessageRight>
       })
-      rootElement.append(<MessageRight message={message}></MessageRight>);
+      rootElement.append(elemet);
       //ReactDOM.render(elemet, rootElement);
       /*
       // if 내가 sender 라면?
