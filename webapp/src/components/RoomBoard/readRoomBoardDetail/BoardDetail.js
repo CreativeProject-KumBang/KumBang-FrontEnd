@@ -3,14 +3,14 @@ import styled from "styled-components";
 import moment from 'moment';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import { Divider, Box } from '@mui/material';
+import { Divider, Box, Button } from '@mui/material';
 import Slider from 'components/RoomBoard/readRoomBoardDetail/Slider';
 import SkeletonBoardDetail from 'components/RoomBoard/readRoomBoardDetail/SkeletonBoardDetail'
 import PriceTable from 'components/RoomBoard/readRoomBoardDetail/PriceTable';
 import Api from 'API/Api';
 
 const StyledH3 = styled.h3`
-  padding: 4px 15px;
+  padding: 2px 15px;
 `;
 
 const StyledH5 = styled.h4`
@@ -31,11 +31,15 @@ const BoardDetail = (props) => {
   let board = props.board;
   const [bookmark, setBookmark] = useState(false);
   const checkList = ["에어컨", "냉장고", "세탁기", "가스레인지", "전자레인지", "책상", "책장", "옷장", "신발장"];
+  // 채팅방 생성 API
+  const board_id = props.boardId;
+  const postchat = async () => await Api.postChatRoom(board_id);
 
+  // --------------------거래 가격 정보 테이블 관련--------------------
   function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
   }
-  
+
   const prices = [
     createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
     createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
@@ -43,69 +47,89 @@ const BoardDetail = (props) => {
     createData('Cupcake', 305, 3.7, 67, 4.3),
     createData('Gingerbread', 356, 16.0, 49, 3.9),
   ];
-    const id = 3; 
-    function handleBookmark() {}
-    // const handleBookmark = async (id) => {
-    //   if (sessionStorage.getItem('user_token')) {
-    //       if (bookmark === false) {
-    //           const response = async () => await Api.getBoardLike(id);
-    //           const getdata = async () => {
-    //               const data = await response(); // 우려 사항: 이거 필요없을 수도 있음
-    //               setlikes(true);
-    //           };
-    //           getdata();
-    //       } else {
-    //         const response = async () => await Api.getBoardUnlike(id);
-    //           const getdata = async () => {
-    //               const data = await response(); // 우려 사항: 이거 필요없을 수도 있음
-    //               setlikes(false);
-    //           };
-    //           getdata();
-    //       }
-    //       setBookmark(!bookmark);
-    //   } else {
-    //       alert('로그인이 필요합니다');
-    //   }
-    // };
-    
+
+  // ----------------------------------------
+  function createChatRoom() {
+    postchat();
+  }
+
+  const id = 3;
+  function handleBookmark() { }
+  // const handleBookmark = async (id) => {
+  //   if (sessionStorage.getItem('user_token')) {
+  //       if (bookmark === false) {
+  //           const response = async () => await Api.getBoardLike(id);
+  //           const getdata = async () => {
+  //               const data = await response(); // 우려 사항: 이거 필요없을 수도 있음
+  //               setlikes(true);
+  //           };
+  //           getdata();
+  //       } else {
+  //         const response = async () => await Api.getBoardUnlike(id);
+  //           const getdata = async () => {
+  //               const data = await response(); // 우려 사항: 이거 필요없을 수도 있음
+  //               setlikes(false);
+  //           };
+  //           getdata();
+  //       }
+  //       setBookmark(!bookmark);
+  //   } else {
+  //       alert('로그인이 필요합니다');
+  //   }
+  // };
+
   return (
     <div>
 
-      {(!(board.length===0)) ? (
+      {(!(board.length === 0)) ? (
         <div>
           <StyledH5>이미지 슬라이드</StyledH5>
           <StyledDiv>
             <Slider files={board.files}></Slider>
           </StyledDiv>
 
-          <Box
-            sx={{
-              float: 'right'
-            }}
-          >
-            {bookmark ? (
-              <FavoriteIcon
-                sx={{
-                  display: 'inline-block',
-                  marginLeft: 2,
-                  color: 'red',
-                  fontSize: 40
-                }}
-                onClick={() => handleBookmark(id)}
-              />
-            ) : (
-              <FavoriteBorderIcon
-                sx={{
-                  display: 'inline-block',
-                  marginLeft: 2,
-                  color: 'red',
-                  fontSize: 40
-                }}
-                onClick={() => handleBookmark(id)}
-              />
-            )}
+          <StyledDiv>
+            <Button 
+                variant="outlined"
+                fullWidth
+                color="success"
+                onClick={createChatRoom()}
+                >채팅하기</Button>
+          </StyledDiv>
+
+          <Box>
+            <StyledH3>제목
+            <Box
+              sx={{
+                float: 'right'
+              }}
+            >
+              {bookmark ? (
+                <FavoriteIcon
+                  sx={{
+                    display: 'inline-block',
+                    marginLeft: 2,
+                    color: 'red',
+                    fontSize: 40
+                  }}
+                  onClick={() => handleBookmark(id)}
+                />
+              ) : (
+                <FavoriteBorderIcon
+                  sx={{
+                    display: 'inline-block',
+                    marginLeft: 2,
+                    color: 'red',
+                    fontSize: 40
+                  }}
+                  onClick={() => handleBookmark(id)}
+                />
+              )}
+            </Box>
+            </StyledH3>
+            
           </Box>
-          <StyledH3>제목</StyledH3>
+
           <Divider variant="middle" />
           <StyledDiv>
             <StyledH4>{board.title}</StyledH4>

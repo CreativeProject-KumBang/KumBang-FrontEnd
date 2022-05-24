@@ -3,8 +3,7 @@ import { Outlet } from 'react-router-dom';
 import styled from "styled-components";
 import Header from 'components/Layout/Header/header';
 import Map from 'components/Map/Map';
-import Grid from '@mui/material/Grid';
-import { Hidden, Paper } from '@mui/material';
+import { Hidden, Paper, Grid, Box } from '@mui/material';
 
 const StyledLayout = styled.div`
     padding-top: 80px;
@@ -19,18 +18,21 @@ const BoardMapLayout = () => {
    return (
       <StyledLayout>
          <Header />
-         <Grid container>
-            <Grid lg={4} md={4} sm={12} xs={12} >
-               <Paper>
-                  <Outlet></Outlet>
-               </Paper>
+         <Box>
+            <Grid container>
+                  <Grid lg={4} md={4} sm={12} xs={12} >
+                     <Box sx={{overflowY: "scroll", height: "calc( 100% - 80px )"}}>
+                        <Outlet />
+                     </Box>
+
+                  </Grid>
+
+                  <Grid lg={8} md={8} >
+                     <Map />
+                  </Grid>
             </Grid>
-            <Hidden mdDown>
-               <Grid lg={8} md={8} >
-                  <Map></Map>
-               </Grid>
-            </Hidden>
-         </Grid>
+         </Box>
+
       </StyledLayout>
    );
 

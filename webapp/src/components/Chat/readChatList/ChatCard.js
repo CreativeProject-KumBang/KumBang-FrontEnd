@@ -41,9 +41,13 @@ const ChatCard = () => {
     const [getbody, setGetBody] = useState([]);
     const response = async () => await Api.getChatList();
     const imageurl = "default";
+    //const response2 = async () => await Api.postChatRoom();
+    
 
     useEffect(() => {
         const getData = async () => {
+            //const resBody2 = await response2();
+            //console.log(resBody2);
             const resBody = await response();
             console.log(resBody);
             setGetBody(resBody.data.response[0].content);

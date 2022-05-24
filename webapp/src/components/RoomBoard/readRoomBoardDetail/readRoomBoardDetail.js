@@ -11,13 +11,16 @@ const StyledDiv = styled.div`
 `;
 
 const ReadRoomBoardDetail = () => {
-  const board_id = 9; // dummycode
+  //const [likes, setlikes] = useState(like);
   //const board_id = useLocation().state.boardId;
-
   const [board, setBoard] = useState([]); // board
   const [bookmark, setBookmark] = useState(false); // bookmark
   const [isImage, setIsImage] = useState(true); // 이미지 존재 여부 확인해서 변수에 담고 렌더링
-  //const [likes, setlikes] = useState(like);
+  // 방 양도 글 상세조회 API
+  const response = async () => await Api.getRoomBoard(board_id);
+
+  /**************************************dummycode*********************************************/
+  const board_id = 1; // dummycode
   /*const board = {
     "title": "test title",
     "content": "test content",
@@ -44,24 +47,23 @@ const ReadRoomBoardDetail = () => {
     "files": ["urls"]
   };*/
 
-  //const response = useState(); // front
-  //const back = useState();
-
-  const response = async () => await Api.getRoomBoard(board_id);
-
-  useEffect(() => {
-    const getData = async () => {
-      const resBody = await response();
-      console.log(resBody);
-      setBoard(resBody.data.response[0]);
-      if (board.image === undefined) {
-        setIsImage(false);
+  
+    useEffect(() => {
+      const getData = async () => {
+        const resBody = await response();
+        console.log(resBody);
+        setBoard(resBody.data.response[0]);
+        if (board.image === undefined) {
+          setIsImage(false);
+        }
       }
-    }
-    getData();
-  }, []);
+      getData();
+    }, []);
+  
+  /* dummy code
+    //const response = useState(); // front
+    //const back = useState();
 
-  /*
       useEffect(() => {
           setTimeout(async () => {
             console.log("load");
@@ -70,8 +72,6 @@ const ReadRoomBoardDetail = () => {
             const data = await response.json();
             console.log(data);
             setBoard(data);
-            setIsLoad(true); // skeleton api 데이터 받아와서 load 완료
-  
           }, 5000);
   
           if (sessionStorage.getItem('user_token')) {
@@ -90,7 +90,7 @@ const ReadRoomBoardDetail = () => {
 
     <div>
       <StyledDiv>
-          <BoardDetail board={board}> </BoardDetail>
+        <BoardDetail boardId={board_id} board={board}> </BoardDetail>
       </StyledDiv>
 
       <div id='latitude'></div>

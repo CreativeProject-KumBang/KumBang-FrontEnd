@@ -29,7 +29,6 @@ const postFormReqest = async (path, body) => {
 };
 
 const postJsonReqest = async (path, body) => {
-    console.log(body);
     try {
         const data = await client.post(path, body, {
             headers: {
@@ -189,7 +188,7 @@ const Api = {
 
     // 채팅방 생성(게시물 정보)
     postChatRoom: async (board_id) => {
-        return await postJsonReqest(``, board_id);
+        return await postJsonReqest(`chat/${board_id}`);
     },
 
     // 내 정보를 주고 채팅방 목록(매물정보 포함) 요청
