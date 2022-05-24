@@ -19,6 +19,12 @@ function connect() {
         setConnected(true);
         console.log('Connected: ' + frame);
         stompClient.subscribe('/topic/greetings', function (greeting) {
+            /* TODO:
+                // 내가 남의 걸 읽음을 알려주는 요청
+                if (greeting.body.sender.id != myId) {
+                    `api/chat/isread`, greeting.body.id
+                }
+            */
             showGreeting(JSON.parse(greeting.body).content);
         });
     });
