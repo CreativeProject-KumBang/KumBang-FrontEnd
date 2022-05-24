@@ -83,7 +83,7 @@ const routes = [
 		path: "mypage",
 		element: <MypageLayout />,
 		children: [
-			{ path: "info/:id", element: <Info /> },
+			{ path: "info", element: <Info /> },
 		  	{ path: "post", element: <MyPost /> },
 			{ path: "transaction", element: <Transaction /> },
 		  	{ path: "chatbox", element: <ChatBox /> },
