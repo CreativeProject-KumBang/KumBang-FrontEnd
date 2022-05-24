@@ -77,13 +77,18 @@ const ReadChatDetail = () => {
       });
    }
 
+   function showGreeting(message) {
+      $("#style-1").append("<tr><td>" + message + "</td></tr>");
+  }
+
    function showMessage(message) {
       const rootElement = document.getElementById('style-1');
       const elemet = React.createElement('div', {
          children:
             <MessageRight message={message}></MessageRight>
       })
-      ReactDOM.render(elemet, rootElement);
+      rootElement.append(<MessageRight message={message}></MessageRight>);
+      //ReactDOM.render(elemet, rootElement);
       /*
       // if 내가 sender 라면?
          <MessageRight message={message}></MessageRight>
