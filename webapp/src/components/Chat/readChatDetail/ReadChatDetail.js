@@ -9,7 +9,6 @@ import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import $ from "jquery";
 import Api from "API/Api";
-import * as ReactDOM from 'react-dom';
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 
@@ -24,10 +23,10 @@ const useStyles = makeStyles((theme) =>
    createStyles({
 
       paper: {
-         width: "80vw",
-         height: "80vh",
-         maxWidth: "500px",
-         maxHeight: "700px",
+         width: "100vw",
+         height: "100vh",
+         // maxWidth: "500px",
+         // maxHeight: "700px",
          display: "flex",
          alignItems: "center",
          flexDirection: "column",
@@ -46,6 +45,8 @@ const useStyles = makeStyles((theme) =>
          justifyContent: "center",
          width: "95%",
          margin: "0 auto",
+         position: 'absolute',
+         bottom:0
       },
       wrapText: {
          width: "100%"
@@ -106,8 +107,14 @@ const ReadChatDetail = () => {
          console.log(data);
          stompClient.subscribe(`/user/` + data + `/queue/messages`, function (greeting) {
             const greeting_data = JSON.parse(greeting.body);
-            setGreetings([...greetings, greeting_data.sender.id]);
-            setMessages([...messages, greeting_data.content]);
+
+            setGreetings(greetings => [...greetings, greeting_data.sender.id]); //list
+            setMessages(messages => [...messages, greeting_data.content]); // list
+
+            const textfield = document.getElementById("standard-text");
+            textfield.value = "";
+
+            console.log("ddd");
             /* TODO: 내가 남의 걸 읽음을 알려주는 요청
 
             if (greeting.body.sender.id != myId) {
@@ -118,14 +125,6 @@ const ReadChatDetail = () => {
             //showMessage(JSON.parse(greeting.body).content);
          });
       });
-   }
-
-   function showGreeting(message) {
-      $("#style-1").append("<tr><td>" + message + "</td></tr>");
-   }
-
-   function Welcome(message) {
-      return <MessageRight message={message}></MessageRight>;
    }
 
    function showMessage(message) {
@@ -142,7 +141,13 @@ const ReadChatDetail = () => {
 
    function sendMessage() {
       console.log(stompClient);
-      stompClient.send("/broadcast/publish", {}, JSON.stringify(chatData));
+      stompClient.send("/broadcast/publish", {}, JSON.stringify({
+         roomId: roomId,
+         content: message,
+         sender: { id: myId }
+      }));
+      
+      setMessage("null");
    }
 
    useEffect(() => {
@@ -163,7 +168,6 @@ const ReadChatDetail = () => {
       }
       getData();
    }, []);
-
 
 
    return (
@@ -189,19 +193,19 @@ const ReadChatDetail = () => {
             </Paper>
             <Paper className={classes.paper} zDepth={2}>
                <Paper id="style-1" className={classes.messagesBody} >
-                  {greetings.map(row => (
-                     (greetings[row] === myId) ?
-                        (<>
-                           <MessageRight message={messages[row]}></MessageRight>
+                     {greetings.map((row, id) => (
+                        (greetings[id] === myId) ?
 
-                        </>) : (<>
-                           <MessageLeft message={messages[row]}></MessageLeft>
+                           (<>
+                              <MessageRight message={messages[id]}></MessageRight>
 
-                        </>)
-                  ))
+                           </>) : (<>
+                              <MessageLeft message={messages[id]}></MessageLeft>
 
-                  }
+                           </>)
+                     ))
 
+                     }
                </Paper>
                <form className={classes.wrapForm} noValidate autoComplete="off">
                   <TextField
@@ -215,7 +219,7 @@ const ReadChatDetail = () => {
                         margin: "normal"
                      }}
                   />
-                  <Button variant="contained" color="primary" className={classes.button}
+                  <Button id="chatbutton" variant="contained" color="primary" className={classes.button}
                      sx={{ float: "bottom" }} onClick={sendMessage}>
                      <SendSharpIcon />
                   </Button>
