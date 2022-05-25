@@ -5,7 +5,7 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
-const token = sessionStorage.getItem('user_token');
+const baseUrl = "http://192.168.237.100:8080";
 
 const BoardCardContent = (props) => {
   const { id, title, writer, image, price, deposit, durationStart, durationEnd } = props;
@@ -46,11 +46,11 @@ const BoardCardContent = (props) => {
                     }}>
                     {isImage ?
                       (<img
-                        src={"http://192.168.227.255:8080" + image}
+                        src={baseUrl + image}
                         alt="profile"
                       />) : (
-                      <img src="http://192.168.227.255:8080/image/bf8354c1-6156-4ba1-8b48-b4028c614f61.png" alt="profile" />
-                    )}
+                        <img src={baseUrl + "/image/bf8354c1-6156-4ba1-8b48-b4028c614f61.png"} alt="profile" />
+                      )}
                   </div>
                 </Grid>
 

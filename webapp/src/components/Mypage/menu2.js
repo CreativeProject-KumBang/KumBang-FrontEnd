@@ -19,7 +19,7 @@ export const mainListItems = (
                 거래 내역
             </ListItemButton>
         </Link>
-        <Link href='/mypage/chatbox' underline='none' color={'#666'} >
+        <Link href='/mypage/chatlist' underline='none' color={'#666'} >
             <ListItemButton sx={{ paddingLeft: '30px', height: '75px', fontSize: '18px', ":hover": { color: 'white', backgroundColor: "#ffca09"} }}>
                 채팅 내역
             </ListItemButton>

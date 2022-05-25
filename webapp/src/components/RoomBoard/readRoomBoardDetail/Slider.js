@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import styled from 'styled-components';
 
+const baseUrl = "http://192.168.237.100:8080";
+
 const IMG = styled.img`
   width: 100%;
   //height: 70vh;
@@ -85,7 +87,7 @@ function Slider(props) {
         <div>
           <Container>
             <div id="slider" style={divStyle} >
-              {files.map((img, i) => <IMG src={"http://192.168.239.130:8080" + img.path} key={i} />)}
+              {files.map((img, i) => <IMG src={baseUrl + img.path} key={i} />)}
             </div>
           </Container>
           <div>

@@ -5,6 +5,8 @@ import ChatCardContent from 'components/Chat/readChatList/ChatCardContent';
 import SkeletonChatList from 'components/Chat/readChatList/SkeletonChatList';
 import Api from 'API/Api';
 
+const default_imageurl = "default";
+
 const StyledBox = styled.div`
     height: 100%;
     padding: 0px 0px;
@@ -40,10 +42,7 @@ const Item = styled.li`
 const ChatCard = () => {
     const [getbody, setGetBody] = useState([]);
     const response = async () => await Api.getChatList();
-    const imageurl = "default";
-    //const response2 = async () => await Api.postChatRoom();
     
-
     useEffect(() => {
         const getData = async () => {
             //const resBody2 = await response2();
@@ -55,32 +54,12 @@ const ChatCard = () => {
         getData();
     }, []);
 
-    /*
-        const getbody = {
-            content: [{
-                "roomId": 1,
-                "title": "test title",
-                "image": "image1",
-                "userId": "userID",
-                "date": "2022-04-05",
-            }, {
-                "roomId": 1,
-                "title": "test title",
-                "image": "image1",
-                "userId": "userID",
-                "date": "2022-04-05",
-            }]
-    
-        };*/
     return (
         <div>
             {(!(getbody.length === 0)) ? (
 
                 <List>
                     <Item>
-
-
-                        {console.log(getbody)}
                         {getbody.map(row => (<>
 
                                 <
@@ -97,11 +76,7 @@ const ChatCard = () => {
                                 <Divider />
                         </>
                         ))}
-
-
-
                     </Item>
-
                 </List>
             ) : (
                 <SkeletonChatList></SkeletonChatList>

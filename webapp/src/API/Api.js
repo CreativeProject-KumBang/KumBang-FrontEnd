@@ -6,6 +6,8 @@ const getRequest = async (path, params = {}) => {
     try {
         console.log(client.getUri());
         const data = await client.get(path, params);
+        console.log("get data:  ",data);
+        console.log("get path:  ",path);
         return data;
     } catch (e) {
         console.log(e);
@@ -21,7 +23,8 @@ const postFormReqest = async (path, body) => {
                 'Content-Type': 'multipart/form-data',
             }
         })
-
+        console.log("post data:  ",data);
+        console.log("post path:  ",path);
         return data;
     } catch (e) {
         console.log(e);
@@ -36,6 +39,8 @@ const postJsonReqest = async (path, body) => {
                 'Content-Type': 'application/json'
             }
         })
+        console.log("post data:  ",data);
+        console.log("post path:  ",path);
         return data;
     } catch (e) {
         console.log(e);
@@ -50,7 +55,7 @@ const putJsonReqest = async (path, body) => {
                 'Content-Type': 'application/json'
             }
         })
-
+        console.log("put:  ",data);
         return data;
     } catch (e) {
         console.log(e);
@@ -65,7 +70,7 @@ const deleteJsonReqest = async (path) => {
                 'Content-Type': 'application/json'
             }
         })
-
+        console.log("delete:  ",data);
         return data;
     } catch (e) {
         console.log(e);
@@ -197,18 +202,24 @@ const Api = {
 
     // 내 정보를 주고 채팅방 목록(매물정보 포함) 요청
     getChatList: async () => {
-        return await getRequest(`/chat/rooms/`);
+        return await getRequest(`/chat/rooms`);
     },
 
     // 내 정보를 주고 채팅방의 History 조회
-    getChatContents: async () => {
-        return await getRequest(``);
+    getChatContents: async (room_id) => {
+        return await getRequest(`/chat/history/${room_id}`);
     },
 
     // 내가 쓴 채팅 내용 전송
     postChatContent: async () => {
-        return await postJsonReqest(`/broadcast`, );
+        return await postJsonReqest(`/broadcast`,);
     },
+
+    // 채팅 읽음 
+    postChatIsRead: async (msg_id) => {
+        return await postJsonReqest(`chat/isread`, msg_id);
+    },
+
 };
 
 export default Api;

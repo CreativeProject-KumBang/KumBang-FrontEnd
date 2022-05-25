@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 import moment from 'moment';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -8,6 +9,8 @@ import Slider from 'components/RoomBoard/readRoomBoardDetail/Slider';
 import SkeletonBoardDetail from 'components/RoomBoard/readRoomBoardDetail/SkeletonBoardDetail'
 import PriceTable from 'components/RoomBoard/readRoomBoardDetail/PriceTable';
 import Api from 'API/Api';
+
+const checkList = ["에어컨", "냉장고", "세탁기", "가스레인지", "전자레인지", "책상", "책장", "옷장", "신발장"];
 
 const StyledH3 = styled.h3`
   padding: 2px 15px;
@@ -28,12 +31,17 @@ const StyledDiv = styled.div`
 `;
 
 const BoardDetail = (props) => {
-  let board = props.board;
-  const [bookmark, setBookmark] = useState(false);
-  const checkList = ["에어컨", "냉장고", "세탁기", "가스레인지", "전자레인지", "책상", "책장", "옷장", "신발장"];
-  // 채팅방 생성 API
+  const navigate = useNavigate();
+
   const board_id = props.boardId;
-  const postchat = async () => await Api.postChatRoom(board_id);
+  const board = props.board;
+  const myId = props.myId;
+  const writerId = props.writerId;
+
+  const [bookmark, setBookmark] = useState(false);
+
+  const postchat = async () => await Api.postChatRoom(board_id);   // 채팅방 생성 API
+  const response = async () => await Api.getBoardLike(id);
 
   // --------------------거래 가격 정보 테이블 관련--------------------
   function createData(name, calories, fat, carbs, protein) {
@@ -48,13 +56,24 @@ const BoardDetail = (props) => {
     createData('Gingerbread', 356, 16.0, 49, 3.9),
   ];
 
-  // ----------------------------------------
-  function createChatRoom() {
-    postchat();
+  //----------------------------------------
+  async function createChatRoom() {
+    const res = await postchat();
+
+    console.log(res);
+
+    navigate('/chat/detail',{
+      state:{
+      roomId: res.data.response[0],
+      boardId: board_id,
+      boardTitle: board.title,
+      opponent: board.user.nickname
+    }})
   }
 
-  const id = 3;
-  function handleBookmark() { }
+  function handleBookmark() {
+
+  }
   // const handleBookmark = async (id) => {
   //   if (sessionStorage.getItem('user_token')) {
   //       if (bookmark === false) {
@@ -89,45 +108,54 @@ const BoardDetail = (props) => {
           </StyledDiv>
 
           <StyledDiv>
-            <Button 
+            {(!(myId === writerId)) ? (
+              <Button
                 variant="outlined"
                 fullWidth
                 color="success"
-                onClick={createChatRoom()}
-                >채팅하기</Button>
+                onClick={() => createChatRoom()}
+              >채팅하기</Button>
+            ) : (
+              <Button
+                disabled
+                variant="outlined"
+                fullWidth
+                color="success"
+              >채팅하기</Button>
+            )}
           </StyledDiv>
 
           <Box>
             <StyledH3>제목
-            <Box
-              sx={{
-                float: 'right'
-              }}
-            >
-              {bookmark ? (
-                <FavoriteIcon
-                  sx={{
-                    display: 'inline-block',
-                    marginLeft: 2,
-                    color: 'red',
-                    fontSize: 40
-                  }}
-                  onClick={() => handleBookmark(id)}
-                />
-              ) : (
-                <FavoriteBorderIcon
-                  sx={{
-                    display: 'inline-block',
-                    marginLeft: 2,
-                    color: 'red',
-                    fontSize: 40
-                  }}
-                  onClick={() => handleBookmark(id)}
-                />
-              )}
-            </Box>
+              <Box
+                sx={{
+                  float: 'right'
+                }}
+              >
+                {bookmark ? (
+                  <FavoriteIcon
+                    sx={{
+                      display: 'inline-block',
+                      marginLeft: 2,
+                      color: 'red',
+                      fontSize: 40
+                    }}
+                    onClick={() => handleBookmark(id)}
+                  />
+                ) : (
+                  <FavoriteBorderIcon
+                    sx={{
+                      display: 'inline-block',
+                      marginLeft: 2,
+                      color: 'red',
+                      fontSize: 40
+                    }}
+                    onClick={() => handleBookmark(id)}
+                  />
+                )}
+              </Box>
             </StyledH3>
-            
+
           </Box>
 
           <Divider variant="middle" />
