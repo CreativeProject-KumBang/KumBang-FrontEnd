@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
+import Api from 'API/Api';
 
 const StyledBox = styled.div`
     height: 100%;
@@ -40,16 +41,19 @@ const StyledButton = styled.button`
   }
 `;
 
-
-
 const Withdrawal = (props) => {
-    const { id, title, image, date } = props;
-    const postBody = {
-        item: [{
-            "reportId": 1,
-            "title": "신고합니다.",
-            "date": "2022-03-25",
-        }]
+
+    const handleWithdrawal = async () => {
+        let response = await Api.getWithdrawal();
+        console.log(response);
+        if (response.data.response[0] === "success") {
+          const target = '/';
+          sessionStorage.removeItem('user');
+          window.location.href = target;
+        }
+        else if(response.data.response[0] === "fail") {
+          alert('회원 탈퇴 실패');
+        }
     };
 
     return (
@@ -61,10 +65,16 @@ const Withdrawal = (props) => {
                 정말로 떠나시겠어요?
             </p>
             <></>
-            <StyledButton>
+            <StyledButton
+                onClick={handleWithdrawal}  
+            >
                 네
             </StyledButton>
-
+            <StyledButton>
+                아니오
+                {alert("잘 생각하셨어요!")}
+            </StyledButton>
+            
         </StyledBox>
     );
 };

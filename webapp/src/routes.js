@@ -4,11 +4,13 @@ import MainLayout from 'components/Layout/Main/MainLayout';
 import Main from 'components/Layout/Main/main';
 
 import Login from 'components/SignIn/Login';
+import Logout from 'components/SignIn/Logout';
 import SignUpLayout from 'components/SignUp/signUpLayout';
 import Authentication from 'components/SignUp/authentication';
 import SignUp from 'components/SignUp/signup';
 
 import MypageLayout from 'components/Mypage/MypageLayout';
+import MypageLayout2 from 'components/Mypage/MypageLayout2';
 import Info from 'components/Mypage/info';
 import MyPost from 'components/Mypage/mypost';
 import Transaction from 'components/Mypage/transaction';
@@ -30,7 +32,6 @@ import ReadRoomBoardDetail from 'components/RoomBoard/readRoomBoardDetail/readRo
 import ReadRoomBoardList from 'components/RoomBoard/readRoomBoardList/ReadRoomBoardList';
 import Product from 'products';
 import Dashboard from 'components/Mypage/board';
-import MypageLayout2 from 'components/Mypage/MypageLayout2';
 
 const routes = [
 	{
@@ -62,8 +63,11 @@ const routes = [
 		element: <Login />,
 		children: [
 		  { path: "login", element: <Login /> },
-		  { path: "boards", element: <Dashboard /> },
 		],
+	},
+	{
+		path: "logout",
+		element: <Logout />
 	},
 	{
 		path: "boards",

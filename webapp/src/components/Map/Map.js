@@ -241,13 +241,10 @@ const Map = () => {
     }, [postBody]);
 
     return (
-        <div className={cn("Map")}>
-            <div className="MapContainer" id="map" style={{
-                width: '100%',
-                height: '100vh'
-            }}></div>
-            <div id='result'></div>
-            <div id='result1'></div>
+        <div className="MapContainer" id="map" style={{
+            width: '100%',
+            height: '100%'
+        }}>
         </div>
     );
 };
