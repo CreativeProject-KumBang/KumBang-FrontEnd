@@ -104,6 +104,10 @@ const Api = {
     postSignup: async (info) => {
         return await postJsonReqest('/auth/signup', info);
     },
+    // 회원탈퇴
+    getWithdrawal: async () => {
+        return await deleteJsonReqest('/user');
+    },
     // Mypage--------------------------------------------------------------------------------
     // 내 정보 조회
     getMyInfo: async (userId) => {

@@ -21,13 +21,12 @@ const BoardMapLayout = () => {
          <Box>
             <Grid container>
                   <Grid lg={4} md={4} sm={12} xs={12} >
-                     <Box sx={{overflowY: "scroll", height: "calc(100vh)"}}>
+                     <Box sx={{overflowY: "scroll", height: "calc(100vh - 80px)"}}>
                         <Outlet />
                      </Box>
-
                   </Grid>
 
-                  <Grid lg={8} md={8} >
+                  <Grid lg={8} md={8} sx={{ height: 'calc(100vh - 80px)' }} >
                      <Map />
                   </Grid>
             </Grid>
