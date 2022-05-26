@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 
 const ChatCardContent = (props) => {
-    const { roomId, boardId, title, image, opponent, date, isRead } = props;
+    const { roomId, boardId, title, image, opponent, date, isRead, lastMsg } = props;
     const [isImage, setIsImage] = useState(true); // 이미지 존재 여부 확인해서 변수에 담고 렌더링
 
     return (
@@ -45,8 +45,8 @@ const ChatCardContent = (props) => {
                         <span style={{ fontSize: 16 }}>{date}</span>
                     </div>
                     <div id={roomId + '-row-isRead'}>
-                        <span style={{ fontSize: 16, float: "right" }}>{isRead}</span>
-                        <NotificationsActiveIcon style={{ color: "red" }}></NotificationsActiveIcon>
+                        <span style={{ color: "grey", fontSize: 16 }}>{lastMsg}</span>
+                        <NotificationsActiveIcon style={{ color: "red" ,float: "right" }}></NotificationsActiveIcon>
                     </div>
                 </div>
             </Link>

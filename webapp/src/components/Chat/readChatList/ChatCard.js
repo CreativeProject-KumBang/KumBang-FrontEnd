@@ -73,6 +73,7 @@ const ChatCard = () => {
                                         row.roomBoard.author.nickname : row.buyer.nickname}
                                     date={row.updatedAt}
                                     isRead={isRead}
+                                    lastMsg={row.lastMessage.content}
                                 />
                                 <Divider />
                         </>

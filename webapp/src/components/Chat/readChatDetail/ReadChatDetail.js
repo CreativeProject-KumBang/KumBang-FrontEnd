@@ -7,10 +7,11 @@ import { MessageLeft, MessageRight } from "components/Chat/readChatDetail/Messag
 import { createStyles, makeStyles } from "@mui/styles";
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
+import SendSharpIcon from '@mui/icons-material/SendSharp';
 import TextInput from "components/Chat/readChatDetail/TextInput"
 import Api from "API/Api";
+import { base_url } from "API/Url"
 
-const socketurl = "http://192.168.237.100:8080";
 var stompClient = null;
 
 const useStyles = makeStyles((theme) =>
@@ -95,7 +96,7 @@ const ReadChatDetail = () => {
    }
 
    async function connect(data) {
-      var socket = new SockJS(socketurl + '/ws');
+      var socket = new SockJS(base_url + '/ws');
       stompClient = Stomp.over(socket);
       stompClient.connect({}, function (frame) {
          console.log('Connected: ' + frame);
@@ -112,7 +113,7 @@ const ReadChatDetail = () => {
 
             // TODO: 내가 남의 걸 읽음을 알려주는 요청
             if (greeting_data.sender.id != myId) {
-               resIsRead(greeting_data.message.id);
+               resIsRead(greeting_data.id);
             }
 
          });
@@ -178,7 +179,7 @@ const ReadChatDetail = () => {
                </Box>
 
             </Box>
-            {/* <form className={classes.wrapForm} noValidate autoComplete="off">
+            <form className={classes.wrapForm} noValidate autoComplete="off">
                <TextField
                   id="standard-text"
                   label=""
@@ -194,8 +195,8 @@ const ReadChatDetail = () => {
                   sx={{ float: "bottom" }} onClick={sendMessage}>
                   <SendSharpIcon />
                </Button>
-            </form> */}
-            <TextInput message={message} setMessage={setMessage}></TextInput>
+            </form>
+            {/* <TextInput message={message} setMessage={setMessage}></TextInput> */}
          </Paper>
       </div>
    )
