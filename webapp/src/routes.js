@@ -32,6 +32,7 @@ import ReadRoomBoardDetail from 'components/RoomBoard/readRoomBoardDetail/readRo
 import ReadRoomBoardList from 'components/RoomBoard/readRoomBoardList/ReadRoomBoardList';
 import Product from 'products';
 import Dashboard from 'components/Mypage/board';
+import DatePickerComponent from 'components/Login/test';
 
 const routes = [
 	{
