@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Divider } from '@mui/material'
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 
 const ChatCardContent = (props) => {
-    const { roomId, boardId, title, image, opponent, date } = props;
+    const { roomId, boardId, title, image, opponent, date, isRead } = props;
     const [isImage, setIsImage] = useState(true); // 이미지 존재 여부 확인해서 변수에 담고 렌더링
 
     return (
@@ -43,6 +43,10 @@ const ChatCardContent = (props) => {
                     </div>
                     <div id={roomId + '-row-date'}>
                         <span style={{ fontSize: 16 }}>{date}</span>
+                    </div>
+                    <div id={roomId + '-row-isRead'}>
+                        <span style={{ fontSize: 16, float: "right" }}>{isRead}</span>
+                        <NotificationsActiveIcon style={{ color: "red" }}></NotificationsActiveIcon>
                     </div>
                 </div>
             </Link>

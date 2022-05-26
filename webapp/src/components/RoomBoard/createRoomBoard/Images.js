@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import styled from "styled-components";
 import Button from '@mui/material/Button';
 import Api from 'API/Api';
-import { FilterListOutlined } from '@material-ui/icons';
-
 
 const StyleImg = styled.img`
   max-width: 300px;

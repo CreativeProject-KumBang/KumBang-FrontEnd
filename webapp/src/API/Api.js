@@ -1,13 +1,10 @@
 
-import { TokenOutlined } from '@mui/icons-material';
 import client from 'API/axiosConfig';
 
 const getRequest = async (path, params = {}) => {
     try {
         console.log(client.getUri());
         const data = await client.get(path, params);
-        console.log("get data:  ",data);
-        console.log("get path:  ",path);
         return data;
     } catch (e) {
         console.log(e);
@@ -23,8 +20,6 @@ const postFormReqest = async (path, body) => {
                 'Content-Type': 'multipart/form-data',
             }
         })
-        console.log("post data:  ",data);
-        console.log("post path:  ",path);
         return data;
     } catch (e) {
         console.log(e);
@@ -39,8 +34,6 @@ const postJsonReqest = async (path, body) => {
                 'Content-Type': 'application/json'
             }
         })
-        console.log("post data:  ",data);
-        console.log("post path:  ",path);
         return data;
     } catch (e) {
         console.log(e);
@@ -55,7 +48,6 @@ const putJsonReqest = async (path, body) => {
                 'Content-Type': 'application/json'
             }
         })
-        console.log("put:  ",data);
         return data;
     } catch (e) {
         console.log(e);
@@ -70,7 +62,6 @@ const deleteJsonReqest = async (path) => {
                 'Content-Type': 'application/json'
             }
         })
-        console.log("delete:  ",data);
         return data;
     } catch (e) {
         console.log(e);

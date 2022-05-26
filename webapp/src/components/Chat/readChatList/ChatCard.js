@@ -4,8 +4,9 @@ import { Divider } from '@mui/material'
 import ChatCardContent from 'components/Chat/readChatList/ChatCardContent';
 import SkeletonChatList from 'components/Chat/readChatList/SkeletonChatList';
 import Api from 'API/Api';
+import { base_url } from 'API/Url';
 
-const default_imageurl = "default";
+const default_imageurl = base_url + "default";
 
 const StyledBox = styled.div`
     height: 100%;
@@ -45,8 +46,6 @@ const ChatCard = () => {
     
     useEffect(() => {
         const getData = async () => {
-            //const resBody2 = await response2();
-            //console.log(resBody2);
             const resBody = await response();
             console.log(resBody);
             setGetBody(resBody.data.response[0].content);
@@ -54,6 +53,7 @@ const ChatCard = () => {
         getData();
     }, []);
 
+    const isRead = "true";
     return (
         <div>
             {(!(getbody.length === 0)) ? (
@@ -68,10 +68,11 @@ const ChatCard = () => {
                                     boardId={row.roomBoard.id}
                                     title={row.roomBoard.title}
                                     image={(row.roomBoard.thumbnail === null) ?
-                                        (imageurl) : (row.roomBoard.thumbnail)}
+                                        (default_imageurl) : (row.roomBoard.thumbnail)}
                                     opponent={(row.isBuyer) ?
                                         row.roomBoard.author.nickname : row.buyer.nickname}
                                     date={row.updatedAt}
+                                    isRead={isRead}
                                 />
                                 <Divider />
                         </>

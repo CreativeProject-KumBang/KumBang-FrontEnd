@@ -174,9 +174,7 @@ const ReadChatDetail = () => {
                            <MessageLeft message={messages[id]}></MessageLeft>
 
                         </>)
-                  ))
-
-                  }
+                  ))}
                </Box>
 
             </Box>

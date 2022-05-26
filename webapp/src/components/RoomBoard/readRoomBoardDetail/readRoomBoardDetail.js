@@ -4,6 +4,7 @@ import styled from "styled-components";
 import BoardDetail from 'components/RoomBoard/readRoomBoardDetail/BoardDetail'
 import SkeletonBoardDetail from 'components/RoomBoard/readRoomBoardDetail/SkeletonBoardDetail'
 import Api from 'API/Api';
+import { base_url } from 'API/Url';
 
 const StyledDiv = styled.div`
     padding: 6px 20px;
@@ -12,6 +13,9 @@ const StyledDiv = styled.div`
 
 const ReadRoomBoardDetail = () => {
   //const board_id = useLocation().state.boardId;
+  const board_id = location.href
+  .split('/')
+  [location.href.split('/').length - 1].split('.')[0];
 
   const [board, setBoard] = useState([]); // board
   const [myId, setMyId] = useState(); // 나의 id
@@ -25,7 +29,7 @@ const ReadRoomBoardDetail = () => {
   const resMyId = async () => await Api.getMyInfo();
   
   /**************************************dummycode*********************************************/
-  const board_id = 2; // dummycode
+  //const board_id = 2; // dummycode
   /*const board = {
     "title": "test title",
     "content": "test content",
