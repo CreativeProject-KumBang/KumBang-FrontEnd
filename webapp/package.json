@@ -27,6 +27,7 @@
     "dayjs": "^1.11.1",
     "jquery": "^3.6.0",
     "moment": "^2.29.3",
+    "mui-treasury": "^0.1.5-alpha.3",
     "net": "^1.0.2",
     "react": "^18.1.0",
     "react-datepicker": "^4.8.0",

@@ -15,7 +15,7 @@ const MainLayoutWrapper = styled.div`
     overflow: hidden;
     paddingTop: 64;
 `;
-  
+
 const MainLayoutContainer = styled.div`
     display: flex;
     flex: 1 1 auto;
@@ -29,10 +29,10 @@ const MainLayoutContent = styled.div`
     backgrond-color: white;
 `;
 const ChatLayout = () => {
-  const [isMobileNavOpen, setMobileNavOpen] = useState(false);
+    const [isMobileNavOpen, setMobileNavOpen] = useState(false);
 
-  return (
-    <StyledLayout>
+    return (
+        <StyledLayout>
             <Header />
             <MainLayoutWrapper>
                 <MainLayoutContainer>
@@ -40,9 +40,9 @@ const ChatLayout = () => {
                         <Outlet />
                     </MainLayoutContent>
                 </MainLayoutContainer>
-                </MainLayoutWrapper>
+            </MainLayoutWrapper>
         </StyledLayout>
-  );
+    );
 };
 
 export default ChatLayout;

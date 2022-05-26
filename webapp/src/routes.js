@@ -96,7 +96,7 @@ const routes = [
 			{ path: "info", element: <Info /> },
 		  	{ path: "post", element: <MyPost /> },
 			{ path: "transaction", element: <Transaction /> },
-		  	{ path: "chatbox", element: <ChatBox /> },
+		  	{ path: "chatlist", element: <ReadChatList /> },
 			{ path: "wishlist", element: <Wishlists /> },
 		  	{ path: "report", element: <ReportHistory /> },
 			{ path: "withdrawal", element: <Withdrawal /> },
@@ -107,7 +107,6 @@ const routes = [
 		path: "chat",
 		element: <ChatLayout />,
 		children: [
-			{ path: "list", element: <ReadChatList /> },
 			{ path: "detail", element: <ReadChatDetail /> },
 		],
 	},

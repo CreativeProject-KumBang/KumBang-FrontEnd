@@ -4,8 +4,7 @@ import { useState, useEffect } from 'react';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-
-const token = sessionStorage.getItem('user_token');
+import base_url from 'API/axiosConfig';
 
 const BoardCardContent = (props) => {
   const { id, title, writer, image, price, deposit, durationStart, durationEnd } = props;
@@ -46,11 +45,11 @@ const BoardCardContent = (props) => {
                     }}>
                     {isImage ?
                       (<img
-                        src={"http://192.168.227.255:8080" + image}
+                        src={base_url + image}
                         alt="profile"
                       />) : (
-                      <img src="http://192.168.227.255:8080/image/bf8354c1-6156-4ba1-8b48-b4028c614f61.png" alt="profile" />
-                    )}
+                        <img src={base_url + "/image/bf8354c1-6156-4ba1-8b48-b4028c614f61.png"} alt="profile" />
+                      )}
                   </div>
                 </Grid>
 

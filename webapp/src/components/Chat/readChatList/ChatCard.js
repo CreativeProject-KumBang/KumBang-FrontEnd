@@ -4,6 +4,9 @@ import { Divider } from '@mui/material'
 import ChatCardContent from 'components/Chat/readChatList/ChatCardContent';
 import SkeletonChatList from 'components/Chat/readChatList/SkeletonChatList';
 import Api from 'API/Api';
+import { base_url } from 'API/Url';
+
+const default_imageurl = base_url + "default";
 
 const StyledBox = styled.div`
     height: 100%;
@@ -40,14 +43,9 @@ const Item = styled.li`
 const ChatCard = () => {
     const [getbody, setGetBody] = useState([]);
     const response = async () => await Api.getChatList();
-    const imageurl = "default";
-    //const response2 = async () => await Api.postChatRoom();
     
-
     useEffect(() => {
         const getData = async () => {
-            //const resBody2 = await response2();
-            //console.log(resBody2);
             const resBody = await response();
             console.log(resBody);
             setGetBody(resBody.data.response[0].content);
@@ -55,32 +53,13 @@ const ChatCard = () => {
         getData();
     }, []);
 
-    /*
-        const getbody = {
-            content: [{
-                "roomId": 1,
-                "title": "test title",
-                "image": "image1",
-                "userId": "userID",
-                "date": "2022-04-05",
-            }, {
-                "roomId": 1,
-                "title": "test title",
-                "image": "image1",
-                "userId": "userID",
-                "date": "2022-04-05",
-            }]
-    
-        };*/
+    const isRead = "true";
     return (
         <div>
             {(!(getbody.length === 0)) ? (
 
                 <List>
                     <Item>
-
-
-                        {console.log(getbody)}
                         {getbody.map(row => (<>
 
                                 <
@@ -89,19 +68,17 @@ const ChatCard = () => {
                                     boardId={row.roomBoard.id}
                                     title={row.roomBoard.title}
                                     image={(row.roomBoard.thumbnail === null) ?
-                                        (imageurl) : (row.roomBoard.thumbnail)}
+                                        (default_imageurl) : (row.roomBoard.thumbnail)}
                                     opponent={(row.isBuyer) ?
                                         row.roomBoard.author.nickname : row.buyer.nickname}
                                     date={row.updatedAt}
+                                    isRead={isRead}
+                                    lastMsg={row.lastMessage.content}
                                 />
                                 <Divider />
                         </>
                         ))}
-
-
-
                     </Item>
-
                 </List>
             ) : (
                 <SkeletonChatList></SkeletonChatList>

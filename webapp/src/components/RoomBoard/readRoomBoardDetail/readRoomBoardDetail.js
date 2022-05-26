@@ -4,6 +4,7 @@ import styled from "styled-components";
 import BoardDetail from 'components/RoomBoard/readRoomBoardDetail/BoardDetail'
 import SkeletonBoardDetail from 'components/RoomBoard/readRoomBoardDetail/SkeletonBoardDetail'
 import Api from 'API/Api';
+import { base_url } from 'API/Url';
 
 const StyledDiv = styled.div`
     padding: 6px 20px;
@@ -11,16 +12,24 @@ const StyledDiv = styled.div`
 `;
 
 const ReadRoomBoardDetail = () => {
-  //const [likes, setlikes] = useState(like);
   //const board_id = useLocation().state.boardId;
+  const board_id = location.href
+  .split('/')
+  [location.href.split('/').length - 1].split('.')[0];
+
   const [board, setBoard] = useState([]); // board
+  const [myId, setMyId] = useState(); // 나의 id
+  const [writerId, setWriterId] = useState(); // 작성자의 id
   const [bookmark, setBookmark] = useState(false); // bookmark
+  //const [likes, setlikes] = useState(like);
   const [isImage, setIsImage] = useState(true); // 이미지 존재 여부 확인해서 변수에 담고 렌더링
+
   // 방 양도 글 상세조회 API
   const response = async () => await Api.getRoomBoard(board_id);
-
+  const resMyId = async () => await Api.getMyInfo();
+  
   /**************************************dummycode*********************************************/
-  const board_id = 1; // dummycode
+  //const board_id = 2; // dummycode
   /*const board = {
     "title": "test title",
     "content": "test content",
@@ -47,19 +56,26 @@ const ReadRoomBoardDetail = () => {
     "files": ["urls"]
   };*/
 
-  
-    useEffect(() => {
-      const getData = async () => {
-        const resBody = await response();
-        console.log(resBody);
-        setBoard(resBody.data.response[0]);
-        if (board.image === undefined) {
-          setIsImage(false);
-        }
+
+  useEffect(() => {
+    const getData = async () => {
+      const resBody = await response();
+      const myInfo = await resMyId();
+
+      console.log(resBody);
+      console.log(myInfo);
+
+      setBoard(resBody.data.response[0]);
+      setMyId(myInfo.data.response[0].id); // myId 정보 획득
+      setWriterId(resBody.data.response[0].user.id)
+
+      if (board.image === undefined) {
+        setIsImage(false);
       }
-      getData();
-    }, []);
-  
+    }
+    getData();
+  }, []);
+
   /* dummy code
     //const response = useState(); // front
     //const back = useState();
@@ -90,12 +106,8 @@ const ReadRoomBoardDetail = () => {
 
     <div>
       <StyledDiv>
-        <BoardDetail boardId={board_id} board={board}> </BoardDetail>
+        <BoardDetail boardId={board_id} board={board} myId={myId} writerId={writerId}> </BoardDetail>
       </StyledDiv>
-
-      <div id='latitude'></div>
-      <div id='longitude'></div>
-      <div id='level'></div>
     </div>
   )
 }

@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import styled from 'styled-components';
+import { base_url } from 'API/Url';
 
 const IMG = styled.img`
   width: 100%;
@@ -46,8 +47,8 @@ function Slider(props) {
   const [currentSlide, setCurrentSlide] = useState(0);
   //const slideRef = useRef();
 
-  const TOTAL_SLIDES = 2;
-  let files = props.files;
+  const files = props.files;
+  const TOTAL_SLIDES = files.length;
 
   const nextSlide = () => {
     if (currentSlide >= TOTAL_SLIDES) {
@@ -64,7 +65,6 @@ function Slider(props) {
       setCurrentSlide(currentSlide - 1);
     }
   };
-
 
   const divStyle = {
     width: "100%",
@@ -85,7 +85,7 @@ function Slider(props) {
         <div>
           <Container>
             <div id="slider" style={divStyle} >
-              {files.map((img, i) => <IMG src={"http://192.168.239.130:8080" + img.path} key={i} />)}
+              {files.map((img, i) => <img src={base_url + img.path} key={i} width="100%" />)}
             </div>
           </Container>
           <div>
