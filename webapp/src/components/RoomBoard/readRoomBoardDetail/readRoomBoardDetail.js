@@ -13,6 +13,7 @@ const StyledDiv = styled.div`
 
 const ReadRoomBoardDetail = () => {
   //const board_id = useLocation().state.boardId;
+  const location = useLocation();
   const board_id = location.href
   .split('/')
   [location.href.split('/').length - 1].split('.')[0];

@@ -1,10 +1,14 @@
 
 import client from 'API/axiosConfig';
+import qs from "qs";
+
 
 const getRequest = async (path, params = {}) => {
     try {
+        params = qs.stringify(params);
         console.log(client.getUri());
-        const data = await client.get(path, params);
+        const data = await client.get(path + params);
+        console.log(path+params);
         return data;
     } catch (e) {
         console.log(e);
@@ -136,9 +140,9 @@ const Api = {
     getRoomBoard: async (board_id) => {
         return await getRequest(`/board/${board_id}`);
     },
-    // 방 양도 글 전체조회
-    getAllRoomBoard: async (x, y, level) => {
-        return await getRequest(`/board/list?x=${x}&y=${y}&level=${level}`);
+    // 방 양도 글 전체조회 {장단기,날짜선택,가격(시작, 끝, 둘다 null)}
+    getAllRoomBoard: async (data) => {
+        return await getRequest(`/board/list?`, data);
     },
     // 방 양도 글 삭제
     deleteRoomBoard: async (boardId) => {
@@ -176,8 +180,9 @@ const Api = {
     },
 
     // Maps--------------------------------------------------------------------------------------
-    getLocation: async (x, y, level) => {
-        return await getRequest(`/region/average?x=${x}&y=${y}&level=${level}`);
+    getLocation: async (data) => {
+        console.log(data);
+        return await getRequest(`/region/average?`, data);
     },
 
     // Chatting--------------------------------------------------------------------------------------

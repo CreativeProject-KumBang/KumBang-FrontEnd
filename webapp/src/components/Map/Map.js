@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import cn from "classnames";
 import Api from 'API/Api';
+import { base_url } from 'API/Url';
 
 const { kakao } = window;
 
@@ -41,7 +42,7 @@ const Map = () => {
     
     useEffect(() => {
         if (level >= 5) {
-            const response = async () => await Api.getLocation(cordX, cordY, level)
+            const response = async () => await Api.getLocation({x:cordX, y:cordY, level:level})
             const getData = async () => {
                 const resBody = await response();
                 setPostBody(resBody.data.response[0].content);
@@ -50,7 +51,7 @@ const Map = () => {
             console.log(postBody)
         }
         else {
-            const response = async () => await Api.getAllRoomBoard(cordX, cordY, level)
+            const response = async () => await Api.getAllRoomBoard({x:cordX, y:cordY, level:level})
             const getData = async () => {
                 const resBody = await response();
                 setPostBody(resBody.data.response[0].content);
@@ -148,6 +149,7 @@ const Map = () => {
         }
         else {
             const overlayInfos = postBody.map(info => {
+                console.log(info);
                 if(info.thumbnail === null) {
                     return (
                       {
@@ -157,7 +159,7 @@ const Map = () => {
                         price: info.price,
                         lat: info.enty,
                         lng: info.entx,
-                        img: "/image/bf8354c1-6156-4ba1-8b48-b4028c614f61.png",
+                        img: "/image/notfound.png",
                       }
                     )
                 }
@@ -193,7 +195,7 @@ const Map = () => {
                     '       </div>' +
                     '       <div class="body">' +
                     '            <div class="img">' +
-                    `               <img src="http://jueleejue.iptime.org:80${el.img}" width="100" height="100">` +
+                    `               <img src=${base_url+el.img} width="100" height="100">` +
                     '            </div>' + 
                     '            <div class="desc">' + 
                     `               <p class="accommPeriod">양도 기간</p>` +

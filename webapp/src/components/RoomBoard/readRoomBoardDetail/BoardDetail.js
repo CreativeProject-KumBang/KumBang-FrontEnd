@@ -41,7 +41,7 @@ const BoardDetail = (props) => {
   const [bookmark, setBookmark] = useState(false);
 
   const postchat = async () => await Api.postChatRoom(board_id);   // 채팅방 생성 API
-  const response = async () => await Api.getBoardLike(id);
+  const response = async () => await Api.getBoardLike(board_id);
 
   // --------------------거래 가격 정보 테이블 관련--------------------
   function createData(name, calories, fat, carbs, protein) {
@@ -140,7 +140,7 @@ const BoardDetail = (props) => {
                       color: 'red',
                       fontSize: 40
                     }}
-                    onClick={() => handleBookmark(id)}
+                    onClick={() => handleBookmark()}
                   />
                 ) : (
                   <FavoriteBorderIcon
@@ -150,7 +150,7 @@ const BoardDetail = (props) => {
                       color: 'red',
                       fontSize: 40
                     }}
-                    onClick={() => handleBookmark(id)}
+                    onClick={() => handleBookmark()}
                   />
                 )}
               </Box>
