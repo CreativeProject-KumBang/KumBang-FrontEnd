@@ -73,7 +73,7 @@ const ReadRoomBoardList = () => {
    const [value, setValue] = useState([1, 20]);
 
    const handleChange = (event, newValue) => {
-    setValue(newValue);
+      setValue(newValue);
    };
 
    const filterSearch = async () => {
@@ -87,7 +87,7 @@ const ReadRoomBoardList = () => {
       else if(response.data.result === "fail") {
         alert('로그인 실패');
       }
-    };
+   };
 
    return (
       <div style={{ paddingLeft: '10px' }}>
