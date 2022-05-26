@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from "styled-components";
 import Divider from '@mui/material/Divider';
 import Api from 'API/Api';
+import { base_url } from 'API/Url';
 
 const StyledBox = styled.div`
     height: 100%;

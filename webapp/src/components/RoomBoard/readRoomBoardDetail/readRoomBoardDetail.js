@@ -13,9 +13,9 @@ const StyledDiv = styled.div`
 
 const ReadRoomBoardDetail = () => {
   //const board_id = useLocation().state.boardId;
+  //const location = useLocation();
   const board_id = location.href
-  .split('/')
-  [location.href.split('/').length - 1].split('.')[0];
+                      .split('/')[location.href.split('/').length - 1].split('.')[0];
 
   const [board, setBoard] = useState([]); // board
   const [myId, setMyId] = useState(); // 나의 id

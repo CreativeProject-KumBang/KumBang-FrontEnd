@@ -1,8 +1,19 @@
 
 import client from 'API/axiosConfig';
+import axios from 'axios';
+import qs from "qs";
+
+
+
+axios.defaults.paramsSerializer = params => {
+  return qs.stringify(params);
+}
+const params = { search:{keyword:"안녕"} };
+console.log(qs.stringify(params));
 
 const getRequest = async (path, params = {}) => {
     try {
+        params = qs.string
         console.log(client.getUri());
         const data = await client.get(path, params);
         return data;
@@ -188,7 +199,7 @@ const Api = {
 
     // 채팅방 생성(게시물 정보)
     postChatRoom: async (board_id) => {
-        return await postJsonReqest(`chat/${board_id}`);
+        return await postJsonReqest(`/chat/${board_id}`);
     },
 
     // 내 정보를 주고 채팅방 목록(매물정보 포함) 요청
@@ -208,7 +219,7 @@ const Api = {
 
     // 채팅 읽음 
     postChatIsRead: async (msg_id) => {
-        return await postJsonReqest(`chat/isread`, msg_id);
+        return await postJsonReqest(`/chat/read`, msg_id);
     },
 
 };

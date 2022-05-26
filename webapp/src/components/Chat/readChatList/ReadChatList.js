@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
-import { Box, Divider } from '@mui/material'
+import { Hidden, Divider } from '@mui/material'
 import ChatCard from 'components/Chat/readChatList/ChatCard';
 
 
@@ -14,7 +14,12 @@ const StyledTop = styled.div`
     height: 40px;
     margin-top: 15px;
     margin-bottom: 50px;
-    font-size: 22px;
+`;
+
+const StyledTopSmall = styled.div`
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 10px;
 `;
 
 const List = styled.ul`
@@ -41,9 +46,9 @@ const ReadChatList = () => {
 
    return (
       <StyledBox>
-         <StyledTop>
-            <h2>채팅 내역</h2>
-         </StyledTop>
+         <StyledTopSmall>
+            <span style={{ fontSize: "100%" }}>채팅 내역</span>
+         </StyledTopSmall>
          <Divider />
          <ChatCard></ChatCard>
       </StyledBox>

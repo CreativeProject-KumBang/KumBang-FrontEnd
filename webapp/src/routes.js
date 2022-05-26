@@ -86,7 +86,7 @@ const routes = [
 	},
 	{
 		path: "mypage",
-		element: <MypageLayout2/>
+		element: <MypageLayout2/>,
 	},
 	{
 		path: "mypage",
@@ -99,7 +99,8 @@ const routes = [
 			{ path: "wishlist", element: <Wishlists /> },
 		  	{ path: "report", element: <ReportHistory /> },
 			{ path: "withdrawal", element: <Withdrawal /> },
-			{ path: "chatlist", element: <ReadChatList /> }
+			{ path: "chatlist", element: <ReadChatList /> },
+			
 		],
 	},
 	{

@@ -22,8 +22,8 @@ const useStyles = makeStyles((theme) =>
          justifyContent: "center"
       },
       paper: {
-         width: "80vh",
-         height: "80vh",
+         width: "100%",
+         // height: "80vh",
          display: "flex",
          flexDirection: "column", // flex 배치 방향
          alignItems: "center",
@@ -32,9 +32,9 @@ const useStyles = makeStyles((theme) =>
       wrapForm: {
          display: "flex",
          justifyContent: "center",
-         width: "95%",
-         margin: "0 auto",
-         position: 'fix',
+         // width: "95%",
+         // margin: "0 auto",
+         // position: 'fix',
          bottom: 0
       },
       wrapText: {
@@ -44,11 +44,11 @@ const useStyles = makeStyles((theme) =>
          //margin: theme.spacing(1),
       },
       messagesBody: {
-         width: "calc( 100% - 20px )",
-         margin: 10,
+         // width: "80%",
+         // margin: 10,
          overflowY: "scroll",
-         //height: "calc( 100% - 100px )"
-         height: "90%"
+         // height: "calc( 100% - 100px )"
+          height: "500px"
       },
 
       test: {
@@ -148,10 +148,9 @@ const ReadChatDetail = () => {
    }, []);
 
    return (
-      <div className={classes.container}>
-         <Paper className={classes.paper}>
-
-            <Box sx={{ paddingTop: "4px", height: "50px" }}>
+      <div className="flex flex-col h-full">
+         <div className="overflow-auto h-full">
+            <div className="py-4 max-w-screen-lg mx-auto" sx={{ paddingTop: "4px", height: "50px" }}>
                <Box>
                   {opponent} | {boardTitle}
                </Box>
@@ -161,7 +160,7 @@ const ReadChatDetail = () => {
                   <ArticleOutlinedIcon sx={{ paddingTop: "4px" }}></ArticleOutlinedIcon>
                   <Button sx={{ paddingLeft: "4px" }}>방 정보</Button>
                </Box>
-            </Box>
+            </div>
             <Divider />
             <Box className={classes.paper} zDepth={2}>
                <Box id="style-1" className={classes.messagesBody} >
@@ -197,7 +196,7 @@ const ReadChatDetail = () => {
                </Button>
             </form>
             {/* <TextInput message={message} setMessage={setMessage}></TextInput> */}
-         </Paper>
+         </div>
       </div>
    )
 }
