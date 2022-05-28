@@ -1,12 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
 import BoardCard from 'components/RoomBoard/readRoomBoardList/BoardCard';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css"
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
-import SearchIcon from '@mui/icons-material/Search';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import MapIcon from '@mui/icons-material/Map';
 import Radio from '@mui/material/Radio';
@@ -37,29 +33,6 @@ const StyledH1 = styled.h3`
 `;
 
 const ReadRoomBoardList = () => {
-   // const [x, setX] = useState();
-   // const [y, setY] = useState();
-   // const [level, setLevel] = useState();
-   /*
-      function setMapData(latitude, longitude, level_map) {
-   
-         if (latitude === null || longitude === null || level === null) {
-            console.log("latitude === null || longitude === null || level === null");
-         } else {
-            setX(latitude.innerText);
-            setY(longitude.innerText);
-            setLevel(level_map.innerText);
-            useEffect(() => {
-               console.log(x, y, level);
-            });
-         }
-   
-         let response = Api.getAllRoomBoard(x, y, level);
-         console.log(response);
-      }
-   */
-//   const startDateFormat = dayjs(startDate).format("YYYY-MM-DD");
-//   const endDateFormat = dayjs(endDate).format("YYYY-MM-DD");
 
    // 옵션 사항
    const [startDate, setStartDate] = useState(new Date()); // 시작 날짜
@@ -82,7 +55,7 @@ const ReadRoomBoardList = () => {
       setValue(newValue);
    };
 
-   const [postBody, setPostBody] = useState({
+   const [filter, setPostBody] = useState({
       x: 128.41015,
       y: 36.13654,
       level: 5,
@@ -91,10 +64,24 @@ const ReadRoomBoardList = () => {
       durationEnd: dayjs(endDate).format("YYYY-MM-DD"),
       priceStart: value[0],
       priceEnd: value[1]
-    });
+   });
+
+	const response = async () => await Api.getAllRoomBoard(filter);
+   const [getBody, setGetBody] = useState([]);
+
+	useEffect(() => {
+		const getData = async() => {
+         
+         const resBody = await response();
+		   console.log(resBody);
+
+		  setGetBody(resBody.data.response[0].content);
+		}
+		  getData();
+	  }, []);
 
    const filterSearch = async () => {
-      let response = await Api.getAllRoomBoard(postBody);
+      const resBody = await response();
       console.log(response);
    };
 
@@ -125,9 +112,9 @@ const ReadRoomBoardList = () => {
                   locale={'ko'}
                   dateFormat="yyyy.MM.dd"
                   showPopperArrow={false}
-                  customInput={<TextField sx={{ width: '240px' }} InputProps={{endAdornment: <DateRangeIcon />}} />}
+                  customInput={<TextField sx={{ width: '240px' }} InputProps={{ endAdornment: <DateRangeIcon /> }} />}
                />
-               <Divider sx={{ marginTop: '22px', marginRight: '22px'}}/>
+               <Divider sx={{ marginTop: '22px', marginRight: '22px' }} />
                <Box mr={3}>
                   <h3>조건 검색 <IconButton><FilterAltIcon sx={{ fontSize: 30 }} color='primary' /></IconButton> </h3>
                   <h4>양도 기간</h4>
@@ -136,16 +123,16 @@ const ReadRoomBoardList = () => {
                         row
                         aria-labelledby="demo-radio-buttons-group-label"
                         defaultValue="all"
-                        
+
                         name="radio-buttons-group"
                      >
-                        <FormControlLabel value="all" control={<Radio />} label="전체" onClick={handlePeriod}/>
-                        <FormControlLabel value="short" control={<Radio />} label="단기" onClick={handlePeriod}/>
-                        <FormControlLabel value="long" control={<Radio />} label="장기" onClick={handlePeriod}/>
+                        <FormControlLabel value="all" control={<Radio />} label="전체" onClick={handlePeriod} />
+                        <FormControlLabel value="short" control={<Radio />} label="단기" onClick={handlePeriod} />
+                        <FormControlLabel value="long" control={<Radio />} label="장기" onClick={handlePeriod} />
                      </RadioGroup>
                   </FormControl>
                   <h4>가격
-                     <span style={{ marginLeft: 10, color: 'deeppink' }}>{value[0]===0?'제한없음':value[0]+'원'} ~ {value[1]===101000?'제한없음':value[1]+'원'}</span>
+                     <span style={{ marginLeft: 10, color: 'deeppink' }}>{value[0] === 0 ? '제한없음' : value[0] + '원'} ~ {value[1] === 101000 ? '제한없음' : value[1] + '원'}</span>
                   </h4>
                   <Box sx={{ marginLeft: 2, marginBottom: 3, width: 260 }}>
                      <Slider
@@ -169,8 +156,8 @@ const ReadRoomBoardList = () => {
                </Box>
             </Box>
          </Box>
-         <Divider sx={{ marginTop: '22px', marginRight: '22px', marginBottom: '22px' }}/>
-         <BoardCard></BoardCard>
+         <Divider sx={{ marginTop: '22px', marginRight: '22px', marginBottom: '22px' }} />
+         <BoardCard getBody={getBody}></BoardCard>
 
          <Box>
             <Box id='latitude'></Box>

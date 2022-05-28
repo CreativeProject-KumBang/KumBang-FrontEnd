@@ -29,7 +29,6 @@ const ChatCardContent = (props) => {
                     }}>
                     <img
                         src={base_url + image}
-                        alt="profile"
                         style={{
                             width: "100px",
                             height: "100px",
@@ -48,7 +47,6 @@ const ChatCardContent = (props) => {
                     }}>
                     <img
                         src={base_url + image}
-                        alt="profile"
                         style={{
                             width: "50px",
                             height: "50px",
@@ -56,7 +54,6 @@ const ChatCardContent = (props) => {
                         }}
                     />
                 </div>
-
                 </Hidden>
 
                 <div

@@ -72,11 +72,11 @@ const ReadChatDetail = () => {
    const [messages, setMessages] = useState([]); // sender가 보낸 message를 ui에 띄우기 위해 저장하는 list
    const [greetings, setGreetings] = useState([]); // sender의 id 값 저장
 
-   const [myId, setMyId] = useState([]); // 나의 id
+   const [myId, setMyId] = useState(); // 나의 id
 
    const response = async () => await Api.getMyInfo();
    const resChatHistory = async () => await Api.getChatContents(location.state.roomId);
-   const resIsRead = async () => await Api.postChatIsRead();
+
 
    // 메세지 전송 시 보낼 데이터
    const chatData = {
@@ -95,7 +95,7 @@ const ReadChatDetail = () => {
       })
    }
 
-   async function connect(data) {
+   async function connect(data, myId) {
       var socket = new SockJS(base_url + '/ws');
       stompClient = Stomp.over(socket);
       stompClient.connect({}, function (frame) {
@@ -113,7 +113,8 @@ const ReadChatDetail = () => {
 
             // TODO: 내가 남의 걸 읽음을 알려주는 요청
             if (greeting_data.sender.id != myId) {
-               resIsRead(greeting_data.id);
+               console.log(greeting_data.sender.id, "  ==  ", myId);
+               const res = Api.postChatIsRead(greeting_data.id);
             }
 
          });
@@ -142,7 +143,7 @@ const ReadChatDetail = () => {
          const resBody = await response();
          setMyId(resBody.data.response[0].id); // myId 정보 획득
 
-         connect(location.state.roomId); // 채팅 연결
+         await connect(location.state.roomId, resBody.data.response[0].id); // 채팅 연결
       }
       getData();
    }, []);

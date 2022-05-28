@@ -6,9 +6,8 @@ import qs from "qs";
 const getRequest = async (path, params = {}) => {
     try {
         params = qs.stringify(params);
-        console.log(client.getUri());
         const data = await client.get(path + params);
-        console.log(path+params);
+        console.log(path + params);
         return data;
     } catch (e) {
         console.log(e);
@@ -31,6 +30,7 @@ const postFormReqest = async (path, body) => {
 };
 
 const postJsonReqest = async (path, body) => {
+    console.log(body);
     try {
         const data = await client.post(path, body, {
             headers: {
@@ -142,11 +142,16 @@ const Api = {
     },
     // 방 양도 글 전체조회 {장단기,날짜선택,가격(시작, 끝, 둘다 null)}
     getAllRoomBoard: async (data) => {
+        console.log(data);
         return await getRequest(`/board/list?`, data);
     },
     // 방 양도 글 삭제
     deleteRoomBoard: async (boardId) => {
         return await deleteJsonReqest(`/roomboard/${boardId}`);
+    },
+    // 방 양도 글 거래 완료를 위한 거래자 목록 요청
+    getBuyerList: async (boardId) => {
+        return await getRequest(`/board/${boardId}/buyer`);
     },
 
     // likes------------------------------------------------------------------------------------
@@ -208,12 +213,12 @@ const Api = {
 
     // 내가 쓴 채팅 내용 전송
     postChatContent: async () => {
-        return await postJsonReqest(`/broadcast`,);
+        return await postJsonReqest(`/broadcast`);
     },
 
     // 채팅 읽음 
-    postChatIsRead: async (msg_id) => {
-        return await postJsonReqest(`/chat/read`, msg_id);
+    postChatIsRead: async (messageId) => {
+        return await postJsonReqest(`/chat/read`, { messageId });
     },
 
 };

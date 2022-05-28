@@ -101,7 +101,7 @@ const routes = [
 		  	{ path: "report", element: <ReportHistory /> },
 			{ path: "withdrawal", element: <Withdrawal /> },
 			{ path: "chatlist", element: <ReadChatList /> },
-			
+			{ path: "detail/:id", element: <ReadRoomBoardDetail /> },
 		],
 	},
 	{
