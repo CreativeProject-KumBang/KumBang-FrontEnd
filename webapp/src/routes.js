@@ -32,6 +32,7 @@ import ReadRoomBoardDetail from 'components/RoomBoard/readRoomBoardDetail/readRo
 import ReadRoomBoardList from 'components/RoomBoard/readRoomBoardList/ReadRoomBoardList';
 import Product from 'products';
 import Dashboard from 'components/Mypage/board';
+import Map from 'components/Map/Map';
 import DatePickerComponent from 'components/Login/test';
 
 const routes = [
@@ -51,9 +52,17 @@ const routes = [
 			{ path: "update", element: <UpdateRoomBoard /> },
 		]
 	},
+	// {
+	// 	path: 'map',
+	// 	element: <BoardMapLayout />,
+	// 	children: [
+	// 		{ path: "list", element: <ReadRoomBoardList /> },
+	// 		{ path: "detail/:id", element: <ReadRoomBoardDetail /> },
+	// 	]
+	// },
 	{
 		path: 'map',
-		element: <BoardMapLayout />,
+		element: <ReadRoomBoardList />,
 		children: [
 			{ path: "list", element: <ReadRoomBoardList /> },
 			{ path: "detail/:id", element: <ReadRoomBoardDetail /> },
