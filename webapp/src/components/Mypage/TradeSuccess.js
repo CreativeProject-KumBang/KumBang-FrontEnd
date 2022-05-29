@@ -11,7 +11,6 @@ import Api from 'API/Api';
 
 const StyledH3 = styled.h3``;
 const StyledH4 = styled.h4``;
-const StyledH5 = styled.h5``;
 
 const StyledDiv = styled.div`
    overflow:auto;
@@ -33,6 +32,7 @@ const TradeSuccess = (props) => {
    const title = props.title;
    const boardId = props.boardId;
    const buyerList = props.buyerList;
+   const setOpen = props.setOpen;
 
    const [buyer, setBuyer] = useState(''); // buyer
 
@@ -49,7 +49,6 @@ const TradeSuccess = (props) => {
       setBuyer(event.target.value);
    };
 
-
    async function emptyCheck() {
       if (buyer.trim() === '') {
          alert('거래자를 입력해주세요');
@@ -63,35 +62,41 @@ const TradeSuccess = (props) => {
       } else if (price.trim() === '') {
          alert('양도 거래 가격을 입력해주세요');
          return;
-      } else if (contract_deposit.trim() === '') {
+      } else if (deposit.trim() === '') {
          alert('양도 거래 보증금을 입력해주세요');
          return;
       }
    }
-   const CreateTrade = async () => {
-      /*
-            const isEmpty = emptyCheck();
-            if (isEmpty === false) {
-               alert(
-                  '필수항목란을 채워주세요'
-               );
-               return false;
-            }
-      */
 
-      /*
-            console.log(postBody);
-            let response = await Api.postRoomBoard(postBody); // API
+   const tradeData = {
+      buyer: { id : buyer },
+      startDate: startDateFormat,
+      endDate: endDateFormat,
+      price: price,
+      deposit: deposit
+   }
+
+   const CreateTrade = async () => {
       
-            console.log(response);
+      const isEmpty = emptyCheck();
+      if (isEmpty === false) {
+         alert(
+            '필수항목란을 채워주세요'
+         );
+         return false;
+      }
       
-            if (response.data.status) {
-               alert('등록되었습니다.', response.data.status);
-               navigate('/');
-            } else {
-               alert('등록 실패하였습니다.', response.data.status);
-            }
-      */
+      let response = await Api.postTradeSuccess(tradeData, boardId); // API
+      
+      console.log(response);
+      
+      if (response.data.status) {
+         alert('거래 완료되었습니다.', response.data.status);
+         setOpen(false);
+         navigate('/mypage/post');
+      } else {
+         alert('거래 완료 실패하였습니다.', response.data.status);
+      }
    }
 
    return (
@@ -103,7 +108,7 @@ const TradeSuccess = (props) => {
             alignItems: 'center',
          }}>
             <StyledH3>{title}</StyledH3>
-            <StyledH4>거래자 ({buyer})</StyledH4>
+            <StyledH4>거래자</StyledH4>
             <StyledDiv>
                <TextField
                   id="standard-select-nickname"

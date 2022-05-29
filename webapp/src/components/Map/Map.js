@@ -7,14 +7,29 @@ import { base_url } from 'API/Url';
 const { kakao } = window;
 
 let markerList=[];
+let overlayList=[];
 
-const Map = () => {
+const Map = (props) => {
     const mapRef = useRef();
     let clusterer = useRef();
 
     const [cordX, setCordX] = useState(128.41015);
     const [cordY, setCordY] = useState(36.13654);
     const [level, setLevel] = useState(5);
+    props.setX(cordX);
+    props.setY(cordY);
+    props.setL(level);
+
+    const allData = {
+        x: cordX,
+        y: cordY,
+        level: level,
+        startDate: props.filter.startDate,
+        endDate: props.filter.endDate,
+        durationType: props.filter.durationType,
+        priceStart: props.filter.priceStart,
+        priceEnd:props.filter.priceEnd
+    }
     const [postBody, setPostBody] = useState([]);
 
     useEffect(() => {
@@ -51,7 +66,7 @@ const Map = () => {
             console.log(postBody)
         }
         else {
-            const response = async () => await Api.getAllRoomBoard({x:cordX, y:cordY, level:level})
+            const response = async () => await Api.getAllRoomBoard(allData)
             const getData = async () => {
                 const resBody = await response();
                 setPostBody(resBody.data.response[0].content);
@@ -86,6 +101,8 @@ const Map = () => {
     function resetMarkers() {
         markerList.forEach(m => {m.setMap(null)});
         markerList=[];
+        overlayList.forEach(o => {o.setMap(null)});
+        overlayList=[];
         clusterer.current.clear();
     }
     //동, 시 마커 디자인
@@ -216,14 +233,16 @@ const Map = () => {
                 let toggle = true;
                 kakao.maps.event.addListener(marker, 'click', function () {
                   if(toggle === true){
-                      customOverlay.setMap(mapRef.current);
+                    customOverlay.setMap(mapRef.current);
                       return toggle = false;
                   }
                   if(toggle === false){
-                      customOverlay.setMap(null);
+                    customOverlay.setMap(null);
                       return toggle = true;
                   }
                 });
+
+                overlayList.push(customOverlay)
 
                 clusterer.current.addMarker(marker);
                 
@@ -240,7 +259,8 @@ const Map = () => {
                 mapRef.current.setLevel(level, {anchor: cluster.getCenter()});
             });
         }
-    }, [postBody]);
+    }, [postBody, props.getBody]);
+    console.log(props.getBody)
 
     return (
         <div className="MapContainer" id="map" style={{

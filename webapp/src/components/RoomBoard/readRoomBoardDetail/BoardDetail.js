@@ -26,6 +26,11 @@ const StyledH4 = styled.h4`
   font-weight: normal;
 `;
 
+const StyleH4 = styled.h4`
+  padding: 0px 10px;
+  font-weight: normal;
+`;
+
 const StyledDiv = styled.div`
   padding: 2px 15px;
 `;
@@ -37,11 +42,16 @@ const BoardDetail = (props) => {
   const board = props.board;
   const myId = props.myId;
   const writerId = props.writerId;
+  const bookmark = props.bookmark;
+  const setBookmark = props.setBookmark;
 
-  const [bookmark, setBookmark] = useState(false);
+  console.log(board_id);
+
+  const [isLike, setIsLike] = useState();
+  const [likes, setLikes] = useState();
 
   const postchat = async () => await Api.postChatRoom(board_id);   // 채팅방 생성 API
-  const response = async () => await Api.getBoardLike(board_id);
+
 
   // --------------------거래 가격 정보 테이블 관련--------------------
   function createData(name, calories, fat, carbs, protein) {
@@ -71,31 +81,31 @@ const BoardDetail = (props) => {
     }})
   }
 
-  function handleBookmark() {
+  // function handleBookmark() {
 
-  }
-  // const handleBookmark = async (id) => {
-  //   if (sessionStorage.getItem('user_token')) {
-  //       if (bookmark === false) {
-  //           const response = async () => await Api.getBoardLike(id);
-  //           const getdata = async () => {
-  //               const data = await response(); // 우려 사항: 이거 필요없을 수도 있음
-  //               setlikes(true);
-  //           };
-  //           getdata();
-  //       } else {
-  //         const response = async () => await Api.getBoardUnlike(id);
-  //           const getdata = async () => {
-  //               const data = await response(); // 우려 사항: 이거 필요없을 수도 있음
-  //               setlikes(false);
-  //           };
-  //           getdata();
-  //       }
-  //       setBookmark(!bookmark);
-  //   } else {
-  //       alert('로그인이 필요합니다');
-  //   }
-  // };
+  // }
+  
+  const handleBookmark = async () => {
+    console.log(bookmark);
+    if (bookmark === false) {
+        const response = async () => await Api.getBoardLike(board_id);
+        const getdata = async () => {
+            const data = await response();
+            console.log(data);
+
+        };
+        getdata();
+    } else {
+      const response = async () => await Api.getBoardUnlike(board_id);
+        const getdata = async () => {
+            const data = await response();
+            console.log(data);
+        };
+        getdata();
+    }
+    setBookmark(!bookmark);
+
+  };
 
   return (
     <div>
@@ -220,12 +230,10 @@ const BoardDetail = (props) => {
           <StyledH3>옵션 사용 가능 정보</StyledH3>
           <Divider variant="middle" />
           <StyledDiv>
-            <StyledDiv>
-              <StyledDiv>
                 <StyledH5>옵션</StyledH5>
 
                 <Divider variant="middle" />
-                <StyledH4>
+                <StyleH4>
                   <div>
                     {
                       board.fixedOption.map((option, id) => (
@@ -237,13 +245,12 @@ const BoardDetail = (props) => {
                       ))
                     }
                   </div>
-                </StyledH4>
+                </StyleH4>
 
                 <StyledH5>추가옵션</StyledH5>
                 <Divider variant="middle" />
-                <StyledH4>{board.additionalOption}</StyledH4>
-              </StyledDiv>
-            </StyledDiv>
+                <StyledH4>{(board.additionalOption === "") ?
+                ( "없음" ) : ( board.additionalOption )}</StyledH4>
           </StyledDiv>
 
           <StyledH3>거래 가격 정보 표</StyledH3>

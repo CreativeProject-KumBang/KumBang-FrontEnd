@@ -69,7 +69,11 @@ export default function SignUp() {
       alert('회원가입 성공');
       const target = '/';
       window.location.href = target;
-    } else {
+    } 
+    else if (response.data.result === "fail") {
+      alert(response.data.message);
+    }
+    else {
       alert('회원가입 실패');
     }
   };

@@ -10,37 +10,37 @@ import { base_url } from 'API/Url';
 const default_imageurl = base_url + "default";
 
 const BoardCard = (props) => {
-	const getBody = props.getBody;
+   const getBody = props.getBody;
 
-	return (
-		<div>
-			<Box >
-				<Grid
-					container
-					spacing={3}
-					sx={{
-						width: '100%'
-					}}
-				>
-					{
-						getBody.map(row => (<
-							BoardCardContent key={row.id}
-							id={row.id}
-							title={row.title}
-							writer={row.author.name}
-							image={(row.thumbnail === null) ? 
-								(default_imageurl) : (row.thumbnail.path)}
-							price={row.price}
-							deposit={row.deposit}
-							durationStart={row.durationStart}
-							durationEnd={row.durationEnd}
-						/>
-						))
-					}
-				</Grid>
-			</Box >
-		</div>
-	)
+   return (
+      <div>
+         <Box >
+            <Grid
+               container
+               spacing={3}
+               sx={{
+                  width: '100%'
+               }}
+            >
+               {
+					getBody.map(row => (<
+					   BoardCardContent key={row.id}
+					   id={row.id}
+					   title={row.title}
+					   writer={row.author.name}
+					   image={(row.thumbnail === null) ?
+						   (default_imageurl) : (row.thumbnail.path)}
+					   price={row.price}
+					   deposit={row.deposit}
+					   durationStart={row.durationStart}
+					   durationEnd={row.durationEnd}
+					/>
+					))
+               }
+            </Grid>
+         </Box >
+      </div>
+   )
 }
 
 export default BoardCard

@@ -3,9 +3,10 @@ import client from 'API/axiosConfig';
 import qs from "qs";
 
 
-const getRequest = async (path, params = {}) => {
+const getRequest = async (path, params) => {
     try {
         params = qs.stringify(params);
+        console.log(params);
         const data = await client.get(path + params);
         console.log(path + params);
         return data;
@@ -30,7 +31,7 @@ const postFormReqest = async (path, body) => {
 };
 
 const postJsonReqest = async (path, body) => {
-    console.log(body);
+    console.log(path, body);
     try {
         const data = await client.post(path, body, {
             headers: {
@@ -153,19 +154,24 @@ const Api = {
     getBuyerList: async (boardId) => {
         return await getRequest(`/board/${boardId}/buyer`);
     },
+    // 방 양도 글 거래 완료 요청
+    postTradeSuccess: async (trade, boardId) => {
+        return await postJsonReqest(`/board/${boardId}/complete`, trade);
+    },
 
     // likes------------------------------------------------------------------------------------
     // 좋아요 여부 확인
     getBoardIsLike: async (boardId) => {
-        return await getRequest('/board/isLike', boardId);
+        console.log(boardId);
+        return await getRequest(`/board/islike?`, { boardId });
     },
     // 좋아요
     getBoardLike: async (boardId) => {
-        return await getRequest('/board/like', boardId);
+        return await postJsonReqest(`/board/like`, { boardId });
     },
     // 좋아요 취소
     getBoardUnlike: async (boardId) => {
-        return await getRequest('/board/unlike', boardId);
+        return await postJsonReqest(`/board/unlike`, { boardId });
     },
     // 사용자의 좋아요한 양도 글 리스트 조회
     getLikedProject: async (userId, pageNum, pageCount) => {

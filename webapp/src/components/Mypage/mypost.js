@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from "styled-components";
 import { Divider, Button, Hidden, Box, Chip, Modal } from '@mui/material';
 import TradeSuccess from "components/Mypage/TradeSuccess"
+import Modals from "components/Mypage/Modals"
 import Api from 'API/Api';
 import { base_url } from 'API/Url';
 
@@ -28,6 +29,7 @@ const List = styled.ul`
 
 const Item = styled.li`
   padding: 8px 12px; /* 마우스 클릭영역 확보 */
+  display: flex;
 
   a {
     display: flex;
@@ -69,20 +71,8 @@ const styleSmall = {
 
 const MyPost = (props) => {
   const [postBody, setPostBody] = useState([]);
-  const [buyerList, setBuyerList] = useState([]);
   const [boardId, setBoardId] = useState();
   const response = async () => await Api.getMyPost();
-  const resbuyerList = async () => await Api.getBuyerList(boardId);
-
-  // 모달 관련 변수, 함수 정의
-  const [open, setOpen] = React.useState(false);
-  async function handleOpen(board_id) {
-    const resbuyerList = await Api.getBuyerList(board_id);
-    console.log(resbuyerList);
-    setBuyerList(resbuyerList.data.response.content);
-    setOpen(true);
-  }
-  const handleClose = () => setOpen(false);
 
   useEffect(() => {
     const getData = async () => {
@@ -104,13 +94,14 @@ const MyPost = (props) => {
           postBody.map(row => (
             <>
               <Item key={row.id} style={{ display: "block" }}>
-                <div>
+                <div style={{ width: "100%", position: "relative" }}>
                   <a href={'/mypage/detail/' + row.id}>
+
                     <Hidden mdDown>
                       <div id={row.id + '-row-image'}
                         style={{
                           float: 'left',
-                          width: '20%',
+                          width: '30%',
                           height: '100%',
                           display: "grid",
                         }}>
@@ -133,12 +124,26 @@ const MyPost = (props) => {
                           />
                         }
                       </div>
+                      <div
+                        style={{
+                          display: 'block',
+                          width: '70%',
+                          height: '100%'
+                        }}>
+                        <div id={row.id + '-row-title'}>
+                          <span style={{ fontSize: "75%" }}>{row.title}</span>
+                        </div>
+                        <div id={row.id + '-row-date'}>
+                          <span style={{ fontSize: "70%" }}>{row.updatedAt}</span>
+                        </div>
+                      </div>
                     </Hidden>
+
                     <Hidden mdUp>
                       <div id={row.id + '-row-image'}
                         style={{
                           float: 'left',
-                          width: '20%',
+                          width: '30%',
                           height: '100%',
                           display: "grid",
                         }}>
@@ -146,23 +151,53 @@ const MyPost = (props) => {
                           <img
                             src={base_url + row.thumbnail.path}
                             style={{
-                              width: "50px",
-                              height: "50px",
+                              width: "75px",
+                              height: "75px",
                               objectFit: "cover"
                             }}
                           /> :
                           <img
                             src={default_url}
                             style={{
-                              width: "50px",
-                              height: "50px",
+                              width: "75px",
+                              height: "75px",
                               objectFit: "cover"
                             }}
                           />
                         }
                       </div>
+                      <div
+                        style={{
+                          display: 'block',
+                          width: '70%',
+                          height: '100%'
+                        }}>
+                        <div id={row.id + '-row-title'}>
+                          <span style={{ fontSize: "70%" }}>{row.title}</span>
+                        </div>
+                        <div id={row.id + '-row-date'}>
+                          <span style={{ fontSize: "65%" }}>{row.updatedAt}</span>
+                        </div>
+                      </div>
                     </Hidden>
 
+                  </a>
+                </div>
+                <Hidden mdDown>
+                  <div style={{ marginLeft: "25px" }}>
+                    <Modals title={row.title} boardId={row.id} state={row.state}></Modals>
+                  </div>
+
+                </Hidden>
+                <Hidden mdUp>
+                  <div style={{ marginLeft: "10px" }}>
+                    <Modals title={row.title} boardId={row.id} state={row.state}></Modals>
+                  </div>
+
+                </Hidden>
+
+
+                {/* <a href={'/mypage/detail/' + row.id}>
                     <div
                       style={{
                         display: 'block',
@@ -170,48 +205,22 @@ const MyPost = (props) => {
                         height: '100%'
                       }}>
                       <div id={row.id + '-row-title'}>
-                        <span style={{ fontSize: "75%" }}>{row.title}</span>
+                        <span style={{ fontSize: "75%" }}>{row.title}|{row.id}</span>
                       </div>
                       <div id={row.id + '-row-date'}>
                         <span style={{ fontSize: "70%" }}>{row.updatedAt}</span>
                       </div>
                     </div>
-                  </a>
-                </div>
-                <div>
-                  <Button id={row.id} color="success" variant="outlined" sx={{ float: "right" }} onClick={(event) => handleOpen(event.target.id)}>거래 완료</Button>
-                  <Hidden mdDown>
-                    <Modal
-                      open={open}
-                      onClose={handleClose}
-                      aria-labelledby="modal-modal-title"
-                      aria-describedby="modal-modal-description"
-                    >
-                      <Box sx={style}>
-                        <TradeSuccess title={row.title} boardId={row.id} buyerList={buyerList}></TradeSuccess>
-                      </Box>
-                    </Modal>
-                  </Hidden>
-                  <Hidden mdUp>
-                    <Modal
-                      open={open}
-                      onClose={handleClose}
-                      aria-labelledby="modal-modal-title"
-                      aria-describedby="modal-modal-description"
-                    >
-                      <Box sx={styleSmall}>
-                        <TradeSuccess title={row.title} boardId={row.id} buyerList={buyerList}></TradeSuccess>
-                      </Box>
-                    </Modal>
-                  </Hidden>
-                </div>
+                  </a> */}
+
+
               </Item>
               <Divider />
             </>
           ))
         }
       </List>
-    </StyledBox>
+    </StyledBox >
   );
 };
 
