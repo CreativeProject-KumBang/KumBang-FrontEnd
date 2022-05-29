@@ -1,9 +1,10 @@
-import React, { ReactDOM, useEffect, useRef, useState } from 'react';
+import React, { ReactDOM, useEffect, useState } from 'react';
 import styled from "styled-components";
 import BoardCard from 'components/RoomBoard/readRoomBoardList/BoardCard';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css"
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import SearchIcon from '@mui/icons-material/Search';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import MapIcon from '@mui/icons-material/Map';
 import Radio from '@mui/material/Radio';
@@ -28,10 +29,14 @@ const theme = createTheme({
    palette: {
       primary: {
          main: '#ffca00',
+         
       },
       secondary: {
          main: '#000000',
       },
+      grey: {
+         main: '#dcdcdc'
+      }
    },
    typography: {
       poster: {
@@ -91,11 +96,15 @@ const ReadRoomBoardList = () => {
       setGetBody(resBody.data.response[0].content);
    };
 
-   //매물 상세정보
+   //매물 상세정보 펼치기
    const [isDetail, setIsDetail] = useState(false);
    function showDetail() {
       setIsDetail(isDetail => !isDetail);
    }
+
+   //매물 상세 좌표값
+   const [cordX , setCordX] = useState(128.41015);
+   const [cordY , setCordY] = useState(36.13654);
 
    return (
       <ThemeProvider theme={theme}>
@@ -129,7 +138,7 @@ const ReadRoomBoardList = () => {
                                  <Grid item >
                                     <Button
                                        variant="contained"
-                                       color="primary"
+                                       color="grey"
                                        size='large'
                                        onClick={handleFilter}
                                        style={{ padding: "15px 0px" }}
@@ -187,12 +196,12 @@ const ReadRoomBoardList = () => {
                      {isDetail && 
                         <Container component="main"  maxWidth={'100%'} sx={{ position:'absolute', backgroundColor:'white', overflowY: "scroll", height: "calc(100vh - 80px)" }}>
                            <IconButton onClick={showDetail} color="secondary" sx={{marginTop:'20px'}}><ArrowBackIosIcon/></IconButton>
-                           <ReadRoomBoardDetail/>
+                           <ReadRoomBoardDetail setX={setCordX} setY={setCordY}/>
                         </Container>
                      }
                   </Grid>
                   <Grid lg={8} md={8} sx={{ height: 'calc(100vh - 80px)' }} >
-                     <Map filter={filter} getBody={getBody} setGetBody={setGetBody} setX={setX} setY={setY} setL={setLevel} />
+                     <Map filter={filter} cordX={cordX} cordY={cordY} getBody={getBody} setGetBody={setGetBody} setX={setX} setY={setY} setL={setLevel} />
                   </Grid>
                </Grid>
             </Box>

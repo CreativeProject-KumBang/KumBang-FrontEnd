@@ -10,7 +10,7 @@ const StyledDiv = styled.div`
     overflow:auto;
 `;
 
-const ReadRoomBoardDetail = () => {
+const ReadRoomBoardDetail = (props) => {
   const board_id = window.location.href
                       .split('/')[window.location.href.split('/').length - 1].split('.')[0];
 
@@ -24,14 +24,13 @@ const ReadRoomBoardDetail = () => {
   const response = async () => await Api.getRoomBoard(board_id);
   const resMyId = async () => await Api.getMyInfo();
   const resLike = async () => await Api.getBoardIsLike(board_id);
-
-
+  
   useEffect(() => {
     const getData = async () => {
       const resBody = await response();
       const myInfo = await resMyId();
       const Like = await resLike();
-
+      
       console.log(resBody);
       console.log(myInfo);
       console.log(Like);
@@ -41,6 +40,8 @@ const ReadRoomBoardDetail = () => {
       setWriterId(resBody.data.response[0].user.id);
       setIsLike(Like.data.response[0]);
       setBookmark(Like.data.response);
+      props.setX(resBody.data.response[0].cordX);
+      props.setY(resBody.data.response[0].cordY);
     }
     getData();
   }, []);

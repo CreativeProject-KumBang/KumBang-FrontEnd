@@ -16,6 +16,8 @@ const Map = (props) => {
     const [cordX, setCordX] = useState(128.41015);
     const [cordY, setCordY] = useState(36.13654);
     const [level, setLevel] = useState(5);
+    const lat = props.cordY;
+    const lng = props.cordX;
     props.setX(cordX);
     props.setY(cordY);
     props.setL(level);
@@ -55,6 +57,17 @@ const Map = (props) => {
         });
     },[]);
 
+    /*------------------------지도 이동 시키는 함수------------------------------*/
+    useEffect(()=>{
+        // 이동할 위도 경도 위치를 생성합니다 
+        var moveLatLon = new kakao.maps.LatLng(props.cordY, props.cordX);
+        // 지도 레벨을 지정합니다 (지도가 축소됩니다)
+        mapRef.current.setLevel(3);           
+        // 지도 중심을 부드럽게 이동시킵니다
+        // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+        mapRef.current.panTo(moveLatLon); 
+    },[props.cordY, props.cordX])
+    
     /*------------------------필터 조회 결과값 바뀔때마다 서버 통신------------------------------*/
     useEffect(() => {
         if(level < 5){
