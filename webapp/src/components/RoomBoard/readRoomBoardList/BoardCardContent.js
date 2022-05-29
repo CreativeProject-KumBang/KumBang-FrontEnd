@@ -7,20 +7,20 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import base_url from 'API/axiosConfig';
 
 const BoardCardContent = (props) => {
-  const { id, title, writer, image, price, deposit, durationStart, durationEnd } = props;
+  const { id, title, writer, image, price, deposit, durationStart, durationEnd, isDetail } = props;
   const [isImage, setIsImage] = useState(true); // 이미지 존재 여부 확인해서 변수에 담고 렌더링
 
   return (
-    <>
       <Grid key={id} item lg={12} md={12} sm={12} xs={12}>
         <Card
           sx={{
-            boxShadow: 5,
+            boxShadow: 3,
             height: 280,
           }}
         >
           <CardContent>
             <Link
+              onClick={isDetail(true)}
               to={{
                 pathname: `/map/detail/${id}`,
                 state: { boardId: id }
@@ -78,7 +78,6 @@ const BoardCardContent = (props) => {
           </CardContent>
         </Card>
       </Grid>
-    </>
   );
 };
 

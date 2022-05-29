@@ -152,15 +152,15 @@ const Api = {
     // likes------------------------------------------------------------------------------------
     // 좋아요 여부 확인
     getBoardIsLike: async (boardId) => {
-        return await getRequest('/board/isLike', boardId);
+        return await getRequest(`/board/islike?`, {boardId});
     },
     // 좋아요
     getBoardLike: async (boardId) => {
-        return await getRequest('/board/like', boardId);
+        return await postJsonReqest(`/board/like`, { boardId });
     },
     // 좋아요 취소
     getBoardUnlike: async (boardId) => {
-        return await getRequest('/board/unlike', boardId);
+        return await postJsonReqest(`/board/unlike`, { boardId });
     },
     // 사용자의 좋아요한 양도 글 리스트 조회
     getLikedProject: async (userId, pageNum, pageCount) => {

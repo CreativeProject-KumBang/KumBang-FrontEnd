@@ -54,7 +54,21 @@ const Map = (props) => {
             disableClickZoom: true 
         });
     },[]);
+
+    /*------------------------필터 조회 결과값 바뀔때마다 서버 통신------------------------------*/
+    useEffect(() => {
+        if(level < 5){
+            const response = async () => await Api.getAllRoomBoard(allData)
+            const getData = async () => {
+                const resBody = await response();
+                setPostBody(resBody.data.response[0].content);
+                console.log(resBody.data.response[0].content);
+            }
+            getData();
+        }
+    },[props.getBody])
     
+    /*------------------------x, y, level 값 바뀔때마다 서버 통신------------------------------*/
     useEffect(() => {
         if (level >= 5) {
             const response = async () => await Api.getLocation({x:cordX, y:cordY, level:level})
@@ -70,6 +84,7 @@ const Map = (props) => {
             const getData = async () => {
                 const resBody = await response();
                 setPostBody(resBody.data.response[0].content);
+                props.setGetBody(resBody.data.response[0].content);
                 console.log(resBody.data.response[0].content);
             }
             getData();
@@ -105,7 +120,7 @@ const Map = (props) => {
         overlayList=[];
         clusterer.current.clear();
     }
-    //동, 시 마커 디자인
+    //시, 동 마커 디자인
     function markerCityTown(infoList, color) {
         infoList.forEach(info => {
             let content = `<div class="box" 
@@ -148,7 +163,6 @@ const Map = (props) => {
                     }
                 )
             });
-            console.log(postBody);
             markerCityTown(infos, 'limeGreen');
         }
         else if (level >= 5) {
@@ -206,6 +220,7 @@ const Map = (props) => {
 
                 let content =
                     '<div class="wrap">' +
+                    // '<ㅁㅁ class="wrap">' +
                     '    <div class="info">' +
                     '       <div class="title">' +
                     `         <h3 class="accommName">${el.title}</h3>` +
@@ -259,8 +274,7 @@ const Map = (props) => {
                 mapRef.current.setLevel(level, {anchor: cluster.getCenter()});
             });
         }
-    }, [postBody, props.getBody]);
-    console.log(props.getBody)
+    }, [postBody]);
 
     return (
         <div className="MapContainer" id="map" style={{
