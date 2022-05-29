@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
@@ -28,7 +27,6 @@ const StyledContainer = styled.div`
 `;
 
 const TradeSuccess = (props) => {
-   const navigate = useNavigate();
    const title = props.title;
    const boardId = props.boardId;
    const buyerList = props.buyerList;
@@ -93,7 +91,7 @@ const TradeSuccess = (props) => {
       if (response.data.status) {
          alert('거래 완료되었습니다.', response.data.status);
          setOpen(false);
-         navigate('/mypage/post');
+         window.location.href = "/mypage/post";
       } else {
          alert('거래 완료 실패하였습니다.', response.data.status);
       }

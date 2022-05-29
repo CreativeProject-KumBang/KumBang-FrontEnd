@@ -39,20 +39,20 @@ const ReadRoomBoardList = () => {
 
    //조건 검색 버튼
    const [isFilter, setIsFilter] = useState(false);
-   function showFilter(){
-      setIsFilter(isFilter=>!isFilter);
+   function showFilter() {
+      setIsFilter(isFilter => !isFilter);
    }
 
    //날짜 캘린더
    const [startDate, setStartDate] = useState(new Date()); // 시작 날짜
    const [endDate, setEndDate] = useState(new Date()); // 종료 날짜
    const startDateFormat = dayjs(startDate).format("YYYY-MM-DD");
-   const endDateFormat = (endDate === null)? startDateFormat : dayjs(endDate).format("YYYY-MM-DD");
+   const endDateFormat = (endDate === null) ? startDateFormat : dayjs(endDate).format("YYYY-MM-DD");
    const handleDate = (dates) => {
       setStartDate(dates[0]);
       setEndDate(dates[1]);
    };
-   
+
    //장단기 라디오버튼
    const [type, setType] = useState('all');
    const handlePeriod = (event, value) => {
@@ -81,13 +81,13 @@ const ReadRoomBoardList = () => {
       setGetBody(resBody.data.response[0].content);
       console.log(resBody)
    };
-   
+
    const response = async () => await Api.getAllRoomBoard(filter);
    const [getBody, setGetBody] = useState([]);
-   
+
    useEffect(() => {
       console.log(filter)
-      const getData = async() => {
+      const getData = async () => {
          const resBody = await response();
          console.log(resBody);
 
@@ -124,35 +124,35 @@ const ReadRoomBoardList = () => {
                            <Divider sx={{ marginTop: '22px', marginRight: '22px' }} />
                            <h3>조건 검색 <IconButton onClick={showFilter}><FilterAltIcon sx={{ fontSize: 30 }} color='primary' /></IconButton> </h3>
                            {isFilter &&
-                           <Box mr={3}>
-                              <h4>양도 기간</h4>
-                              <FormControl>
-                                 <RadioGroup
-                                    row
-                                    aria-labelledby="demo-radio-buttons-group-label"
-                                    defaultValue="all"
+                              <Box mr={3}>
+                                 <h4>양도 기간</h4>
+                                 <FormControl>
+                                    <RadioGroup
+                                       row
+                                       aria-labelledby="demo-radio-buttons-group-label"
+                                       defaultValue="all"
 
-                                    name="radio-buttons-group"
-                                 >
-                                    <FormControlLabel value="all" control={<Radio />} label="전체" onClick={handlePeriod} />
-                                    <FormControlLabel value="short" control={<Radio />} label="단기" onClick={handlePeriod} />
-                                    <FormControlLabel value="long" control={<Radio />} label="장기" onClick={handlePeriod} />
-                                 </RadioGroup>
-                              </FormControl>
-                              <h4>가격
-                                 <span style={{ marginLeft: 10, color: 'deeppink' }}>{value[0] === 0 ? '제한없음' : value[0] + '원'} ~ {value[1] === 101000 ? '제한없음' : value[1] + '원'}</span>
-                              </h4>
-                              <Box sx={{ marginLeft: 2, marginBottom: 3, width: 260 }}>
-                                 <Slider
-                                    value={value}
-                                    onChange={handlePrice}
-                                    valueLabelDisplay="off"
-                                    step={1000}
-                                    min={0}
-                                    max={101000}
-                                 />
-                              </Box>
-                              
+                                       name="radio-buttons-group"
+                                    >
+                                       <FormControlLabel value="all" control={<Radio />} label="전체" onClick={handlePeriod} />
+                                       <FormControlLabel value="short" control={<Radio />} label="단기" onClick={handlePeriod} />
+                                       <FormControlLabel value="long" control={<Radio />} label="장기" onClick={handlePeriod} />
+                                    </RadioGroup>
+                                 </FormControl>
+                                 <h4>가격
+                                    <span style={{ marginLeft: 10, color: 'deeppink' }}>{value[0] === 0 ? '제한없음' : value[0] + '원'} ~ {value[1] === 101000 ? '제한없음' : value[1] + '원'}</span>
+                                 </h4>
+                                 <Box sx={{ marginLeft: 2, marginBottom: 3, width: 260 }}>
+                                    <Slider
+                                       value={value}
+                                       onChange={handlePrice}
+                                       valueLabelDisplay="off"
+                                       step={1000}
+                                       min={0}
+                                       max={101000}
+                                    />
+                                 </Box>
+
                                  <Button
                                     fullWidth
                                     variant="contained"
@@ -162,8 +162,8 @@ const ReadRoomBoardList = () => {
                                  >
                                     검색
                                  </Button>
-                              
-                           </Box>
+
+                              </Box>
                            }
                         </Box>
                      </Box>

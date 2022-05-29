@@ -1,14 +1,14 @@
-import { Link } from 'react-router-dom';
-import { Box, Card, CardContent, Grid } from '@mui/material';
+import { Box, Card, CardContent, Grid, Hidden } from '@mui/material';
 import { useState, useEffect } from 'react';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import base_url from 'API/axiosConfig';
+import { base_url } from 'API/Url';
+
+const default_url = base_url + "/image/notfound.png";
 
 const BoardCardContent = (props) => {
   const { id, title, writer, image, price, deposit, durationStart, durationEnd } = props;
-  const [isImage, setIsImage] = useState(true); // 이미지 존재 여부 확인해서 변수에 담고 렌더링
 
   return (
     <>
@@ -16,60 +16,114 @@ const BoardCardContent = (props) => {
         <Card
           sx={{
             boxShadow: 5,
-            height: 280,
+            minHeight: 200,
           }}
         >
-          <CardContent>
-            <Link
-              to={{
-                pathname: `/map/detail/${id}`,
-                state: { boardId: id }
-              }}
-
-            >
-              <Box
-                sx={{
-                  marginBottom: 3,
-                  height: '80%'
-                }}
-              >
-                <Grid item xs={3}
-                  sx={{
-                    color: "black",
+          <CardContent
+            sx={{
+              fontSize: "22px"
+            }}>
+            <a href={'/map/detail/' + id} style={{ textDecoration: "none", color: "black" }}>
+              <Hidden mdDown>
+                <div id={id + '-row-image'}
+                  style={{
+                    float: 'left',
+                    width: '30%',
+                    height: '100%'
                   }}>
-                  <div id={id + '-row-image'}
-                    style={{
-                      float: 'left',
-                      width: '20%',
-                      height: '100%'
-                    }}>
-                    {isImage ?
-                      (<img
-                        src={base_url + image}
-                        alt="profile"
-                      />) : (
-                        <img src={base_url + "/image/bf8354c1-6156-4ba1-8b48-b4028c614f61.png"} alt="profile" />
-                      )}
-                  </div>
-                </Grid>
-
+                  {(image != null) ?
+                    <img
+                      src={base_url + image}
+                      style={{
+                        width: "100px",
+                        height: "100px",
+                        objectFit: "cover"
+                      }}
+                    /> :
+                    <img
+                      src={default_url}
+                      style={{
+                        width: "100px",
+                        height: "100px",
+                        objectFit: "cover"
+                      }}
+                    />
+                  }
+                </div>
                 <div
                   style={{
                     display: 'block',
                     width: '80%',
-                    height: '100%',
-                    textDecoration: "none",
-                    color: "black",
-                    float: 'right',
+                    height: '100%'
                   }}>
-                  <h3>{title}</h3>
-                  <span>작성자 | {writer}</span>
-                  <span>보증금 | {deposit} 원</span>
-                  <span>금액   | {price} 원/1박</span>
-                  <span>{durationStart} ~ {durationEnd}</span>
+                  <div id={id + '-row-title'}>
+                    <span style={{ fontSize: "75%", fontWeight: "bold" }}>{title}</span>
+                  </div>
+                  <div id={id + '-row-writer'}>
+                    <span style={{ fontSize: "70%" }}>작성자 | {writer}</span>
+                  </div>
+                  <div id={id + '-row-deposit'}>
+                    <span style={{ fontSize: "70%" }}>보증금 | {deposit} 원</span>
+                  </div>
+                  <div id={id + '-row-price'}>
+                    <span style={{ fontSize: "70%" }}>금액   | {price} 원/1박</span>
+                  </div>
+                  <div id={id + '-row-date'}>
+                    <span style={{ fontSize: "70%" }}>{durationStart} ~ {durationEnd}</span>
+                  </div>
                 </div>
-              </Box>
-            </Link>
+              </Hidden>
+              <Hidden mdUp>
+                <div id={id + '-row-image'}
+                  style={{
+                    float: 'left',
+                    width: '30%',
+                    height: '100%'
+                  }}>
+                  {(image != null) ?
+                    <img
+                      src={base_url + image}
+                      style={{
+                        width: "75px",
+                        height: "75px",
+                        objectFit: "cover"
+                      }}
+                    /> :
+                    <img
+                      src={default_url}
+                      style={{
+                        width: "75px",
+                        height: "75px",
+                        objectFit: "cover"
+                      }}
+                    />
+                  }
+                </div>
+                <div
+                  style={{
+                    display: 'block',
+                    width: '80%',
+                    height: '100%'
+                  }}>
+                  <div id={id + '-row-title'}>
+                    <span style={{ fontSize: "70%", fontWeight: "bold" }}>{title}</span>
+                  </div>
+                  <div id={id + '-row-writer'}>
+                    <span style={{ fontSize: "65%" }}>작성자 | {writer}</span>
+                  </div>
+                  <div id={id + '-row-deposit'}>
+                    <span style={{ fontSize: "65%" }}>보증금 | {deposit} 원</span>
+                  </div>
+                  <div id={id + '-row-price'}>
+                    <span style={{ fontSize: "65%" }}>금액   | {price} 원/1박</span>
+                  </div>
+                  <div id={id + '-row-date'}>
+                    <span style={{ fontSize: "65%" }}>{durationStart} ~ {durationEnd}</span>
+                  </div>
+                </div>
+
+              </Hidden>
+            </a>
             <Box
               sx={{
                 p: 2

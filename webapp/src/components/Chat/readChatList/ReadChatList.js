@@ -11,34 +11,17 @@ const StyledBox = styled.div`
 
 const StyledTop = styled.div`
     display: block;
-    height: 40px;
-    margin-top: 15px;
-    margin-bottom: 50px;
+    height: 30px;
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-bottom: 10px;
 `;
 
 const StyledTopSmall = styled.div`
     display: block;
     margin-top: 5px;
+    margin-left: 10px;
     margin-bottom: 10px;
-`;
-
-const List = styled.ul`
-  list-style: none;
-  margin: auto;
-  padding: 0;
-`;
-
-const Item = styled.li`
-  padding: 8px 12px; /* 마우스 클릭영역 확보 */
-
-  a {
-    display: flex;
-    position: relative;
-    margin: 10px 15px;
-    font-size: 22px;
-    text-decoration: none;
-    color: black;
-  }
 `;
 
 const ReadChatList = () => {
@@ -46,9 +29,18 @@ const ReadChatList = () => {
 
    return (
       <StyledBox>
-         <StyledTopSmall>
-            <span style={{ fontSize: "100%" }}>채팅 내역</span>
-         </StyledTopSmall>
+         <Hidden mdDown>
+            <StyledTop>
+               <span style={{ fontSize: "20px", fontWeight: "bold" }}>채팅 내역</span>
+            </StyledTop>
+         </Hidden>
+
+         <Hidden mdUp>
+            <StyledTopSmall>
+               <span style={{ fontSize: "100%", fontWeight: "bold" }}>채팅 내역</span>
+            </StyledTopSmall>
+         </Hidden>
+
          <Divider />
          <ChatCard></ChatCard>
       </StyledBox>

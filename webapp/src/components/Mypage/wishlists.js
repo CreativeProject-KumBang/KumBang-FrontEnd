@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
-import Divider from '@mui/material/Divider';
+import { Divider, Hidden } from '@mui/material';
+import Api from 'API/Api';
+import { base_url } from 'API/Url';
+
+const default_url = base_url + "/image/notfound.png";
 
 const StyledBox = styled.div`
     height: 100%;
@@ -9,10 +13,17 @@ const StyledBox = styled.div`
 
 const StyledTop = styled.div`
     display: block;
-    height: 40px;
-    margin-top: 15px;
-    margin-bottom: 50px;
-    font-size: 22px;
+    height: 30px;
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+`;
+
+const StyledTopSmall = styled.div`
+    display: block;
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-bottom: 10px;
 `;
 
 const List = styled.ul`
@@ -35,58 +46,121 @@ const Item = styled.li`
 `;
 
 const Wishlists = (props) => {
-    const { id, title, image, date } = props;
-    const postBody = {
-        item: [
-            {
-                "boardId": 1,
-                "title": "옥계중쪽 미투 양도합니다.",
-                "userId": "집돌이",
-            },
-            {
-                "boardId": 2,
-                "title": "옥계중 앞 CU쪽 미투 양도요!",
-                "userId": "나는야헬창",
-            }
-        ]
-    };
+    const [postBody, setPostBody] = useState([]);
+    const response = async () => await Api.getLikedProject();
+
+    useEffect(() => {
+        const getData = async () => {
+            const resBody = await response();
+            console.log(resBody);
+            setPostBody(resBody.data.response[0]);
+        }
+        getData();
+    }, []);
 
     return (
         <StyledBox>
-            <StyledTop>
-                <h2>찜 내역</h2>
-            </StyledTop>
+            <Hidden mdDown>
+                <StyledTop>
+                    <span style={{ fontSize: "20px", fontWeight: "bold" }}>찜 내역</span>
+                </StyledTop>
+            </Hidden>
+
+            <Hidden mdUp>
+                <StyledTopSmall>
+                    <span style={{ fontSize: "100%", fontWeight: "bold" }}>찜 내역</span>
+                </StyledTopSmall>
+            </Hidden>
+
             <Divider />
             <List>
                 {
-                    postBody.item.map(row => (
+                    postBody.map(row => (
                         <>
-                            <Item key={row.boardId}>
-                                <a href={'/mypage/post/' + row.boardId}>
-                                    <div id={row.boardId + '-row-image'}
-                                        style={{
-                                            float: 'left',
-                                            width: '20%',
-                                            height: '100%'
-                                        }}>
-                                        <img
-                                            src={row.image}
-                                            alt="profile"
-                                        />
-                                    </div>
-                                    <div
-                                        style={{
-                                            display: 'block',
-                                            width: '80%',
-                                            height: '100%'
-                                        }}>
-                                        <div id={row.boardId + '-row-title'}>
-                                            <span>{row.title}</span>
+                            <Item key={row.id}>
+                                <a href={'/mypage/detail/' + row.id}>
+                                    <Hidden mdDown>
+                                        <div id={row.id + '-row-image'}
+                                            style={{
+                                                float: 'left',
+                                                width: '30%',
+                                                height: '100%'
+                                            }}>
+                                            {(row.thumbnail != null) ?
+                                                <img
+                                                    src={base_url + row.thumbnail.path}
+                                                    style={{
+                                                        width: "100px",
+                                                        height: "100px",
+                                                        objectFit: "cover"
+                                                    }}
+                                                /> :
+                                                <img
+                                                    src={default_url}
+                                                    style={{
+                                                        width: "100px",
+                                                        height: "100px",
+                                                        objectFit: "cover"
+                                                    }}
+                                                />
+                                            }
                                         </div>
-                                        <div id={row.boardId + '-row-date'}>
-                                            <span style={{ fontSize: 16 }}>{row.userId}</span>
+                                        <div
+                                            style={{
+                                                display: 'block',
+                                                width: '70%',
+                                                height: '100%'
+                                            }}>
+                                            <div id={row.id + '-row-title'}>
+                                                <span style={{ fontSize: "75%" }}>{row.title}</span>
+                                            </div>
+                                            <div id={row.id + '-row-date'}>
+                                                <span style={{ fontSize: "70%" }}>{row.updatedAt}</span>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </Hidden>
+
+                                    <Hidden mdUp>
+                                        <div id={row.id + '-row-image'}
+                                            style={{
+                                                float: 'left',
+                                                width: '30%',
+                                                height: '100%'
+                                            }}>
+                                            {(row.thumbnail != null) ?
+                                                <img
+                                                    src={base_url + row.thumbnail.path}
+                                                    style={{
+                                                        width: "75px",
+                                                        height: "75px",
+                                                        objectFit: "cover"
+                                                    }}
+                                                /> :
+                                                <img
+                                                    src={default_url}
+                                                    style={{
+                                                        width: "75px",
+                                                        height: "75px",
+                                                        objectFit: "cover"
+                                                    }}
+                                                />
+                                            }
+                                        </div>
+
+                                        <div
+                                            style={{
+                                                display: 'block',
+                                                width: '70%',
+                                                height: '100%'
+                                            }}>
+                                            <div id={row.id + '-row-title'}>
+                                                <span style={{ fontSize: "70%" }}>{row.title}</span>
+                                            </div>
+                                            <div id={row.id + '-row-date'}>
+                                                <span style={{ fontSize: "65%" }}>{row.updatedAt}</span>
+                                            </div>
+                                        </div>
+                                    </Hidden>
                                 </a>
                             </Item>
                             <Divider />

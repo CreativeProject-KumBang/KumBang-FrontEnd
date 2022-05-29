@@ -44,27 +44,9 @@ const BoardDetail = (props) => {
   const writerId = props.writerId;
   const bookmark = props.bookmark;
   const setBookmark = props.setBookmark;
-
-  console.log(board_id);
-
-  const [isLike, setIsLike] = useState();
-  const [likes, setLikes] = useState();
+  const completeData = props.completeData;
 
   const postchat = async () => await Api.postChatRoom(board_id);   // 채팅방 생성 API
-
-
-  // --------------------거래 가격 정보 테이블 관련--------------------
-  function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-  }
-
-  const prices = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-  ];
 
   //----------------------------------------
   async function createChatRoom() {
@@ -80,10 +62,6 @@ const BoardDetail = (props) => {
       opponent: board.user.nickname
     }})
   }
-
-  // function handleBookmark() {
-
-  // }
   
   const handleBookmark = async () => {
     console.log(bookmark);
@@ -255,7 +233,7 @@ const BoardDetail = (props) => {
 
           <StyledH3>거래 가격 정보 표</StyledH3>
           <StyledDiv>
-            <PriceTable prices={prices}></PriceTable>
+            <PriceTable completeData={completeData}></PriceTable>
           </StyledDiv>
 
         </div >

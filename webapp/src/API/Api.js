@@ -6,9 +6,7 @@ import qs from "qs";
 const getRequest = async (path, params) => {
     try {
         params = qs.stringify(params);
-        console.log(params);
         const data = await client.get(path + params);
-        console.log(path + params);
         return data;
     } catch (e) {
         console.log(e);
@@ -31,7 +29,6 @@ const postFormReqest = async (path, body) => {
 };
 
 const postJsonReqest = async (path, body) => {
-    console.log(path, body);
     try {
         const data = await client.post(path, body, {
             headers: {
@@ -109,6 +106,7 @@ const Api = {
     getWithdrawal: async () => {
         return await deleteJsonReqest('/user');
     },
+
     // Mypage--------------------------------------------------------------------------------
     // 내 정보 조회
     getMyInfo: async (userId) => {
@@ -128,7 +126,6 @@ const Api = {
     },
 
     // RoomBoards--------------------------------------------------------------------------------
-
     // 방 양도 글 등록
     postRoomBoard: async (board) => {
         return await postJsonReqest('/board/new', board);
@@ -143,7 +140,6 @@ const Api = {
     },
     // 방 양도 글 전체조회 {장단기,날짜선택,가격(시작, 끝, 둘다 null)}
     getAllRoomBoard: async (data) => {
-        console.log(data);
         return await getRequest(`/board/list?`, data);
     },
     // 방 양도 글 삭제
@@ -158,11 +154,14 @@ const Api = {
     postTradeSuccess: async (trade, boardId) => {
         return await postJsonReqest(`/board/${boardId}/complete`, trade);
     },
+    // 거래 가격 정보 요청
+    getPriceTable: async (trade) => {
+        return await getRequest('', trade);
+    },
 
     // likes------------------------------------------------------------------------------------
     // 좋아요 여부 확인
     getBoardIsLike: async (boardId) => {
-        console.log(boardId);
         return await getRequest(`/board/islike?`, { boardId });
     },
     // 좋아요
@@ -174,11 +173,8 @@ const Api = {
         return await postJsonReqest(`/board/unlike`, { boardId });
     },
     // 사용자의 좋아요한 양도 글 리스트 조회
-    getLikedProject: async (userId, pageNum, pageCount) => {
-        return await getRequest(`/user/${userId}/like-boards`, {
-            pageNum,
-            pageCount
-        });
+    getLikedProject: async () => {
+        return await getRequest(`/mypage/like-boards`);
     },
 
     // Files--------------------------------------------------------------------------------------
@@ -192,7 +188,6 @@ const Api = {
 
     // Maps--------------------------------------------------------------------------------------
     getLocation: async (data) => {
-        console.log(data);
         return await getRequest(`/region/average?`, data);
     },
 
@@ -201,27 +196,18 @@ const Api = {
     getMyInfo: async () => {
         return await getRequest(`/whoami`);
     },
-
     // 채팅방 생성(게시물 정보)
     postChatRoom: async (board_id) => {
         return await postJsonReqest(`/chat/${board_id}`);
     },
-
     // 내 정보를 주고 채팅방 목록(매물정보 포함) 요청
     getChatList: async () => {
         return await getRequest(`/chat/rooms`);
     },
-
     // 내 정보를 주고 채팅방의 History 조회
     getChatContents: async (room_id) => {
         return await getRequest(`/chat/history/${room_id}`);
     },
-
-    // 내가 쓴 채팅 내용 전송
-    postChatContent: async () => {
-        return await postJsonReqest(`/broadcast`);
-    },
-
     // 채팅 읽음 
     postChatIsRead: async (messageId) => {
         return await postJsonReqest(`/chat/read`, { messageId });

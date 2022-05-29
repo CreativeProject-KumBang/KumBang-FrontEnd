@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
-import { Box, Paper, Button, TextField, Divider } from '@mui/material'
+import { Box, Paper, Button, TextField, Divider, Container, Grid, Hidden } from '@mui/material'
 import { MessageLeft, MessageRight } from "components/Chat/readChatDetail/Message"
 import { createStyles, makeStyles } from "@mui/styles";
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) =>
          // margin: 10,
          overflowY: "scroll",
          // height: "calc( 100% - 100px )"
-          height: "500px"
+         height: "500px"
       },
 
       test: {
@@ -85,13 +85,21 @@ const ReadChatDetail = () => {
       sender: { id: myId }
    };
 
+   // 입력한 키가 Enter일 경우 가입하기 버튼 클릭한 것과 동일한 동작 실행
+   const onCheckEnter = (e) => {
+      e.preventDefault();
+      if (e.key === 'Enter') {
+         sendMessage()
+      }
+   }
+
    async function showHistory() {
       const resHistory = await resChatHistory();
       console.log(resHistory);
       const history_data = resHistory.data.response[0].content.reverse();
       history_data.forEach(element => {
          setGreetings(greetings => [...greetings, element.sender.id]);
-         setMessages(messages => [...messages, element.content]); 
+         setMessages(messages => [...messages, element.content]);
       })
    }
 
@@ -104,7 +112,7 @@ const ReadChatDetail = () => {
 
          stompClient.subscribe(`/user/` + data + `/queue/messages`, function (greeting) {
             const greeting_data = JSON.parse(greeting.body);
-            
+
             setGreetings(greetings => [...greetings, greeting_data.sender.id]); //list
             setMessages(messages => [...messages, greeting_data.content]); // list
 
@@ -149,25 +157,26 @@ const ReadChatDetail = () => {
    }, []);
 
    return (
-      <div className="flex flex-col h-full">
-         <div className="overflow-auto h-full">
-            <div className="py-4 max-w-screen-lg mx-auto" sx={{ paddingTop: "4px", height: "50px" }}>
+      <>
+         <Hidden mdDown>
+            <Container maxWidth="sm">
                <Box>
-                  {opponent} | {boardTitle}
+                  <Grid container spacing={2}>
+                     <Grid item xs={12} md={9}>
+                        <Box>{opponent} | {boardTitle}</Box>
+                     </Grid>
+                     <Grid item xs={0} md={3}>
+                        <Box>
+                           <HelpOutlineIcon sx={{ paddingTop: "4px" }}></HelpOutlineIcon>
+                           <ArticleOutlinedIcon sx={{ paddingTop: "4px" }}></ArticleOutlinedIcon>
+                           <Button sx={{ paddingLeft: "4px" }}>방 정보</Button>
+                        </Box>
+                     </Grid>
+                  </Grid>
                </Box>
-
-               <Box sx={{ float: "right" }}>
-                  <HelpOutlineIcon sx={{ paddingTop: "4px" }}></HelpOutlineIcon>
-                  <ArticleOutlinedIcon sx={{ paddingTop: "4px" }}></ArticleOutlinedIcon>
-                  <Button sx={{ paddingLeft: "4px" }}>방 정보</Button>
-               </Box>
-            </div>
-            <Divider />
-            <Box className={classes.paper} zDepth={2}>
-               <Box id="style-1" className={classes.messagesBody} >
+               <Box id="style-1" sx={{ bgcolor: '#cfe8fc', height: '70vh', overflowY: "scroll" }} >
                   {greetings.map((row, id) => (
                      (greetings[id] === myId) ?
-
                         (<>
                            <MessageRight message={messages[id]}></MessageRight>
 
@@ -177,28 +186,79 @@ const ReadChatDetail = () => {
                         </>)
                   ))}
                </Box>
+               <Box sx={{ height: '10vh' }} >
+                  <form className={classes.wrapForm} noValidate autoComplete="off" onKeyPress={onCheckEnter}>
+                     <TextField
+                        id="standard-text"
+                        label=""
+                        className={classes.wrapText}
 
-            </Box>
-            <form className={classes.wrapForm} noValidate autoComplete="off">
-               <TextField
-                  id="standard-text"
-                  label=""
-                  className={classes.wrapText}
+                        onChange={(event) => setMessage(event.target.value)}
+                        sx={{
+                           height: "100%",
+                           margin: "normal"
+                        }}
+                     />
+                     <Button id="chatbutton" variant="contained" color="primary" className={classes.button}
+                        sx={{ float: "bottom" }} onClick={sendMessage}>
+                        <SendSharpIcon />
+                     </Button>
+                  </form>
+               </Box>
+            </Container>
+         </Hidden>
 
-                  onChange={(event) => setMessage(event.target.value)}
-                  sx={{
-                     height: "100%",
-                     margin: "normal"
-                  }}
-               />
-               <Button id="chatbutton" variant="contained" color="primary" className={classes.button}
-                  sx={{ float: "bottom" }} onClick={sendMessage}>
-                  <SendSharpIcon />
-               </Button>
-            </form>
-            {/* <TextInput message={message} setMessage={setMessage}></TextInput> */}
-         </div>
-      </div>
+         <Hidden mdUp>
+            <Container maxWidth="sm">
+               <Box>
+                  <Grid container spacing={2}>
+                     <Grid item xs={12} md={9}>
+                        <Box>{opponent} | {boardTitle}</Box>
+                     </Grid>
+                     <Grid item xs={0} md={3}>
+                        <Box>
+                           <HelpOutlineIcon sx={{ paddingTop: "4px" }}></HelpOutlineIcon>
+                           <ArticleOutlinedIcon sx={{ paddingTop: "4px" }}></ArticleOutlinedIcon>
+                           <Button sx={{ paddingLeft: "4px" }}>방 정보</Button>
+                        </Box>
+                     </Grid>
+                  </Grid>
+               </Box>
+               <Box id="style-1" sx={{ bgcolor: '#cfe8fc', height: '64vh', overflowY: "scroll" }} >
+                  {greetings.map((row, id) => (
+                     (greetings[id] === myId) ?
+                        (<>
+                           <MessageRight message={messages[id]}></MessageRight>
+
+                        </>) : (<>
+                           <MessageLeft message={messages[id]}></MessageLeft>
+
+                        </>)
+                  ))}
+               </Box>
+               <Box sx={{ height: '9vh' }} >
+                  <form className={classes.wrapForm} noValidate autoComplete="off">
+                     <TextField
+                        id="standard-text"
+                        label=""
+                        className={classes.wrapText}
+
+                        onChange={(event) => setMessage(event.target.value)}
+                        sx={{
+                           height: "100%",
+                           margin: "normal"
+                        }}
+                     />
+                     <Button id="chatbutton" variant="contained" color="primary" className={classes.button}
+                        sx={{ float: "bottom" }} onClick={sendMessage}>
+                        <SendSharpIcon />
+                     </Button>
+                  </form>
+               </Box>
+            </Container>
+         </Hidden>
+
+      </>
    )
 }
 

@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import styled from "styled-components";
-import { Divider, Button, Hidden, Box, Chip, Modal } from '@mui/material';
-import TradeSuccess from "components/Mypage/TradeSuccess"
+import { Divider, Hidden } from '@mui/material';
 import Modals from "components/Mypage/Modals"
 import Api from 'API/Api';
 import { base_url } from 'API/Url';
 
-const default_url = base_url + "/image/bf8354c1-6156-4ba1-8b48-b4028c614f61.png";
+const default_url = base_url + "/image/notfound.png";
 
 const StyledBox = styled.div`
     height: 100%;
@@ -15,10 +14,17 @@ const StyledBox = styled.div`
 
 const StyledTop = styled.div`
     display: block;
-    height: 40px;
-    margin-top: 15px;
-    margin-bottom: 50px;
-    font-size: 22px;
+    height: 30px;
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+`;
+
+const StyledTopSmall = styled.div`
+    display: block;
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-bottom: 10px;
 `;
 
 const List = styled.ul`
@@ -71,7 +77,6 @@ const styleSmall = {
 
 const MyPost = (props) => {
   const [postBody, setPostBody] = useState([]);
-  const [boardId, setBoardId] = useState();
   const response = async () => await Api.getMyPost();
 
   useEffect(() => {
@@ -85,9 +90,18 @@ const MyPost = (props) => {
 
   return (
     <StyledBox>
-      <StyledTop>
-        <h2>내가 쓴 글</h2>
-      </StyledTop>
+            <Hidden mdDown>
+                <StyledTop>
+                    <span style={{ fontSize: "20px", fontWeight: "bold" }}>내가 쓴 글</span>
+                </StyledTop>
+            </Hidden>
+
+            <Hidden mdUp>
+                <StyledTopSmall>
+                    <span style={{ fontSize: "100%", fontWeight: "bold" }}>내가 쓴 글</span>
+                </StyledTopSmall>
+            </Hidden>
+
       <Divider />
       <List>
         {
@@ -180,39 +194,22 @@ const MyPost = (props) => {
                         </div>
                       </div>
                     </Hidden>
-
+                    
                   </a>
                 </div>
+
                 <Hidden mdDown>
                   <div style={{ marginLeft: "25px" }}>
                     <Modals title={row.title} boardId={row.id} state={row.state}></Modals>
                   </div>
 
                 </Hidden>
+
                 <Hidden mdUp>
                   <div style={{ marginLeft: "10px" }}>
                     <Modals title={row.title} boardId={row.id} state={row.state}></Modals>
                   </div>
-
                 </Hidden>
-
-
-                {/* <a href={'/mypage/detail/' + row.id}>
-                    <div
-                      style={{
-                        display: 'block',
-                        width: '80%',
-                        height: '100%'
-                      }}>
-                      <div id={row.id + '-row-title'}>
-                        <span style={{ fontSize: "75%" }}>{row.title}|{row.id}</span>
-                      </div>
-                      <div id={row.id + '-row-date'}>
-                        <span style={{ fontSize: "70%" }}>{row.updatedAt}</span>
-                      </div>
-                    </div>
-                  </a> */}
-
 
               </Item>
               <Divider />
