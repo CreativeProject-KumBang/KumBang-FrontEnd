@@ -43,7 +43,7 @@ const Item = styled.li`
 const ChatCard = () => {
     const [getbody, setGetBody] = useState([]);
     const response = async () => await Api.getChatList();
-    
+
     useEffect(() => {
         const getData = async () => {
             const resBody = await response();
@@ -62,20 +62,26 @@ const ChatCard = () => {
                     <Item>
                         {getbody.map(row => (<>
 
-                                <
-                                    ChatCardContent key={row.chatRoomId}
-                                    roomId={row.chatRoomId}
-                                    boardId={row.roomBoard.id}
-                                    title={row.roomBoard.title}
-                                    image={(row.roomBoard.thumbnail === null) ?
-                                        (default_imageurl) : (row.roomBoard.thumbnail)}
-                                    opponent={(row.isBuyer) ?
-                                        row.roomBoard.author.nickname : row.buyer.nickname}
-                                    date={row.updatedAt}
-                                    isRead={isRead}
-                                    lastMsg={row.lastMessage.content}
-                                />
-                                <Divider />
+                            <
+                                ChatCardContent key={row.chatRoomId}
+                                roomId={row.chatRoomId}
+                                boardId={row.roomBoard.id}
+                                title={row.roomBoard.title}
+                                image={(row.roomBoard.thumbnail === null) ?
+                                    (default_imageurl) : (row.roomBoard.thumbnail.path)}
+                                opponent={(row.isBuyer) ?
+                                    row.roomBoard.author.nickname : row.buyer.nickname}
+                                date={row.updatedAt}
+                                isNew={row.isNew}
+                                lastMsg={
+                                    (!(row.lastMessage === "null")) ?
+                                        (
+                                            row.lastMessage.content
+                                        ) : (
+                                            " "
+                                    )}
+                            />
+                            <Divider />
                         </>
                         ))}
                     </Item>

@@ -3,12 +3,12 @@ import client from 'API/axiosConfig';
 import qs from "qs";
 
 
-const getRequest = async (path, params = {}) => {
+const getRequest = async (path, params) => {
     try {
         params = qs.stringify(params);
-        console.log(client.getUri());
+        console.log(params);
         const data = await client.get(path + params);
-        console.log(path+params);
+        console.log(path + params);
         return data;
     } catch (e) {
         console.log(e);
@@ -31,6 +31,7 @@ const postFormReqest = async (path, body) => {
 };
 
 const postJsonReqest = async (path, body) => {
+    console.log(path, body);
     try {
         const data = await client.post(path, body, {
             headers: {
@@ -142,17 +143,27 @@ const Api = {
     },
     // 방 양도 글 전체조회 {장단기,날짜선택,가격(시작, 끝, 둘다 null)}
     getAllRoomBoard: async (data) => {
+        console.log(data);
         return await getRequest(`/board/list?`, data);
     },
     // 방 양도 글 삭제
     deleteRoomBoard: async (boardId) => {
         return await deleteJsonReqest(`/roomboard/${boardId}`);
     },
+    // 방 양도 글 거래 완료를 위한 거래자 목록 요청
+    getBuyerList: async (boardId) => {
+        return await getRequest(`/board/${boardId}/buyer`);
+    },
+    // 방 양도 글 거래 완료 요청
+    postTradeSuccess: async (trade, boardId) => {
+        return await postJsonReqest(`/board/${boardId}/complete`, trade);
+    },
 
     // likes------------------------------------------------------------------------------------
     // 좋아요 여부 확인
     getBoardIsLike: async (boardId) => {
-        return await getRequest(`/board/islike?`, {boardId});
+        console.log(boardId);
+        return await getRequest(`/board/islike?`, { boardId });
     },
     // 좋아요
     getBoardLike: async (boardId) => {
@@ -193,7 +204,7 @@ const Api = {
 
     // 채팅방 생성(게시물 정보)
     postChatRoom: async (board_id) => {
-        return await postJsonReqest(`chat/${board_id}`);
+        return await postJsonReqest(`/chat/${board_id}`);
     },
 
     // 내 정보를 주고 채팅방 목록(매물정보 포함) 요청
@@ -208,12 +219,12 @@ const Api = {
 
     // 내가 쓴 채팅 내용 전송
     postChatContent: async () => {
-        return await postJsonReqest(`/broadcast`,);
+        return await postJsonReqest(`/broadcast`);
     },
 
     // 채팅 읽음 
-    postChatIsRead: async (msg_id) => {
-        return await postJsonReqest(`chat/isread`, msg_id);
+    postChatIsRead: async (messageId) => {
+        return await postJsonReqest(`/chat/read`, { messageId });
     },
 
 };

@@ -23,7 +23,7 @@ const BoardCard = (props) => {
 				  height: '100%'
                }}
             >
-                {
+               {
 					getBody.map(row => (<
 					   BoardCardContent key={row.id}
 					   isDetail={isDetail}
@@ -38,7 +38,7 @@ const BoardCard = (props) => {
 					   durationEnd={row.durationEnd}
 					/>
 					))
-                }
+               }
             </Grid>
          </Box >
    )

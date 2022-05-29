@@ -3,10 +3,6 @@ import styled from "styled-components";
 import BoardCard from 'components/RoomBoard/readRoomBoardList/BoardCard';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css"
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
-import SearchIcon from '@mui/icons-material/Search';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import MapIcon from '@mui/icons-material/Map';

@@ -22,8 +22,8 @@ const useStyles = makeStyles((theme) =>
          justifyContent: "center"
       },
       paper: {
-         width: "80vh",
-         height: "80vh",
+         width: "100%",
+         // height: "80vh",
          display: "flex",
          flexDirection: "column", // flex 배치 방향
          alignItems: "center",
@@ -32,9 +32,9 @@ const useStyles = makeStyles((theme) =>
       wrapForm: {
          display: "flex",
          justifyContent: "center",
-         width: "95%",
-         margin: "0 auto",
-         position: 'fix',
+         // width: "95%",
+         // margin: "0 auto",
+         // position: 'fix',
          bottom: 0
       },
       wrapText: {
@@ -44,11 +44,11 @@ const useStyles = makeStyles((theme) =>
          //margin: theme.spacing(1),
       },
       messagesBody: {
-         width: "calc( 100% - 20px )",
-         margin: 10,
+         // width: "80%",
+         // margin: 10,
          overflowY: "scroll",
-         //height: "calc( 100% - 100px )"
-         height: "90%"
+         // height: "calc( 100% - 100px )"
+          height: "500px"
       },
 
       test: {
@@ -72,11 +72,11 @@ const ReadChatDetail = () => {
    const [messages, setMessages] = useState([]); // sender가 보낸 message를 ui에 띄우기 위해 저장하는 list
    const [greetings, setGreetings] = useState([]); // sender의 id 값 저장
 
-   const [myId, setMyId] = useState([]); // 나의 id
+   const [myId, setMyId] = useState(); // 나의 id
 
    const response = async () => await Api.getMyInfo();
    const resChatHistory = async () => await Api.getChatContents(location.state.roomId);
-   const resIsRead = async () => await Api.postChatIsRead();
+
 
    // 메세지 전송 시 보낼 데이터
    const chatData = {
@@ -95,7 +95,7 @@ const ReadChatDetail = () => {
       })
    }
 
-   async function connect(data) {
+   async function connect(data, myId) {
       var socket = new SockJS(base_url + '/ws');
       stompClient = Stomp.over(socket);
       stompClient.connect({}, function (frame) {
@@ -113,7 +113,8 @@ const ReadChatDetail = () => {
 
             // TODO: 내가 남의 걸 읽음을 알려주는 요청
             if (greeting_data.sender.id != myId) {
-               resIsRead(greeting_data.id);
+               console.log(greeting_data.sender.id, "  ==  ", myId);
+               const res = Api.postChatIsRead(greeting_data.id);
             }
 
          });
@@ -142,16 +143,15 @@ const ReadChatDetail = () => {
          const resBody = await response();
          setMyId(resBody.data.response[0].id); // myId 정보 획득
 
-         connect(location.state.roomId); // 채팅 연결
+         await connect(location.state.roomId, resBody.data.response[0].id); // 채팅 연결
       }
       getData();
    }, []);
 
    return (
-      <div className={classes.container}>
-         <Paper className={classes.paper}>
-
-            <Box sx={{ paddingTop: "4px", height: "50px" }}>
+      <div className="flex flex-col h-full">
+         <div className="overflow-auto h-full">
+            <div className="py-4 max-w-screen-lg mx-auto" sx={{ paddingTop: "4px", height: "50px" }}>
                <Box>
                   {opponent} | {boardTitle}
                </Box>
@@ -161,7 +161,7 @@ const ReadChatDetail = () => {
                   <ArticleOutlinedIcon sx={{ paddingTop: "4px" }}></ArticleOutlinedIcon>
                   <Button sx={{ paddingLeft: "4px" }}>방 정보</Button>
                </Box>
-            </Box>
+            </div>
             <Divider />
             <Box className={classes.paper} zDepth={2}>
                <Box id="style-1" className={classes.messagesBody} >
@@ -197,7 +197,7 @@ const ReadChatDetail = () => {
                </Button>
             </form>
             {/* <TextInput message={message} setMessage={setMessage}></TextInput> */}
-         </Paper>
+         </div>
       </div>
    )
 }

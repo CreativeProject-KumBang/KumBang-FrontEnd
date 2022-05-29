@@ -45,6 +45,7 @@ const StyledH2 = styled.h2`
 
 const StyledH5 = styled.h5`
     text-align: center;
+    outline: none;
 `;
 
 const Main = () => {

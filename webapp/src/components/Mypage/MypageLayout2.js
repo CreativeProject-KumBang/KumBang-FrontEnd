@@ -41,7 +41,7 @@ const MypageLayout2 = () => {
                                 {mainListItems}
                             </List>
                         </Grid>
-                        <Grid item  lg={9} md={9} sx={{ display: { md: 'block', xs: 'none' }, padding: '30px' }}>
+                        <Grid item  lg={9} md={9} sx={{ display: { md: 'block', xs: 'none' }, padding: '0px' }}>
                             <Grid >
                                 <Info />
                             </Grid>
