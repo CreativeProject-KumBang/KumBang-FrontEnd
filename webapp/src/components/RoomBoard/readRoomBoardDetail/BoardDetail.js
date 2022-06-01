@@ -100,7 +100,7 @@ const BoardDetail = (props) => {
               <Button
                 variant="outlined"
                 fullWidth
-                color="success"
+                color="secondary"
                 onClick={() => createChatRoom()}
               >채팅하기</Button>
             ) : (
@@ -108,7 +108,7 @@ const BoardDetail = (props) => {
                 disabled
                 variant="outlined"
                 fullWidth
-                color="success"
+                color="secondary"
               >채팅하기</Button>
             )}
           </StyledDiv>
@@ -126,7 +126,8 @@ const BoardDetail = (props) => {
                       display: 'inline-block',
                       marginLeft: 2,
                       color: 'red',
-                      fontSize: 40
+                      fontSize: 40,
+                      cursor:'pointer'
                     }}
                     onClick={() => handleBookmark()}
                   />

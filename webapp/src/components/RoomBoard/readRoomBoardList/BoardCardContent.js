@@ -11,7 +11,6 @@ const BoardCardContent = (props) => {
   const { id, title, writer, image, price, deposit, durationStart, durationEnd } = props;
 
   return (
-    <>
       <Grid key={id} item lg={12} md={12} sm={12} xs={12}>
         <Card
           sx={{
@@ -132,7 +131,6 @@ const BoardCardContent = (props) => {
           </CardContent>
         </Card>
       </Grid>
-    </>
   );
 };
 

@@ -1,5 +1,6 @@
 /* global kakao */
 import React, { useEffect, useRef, useState } from 'react';
+import { Grid } from '@mui/material';
 import cn from "classnames";
 import Api from 'API/Api';
 import { base_url } from 'API/Url';
@@ -16,6 +17,8 @@ const Map = (props) => {
     const [cordX, setCordX] = useState(128.41015);
     const [cordY, setCordY] = useState(36.13654);
     const [level, setLevel] = useState(5);
+    const lat = props.cordY;
+    const lng = props.cordX;
     props.setX(cordX);
     props.setY(cordY);
     props.setL(level);
@@ -54,7 +57,34 @@ const Map = (props) => {
             disableClickZoom: true 
         });
     },[]);
+
+    /*------------------------지도 이동 시키는 함수------------------------------*/
+    useEffect(()=>{
+        // 이동할 위도 경도 위치를 생성합니다 
+        var moveLatLon = new kakao.maps.LatLng(props.cordY, props.cordX);
+        // 지도 중심을 부드럽게 이동시킵니다
+        // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+        mapRef.current.panTo(moveLatLon); 
+        return () => {
+            // 매물과 가까이 레벨 지정
+            mapRef.current.setLevel(2);           
+        }
+    },[props.cordY, props.cordX])
     
+    /*------------------------필터 조회 결과값 바뀔때마다 서버 통신------------------------------*/
+    useEffect(() => {
+        if(level < 5){
+            const response = async () => await Api.getAllRoomBoard(allData)
+            const getData = async () => {
+                const resBody = await response();
+                setPostBody(resBody.data.response[0].content);
+                console.log(resBody.data.response[0].content);
+            }
+            getData();
+        }
+    },[props.getBody])
+    
+    /*------------------------x, y, level 값 바뀔때마다 서버 통신------------------------------*/
     useEffect(() => {
         if (level >= 5) {
             const response = async () => await Api.getLocation({x:cordX, y:cordY, level:level})
@@ -70,6 +100,7 @@ const Map = (props) => {
             const getData = async () => {
                 const resBody = await response();
                 setPostBody(resBody.data.response[0].content);
+                props.setGetBody(resBody.data.response[0].content);
                 console.log(resBody.data.response[0].content);
             }
             getData();
@@ -105,7 +136,7 @@ const Map = (props) => {
         overlayList=[];
         clusterer.current.clear();
     }
-    //동, 시 마커 디자인
+    //시, 동 마커 디자인
     function markerCityTown(infoList, color) {
         infoList.forEach(info => {
             let content = `<div class="box" 
@@ -148,7 +179,6 @@ const Map = (props) => {
                     }
                 )
             });
-            console.log(postBody);
             markerCityTown(infos, 'limeGreen');
         }
         else if (level >= 5) {
@@ -170,6 +200,7 @@ const Map = (props) => {
                 if(info.thumbnail === null) {
                     return (
                       {
+                        id: info.id,
                         title: info.title,
                         start: info.durationStart,
                         end: info.durationEnd,
@@ -181,6 +212,7 @@ const Map = (props) => {
                     )
                 }
                 return ({
+                    id: info.id,
                     title: info.title,
                     start: info.durationStart,
                     end: info.durationEnd,
@@ -206,6 +238,7 @@ const Map = (props) => {
 
                 let content =
                     '<div class="wrap">' +
+                    `<a href="/rooms/${el.id}" style="text-decoration:none; color:black;">` +
                     '    <div class="info">' +
                     '       <div class="title">' +
                     `         <h3 class="accommName">${el.title}</h3>` +
@@ -221,6 +254,7 @@ const Map = (props) => {
                     '            </div>' +
                     '       </div>' +
                     '    </div>' +
+                    '</a>' +
                     '</div>';
 
                 let position = new kakao.maps.LatLng(el.lat, el.lng);
@@ -259,8 +293,7 @@ const Map = (props) => {
                 mapRef.current.setLevel(level, {anchor: cluster.getCenter()});
             });
         }
-    }, [postBody, props.getBody]);
-    console.log(props.getBody)
+    }, [postBody]);
 
     return (
         <div className="MapContainer" id="map" style={{

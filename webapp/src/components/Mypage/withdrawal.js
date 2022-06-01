@@ -70,9 +70,9 @@ const Withdrawal = (props) => {
             >
                 네
             </StyledButton>
-            <StyledButton>
+            <StyledButton
+            >
                 아니오
-                {alert("잘 생각하셨어요!")}
             </StyledButton>
             
         </StyledBox>

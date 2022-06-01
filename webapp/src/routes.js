@@ -34,6 +34,7 @@ import Product from 'products';
 import Dashboard from 'components/Mypage/board';
 import Map from 'components/Map/Map';
 import DatePickerComponent from 'components/Login/test';
+import ReadRoomBoardLayout from 'components/RoomBoard/readRoomBoardDetail/readRoomBoardLayout';
 
 const routes = [
 	{
@@ -53,11 +54,10 @@ const routes = [
 		]
 	},
 	{
-		path: 'mapTest',
-		element: <RoomBoardLayout />,
+		path: 'rooms',
+		element: <ReadRoomBoardLayout />,
 		children: [
-			{ path: "list", element: <ReadRoomBoardList /> },
-			{ path: "detail/:id", element: <ReadRoomBoardDetail /> },
+			{ path: ":id", element: <ReadRoomBoardDetail /> },
 		]
 	},
 	{

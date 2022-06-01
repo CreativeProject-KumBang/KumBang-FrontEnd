@@ -11,20 +11,22 @@ const default_imageurl = base_url + "default";
 
 const BoardCard = (props) => {
    const getBody = props.getBody;
+   const isDetail = () => props.setIsDetail;
 
    return (
-      <div>
-         <Box >
+         <Box pb={2}>
             <Grid
                container
-               spacing={3}
+               spacing={2}
                sx={{
-                  width: '100%'
+                  width: '100%',
+				  height: '100%'
                }}
             >
-               {
+                {
 					getBody.map(row => (<
 					   BoardCardContent key={row.id}
+					   isDetail={isDetail}
 					   id={row.id}
 					   title={row.title}
 					   writer={row.author.name}
@@ -36,10 +38,9 @@ const BoardCard = (props) => {
 					   durationEnd={row.durationEnd}
 					/>
 					))
-               }
+                }
             </Grid>
          </Box >
-      </div>
    )
 }
 
