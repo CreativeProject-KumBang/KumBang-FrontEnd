@@ -13,7 +13,6 @@ client.interceptors.request.use(
         // 토큰 유무 판단 코드
         if (!user) {
             config.headers["X-AUTH-TOKEN"] = null;
-            alert('로그인!!!')
             return config
         }
         const { accessToken, refreshToken } = JSON.parse(user)

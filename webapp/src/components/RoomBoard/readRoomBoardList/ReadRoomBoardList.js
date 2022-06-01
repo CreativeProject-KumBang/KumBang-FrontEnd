@@ -99,15 +99,6 @@ const ReadRoomBoardList = () => {
       setGetBody(resBody.data.response[0].content);
    };
 
-   useEffect(() => {
-      console.log(filter)
-      const getData = async () => {
-         let resBody = await response();
-         setGetBody(resBody.data.response[0].content);
-         console.log(resBody);
-      }
-   }, []);
-
    //매물 상세정보 펼치기
    const [isDetail, setIsDetail] = useState(false);
    function showDetail() {
