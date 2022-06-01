@@ -1,5 +1,6 @@
 /* global kakao */
 import React, { useEffect, useRef, useState } from 'react';
+import { Grid } from '@mui/material';
 import cn from "classnames";
 import Api from 'API/Api';
 import { base_url } from 'API/Url';
@@ -61,11 +62,13 @@ const Map = (props) => {
     useEffect(()=>{
         // 이동할 위도 경도 위치를 생성합니다 
         var moveLatLon = new kakao.maps.LatLng(props.cordY, props.cordX);
-        // 지도 레벨을 지정합니다 (지도가 축소됩니다)
-        mapRef.current.setLevel(3);           
         // 지도 중심을 부드럽게 이동시킵니다
         // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
         mapRef.current.panTo(moveLatLon); 
+        return () => {
+            // 매물과 가까이 레벨 지정
+            mapRef.current.setLevel(2);           
+        }
     },[props.cordY, props.cordX])
     
     /*------------------------필터 조회 결과값 바뀔때마다 서버 통신------------------------------*/
@@ -197,6 +200,7 @@ const Map = (props) => {
                 if(info.thumbnail === null) {
                     return (
                       {
+                        id: info.id,
                         title: info.title,
                         start: info.durationStart,
                         end: info.durationEnd,
@@ -208,6 +212,7 @@ const Map = (props) => {
                     )
                 }
                 return ({
+                    id: info.id,
                     title: info.title,
                     start: info.durationStart,
                     end: info.durationEnd,
@@ -233,7 +238,7 @@ const Map = (props) => {
 
                 let content =
                     '<div class="wrap">' +
-                    // '<ㅁㅁ class="wrap">' +
+                    `<a href="/rooms/${el.id}" style="text-decoration:none; color:black;">` +
                     '    <div class="info">' +
                     '       <div class="title">' +
                     `         <h3 class="accommName">${el.title}</h3>` +
@@ -249,6 +254,7 @@ const Map = (props) => {
                     '            </div>' +
                     '       </div>' +
                     '    </div>' +
+                    '</a>' +
                     '</div>';
 
                 let position = new kakao.maps.LatLng(el.lat, el.lng);

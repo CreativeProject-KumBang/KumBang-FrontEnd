@@ -32,11 +32,11 @@ const theme = createTheme({
          
       },
       secondary: {
-         main: '#000000',
+         main: '#ffb000',
+     },
+      info: {
+         main: '#000000'
       },
-      grey: {
-         main: '#dcdcdc'
-      }
    },
    typography: {
       poster: {
@@ -195,7 +195,7 @@ const ReadRoomBoardList = () => {
                      </Container>
                      {isDetail && 
                         <Container component="main"  maxWidth={'100%'} sx={{ position:'absolute', backgroundColor:'white', overflowY: "scroll", height: "calc(100vh - 80px)" }}>
-                           <IconButton onClick={showDetail} color="secondary" sx={{marginTop:'20px'}}><ArrowBackIosIcon/></IconButton>
+                           <IconButton onClick={showDetail} color="info" sx={{marginTop:'20px'}}><ArrowBackIosIcon/></IconButton>
                            <ReadRoomBoardDetail setX={setCordX} setY={setCordY}/>
                         </Container>
                      }

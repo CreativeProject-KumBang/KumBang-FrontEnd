@@ -31,9 +31,9 @@ const ReadRoomBoardDetail = (props) => {
       const myInfo = await resMyId();
       const Like = await resLike();
       
-      console.log(resBody);
-      console.log(myInfo);
-      console.log(Like);
+      // console.log(resBody);
+      // console.log(myInfo);
+      // console.log(Like);
 
       setBoard(resBody.data.response[0]);
       setMyId(myInfo.data.response[0].id); // myId 정보 획득
