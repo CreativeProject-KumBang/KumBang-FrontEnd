@@ -88,14 +88,11 @@ const ReadRoomBoardList = () => {
       priceStart: value[0],
       priceEnd: value[1]
    }
-
-   const response = async () => await Api.getAllRoomBoard(filter);
-
    //조건 검색한 결과 매물 담기는 곳
    const [getBody, setGetBody] = useState([]);
    //조건 검색 버튼 클릭 이벤트
    const handleFilter = async () => {
-      let resBody = await response();
+      let resBody = await Api.getAllRoomBoard(filter);
       setGetBody(resBody.data.response[0].content);
    };
 

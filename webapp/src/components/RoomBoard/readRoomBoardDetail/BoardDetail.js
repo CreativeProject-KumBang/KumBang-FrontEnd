@@ -137,7 +137,8 @@ const BoardDetail = (props) => {
                       display: 'inline-block',
                       marginLeft: 2,
                       color: 'red',
-                      fontSize: 40
+                      fontSize: 40,
+                      cursor:'pointer'
                     }}
                     onClick={() => handleBookmark()}
                   />

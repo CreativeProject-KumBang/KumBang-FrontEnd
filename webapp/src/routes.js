@@ -57,7 +57,7 @@ const routes = [
 		path: 'rooms',
 		element: <ReadRoomBoardLayout />,
 		children: [
-			{ path: ":id", element: <ReadRoomBoardDetail /> },
+			{ path: ":id", element: <ReadRoomBoardDetail setX={()=>{}} setY={()=>{}} /> },
 		]
 	},
 	{

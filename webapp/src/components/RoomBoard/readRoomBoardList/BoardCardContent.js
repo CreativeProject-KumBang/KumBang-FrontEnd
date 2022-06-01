@@ -1,4 +1,5 @@
 import { Box, Card, CardContent, Grid, Hidden } from '@mui/material';
+import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -8,7 +9,7 @@ import { base_url } from 'API/Url';
 const default_url = base_url + "/image/notfound.png";
 
 const BoardCardContent = (props) => {
-  const { id, title, writer, image, price, deposit, durationStart, durationEnd } = props;
+  const { id, title, writer, image, price, deposit, durationStart, durationEnd, isDetail } = props;
 
   return (
       <Grid key={id} item lg={12} md={12} sm={12} xs={12}>
@@ -22,7 +23,14 @@ const BoardCardContent = (props) => {
             sx={{
               fontSize: "22px"
             }}>
-            <a href={'/map/detail/' + id} style={{ textDecoration: "none", color: "black" }}>
+            <Link //링크여야함. a태그 href시 리랜더링 되기 때문.
+              onClick={isDetail(true)}
+              to={{
+                pathname: `/map/detail/${id}`,
+                state: { boardId: id }
+              }}
+              style={{ textDecoration: "none", color: "black" }}
+            >
               <Hidden mdDown>
                 <div id={id + '-row-image'}
                   style={{
@@ -122,7 +130,7 @@ const BoardCardContent = (props) => {
                 </div>
 
               </Hidden>
-            </a>
+            </Link>
             <Box
               sx={{
                 p: 2

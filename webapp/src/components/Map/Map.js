@@ -78,7 +78,6 @@ const Map = (props) => {
             const getData = async () => {
                 const resBody = await response();
                 setPostBody(resBody.data.response[0].content);
-                console.log(resBody.data.response[0].content);
             }
             getData();
         }
@@ -196,7 +195,6 @@ const Map = (props) => {
         }
         else {
             const overlayInfos = postBody.map(info => {
-                console.log(info);
                 if(info.thumbnail === null) {
                     return (
                       {
