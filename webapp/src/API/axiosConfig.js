@@ -1,7 +1,9 @@
 import axios from 'axios';
+import { base_url } from 'API/Url';
+
 
 const client = axios.create({
-    baseURL: 'http://192.168.239.130:8080/api'
+    baseURL: base_url + '/api'
 })
 
 client.interceptors.request.use(
@@ -11,7 +13,6 @@ client.interceptors.request.use(
         // 토큰 유무 판단 코드
         if (!user) {
             config.headers["X-AUTH-TOKEN"] = null;
-
             return config
         }
         const { accessToken, refreshToken } = JSON.parse(user)

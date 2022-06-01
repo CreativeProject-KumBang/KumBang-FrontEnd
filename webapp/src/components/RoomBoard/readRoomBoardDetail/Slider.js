@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import styled from 'styled-components';
+import { base_url } from 'API/Url';
 
 const IMG = styled.img`
   width: 100%;
@@ -27,8 +28,8 @@ const ButtonNext = styled.button`
   all: unset;
   border: 1px solid coral;
   padding: 0.5em 2em;
-  float: right;
   color: coral;
+  float: right;
   border-radius: 10px;
   &:hover {
     transition: all 0.3s ease-in-out;
@@ -45,8 +46,8 @@ function Slider(props) {
   const [currentSlide, setCurrentSlide] = useState(0);
   //const slideRef = useRef();
 
-  const TOTAL_SLIDES = 2;
-  let files = props.files;
+  const files = props.files;
+  const TOTAL_SLIDES = files.length;
 
   const nextSlide = () => {
     if (currentSlide >= TOTAL_SLIDES) {
@@ -64,7 +65,6 @@ function Slider(props) {
     }
   };
 
-
   const divStyle = {
     width: "100%",
     display: "flex",
@@ -77,8 +77,6 @@ function Slider(props) {
       slideRef.style.transform = `translateX(-${currentSlide}00%)`;
     }
 
-    //slideRef.style.transition = "all 0.5s ease-in-out";
-    //slideRef.style.transform = `translateX(-${currentSlide}00%)`; 
   }, [currentSlide]);
   return (
     <div>
@@ -86,7 +84,7 @@ function Slider(props) {
         <div>
           <Container>
             <div id="slider" style={divStyle} >
-              {files.map((img, i) => <IMG src={"http://192.168.239.130:8080" + img.path} key={i} />)}
+              {files.map((img, i) => <img src={base_url + img.path} key={i} width="100%" />)}
             </div>
           </Container>
           <div>

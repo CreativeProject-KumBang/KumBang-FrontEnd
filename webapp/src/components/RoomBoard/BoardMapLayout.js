@@ -3,8 +3,7 @@ import { Outlet } from 'react-router-dom';
 import styled from "styled-components";
 import Header from 'components/Layout/Header/header';
 import Map from 'components/Map/Map';
-import Grid from '@mui/material/Grid';
-import { Hidden } from '@mui/material';
+import { Hidden, Paper, Grid, Box } from '@mui/material';
 
 const StyledLayout = styled.div`
     padding-top: 80px;
@@ -19,18 +18,37 @@ const BoardMapLayout = () => {
    return (
       <StyledLayout>
          <Header />
-         <Grid container>
-            <Grid lg={4} md={4} sm={12} xs={12}>
-               <Outlet></Outlet>
+         <Box>
+            <Grid container >
+                  <Grid lg={4} md={4} sm={12} xs={12} >
+                     <Box sx={{ marginLeft: 1, overflowY: "scroll", height: "calc(100vh - 80px)"}}>
+                        <Outlet />
+                     </Box>
+                  </Grid>
+
+                  <Grid lg={8} md={8} sx={{ height: 'calc(100vh - 80px)' }} >
+                     <Map />
+                  </Grid>
             </Grid>
-            <Hidden mdDown>
-               <Grid lg={3} md={3}>
-                  <Map></Map>
-               </Grid>
-            </Hidden>
-         </Grid>
+         </Box>
+
       </StyledLayout>
    );
+
+   // Hidden 컴포넌트 오류날 경우 사용
+   // return (
+   //    <StyledLayout>
+   //       <Header />
+   //       <Grid container>
+   //          <Grid lg={4} md={4} sm={12} xs={12}>
+   //             <Outlet></Outlet>
+   //          </Grid>
+   //             <Grid lg={8} md={8}>
+   //                <Map></Map>
+   //             </Grid>
+   //       </Grid>
+   //    </StyledLayout>
+   // );
 };
 
 export default BoardMapLayout;

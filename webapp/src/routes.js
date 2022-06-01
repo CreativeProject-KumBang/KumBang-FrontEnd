@@ -4,11 +4,13 @@ import MainLayout from 'components/Layout/Main/MainLayout';
 import Main from 'components/Layout/Main/main';
 
 import Login from 'components/SignIn/Login';
+import Logout from 'components/SignIn/Logout';
 import SignUpLayout from 'components/SignUp/signUpLayout';
 import Authentication from 'components/SignUp/authentication';
 import SignUp from 'components/SignUp/signup';
 
 import MypageLayout from 'components/Mypage/MypageLayout';
+import MypageLayout2 from 'components/Mypage/MypageLayout2';
 import Info from 'components/Mypage/info';
 import MyPost from 'components/Mypage/mypost';
 import Transaction from 'components/Mypage/transaction';
@@ -30,6 +32,9 @@ import ReadRoomBoardDetail from 'components/RoomBoard/readRoomBoardDetail/readRo
 import ReadRoomBoardList from 'components/RoomBoard/readRoomBoardList/ReadRoomBoardList';
 import Product from 'products';
 import Dashboard from 'components/Mypage/board';
+import Map from 'components/Map/Map';
+import DatePickerComponent from 'components/Login/test';
+import ReadRoomBoardLayout from 'components/RoomBoard/readRoomBoardDetail/readRoomBoardLayout';
 
 const routes = [
 	{
@@ -49,8 +54,15 @@ const routes = [
 		]
 	},
 	{
+		path: 'rooms',
+		element: <ReadRoomBoardLayout />,
+		children: [
+			{ path: ":id", element: <ReadRoomBoardDetail /> },
+		]
+	},
+	{
 		path: 'map',
-		element: <BoardMapLayout />,
+		element: <ReadRoomBoardList />,
 		children: [
 			{ path: "list", element: <ReadRoomBoardList /> },
 			{ path: "detail/:id", element: <ReadRoomBoardDetail /> },
@@ -61,8 +73,11 @@ const routes = [
 		element: <Login />,
 		children: [
 		  { path: "login", element: <Login /> },
-		  { path: "boards", element: <Dashboard /> },
 		],
+	},
+	{
+		path: "logout",
+		element: <Logout />
 	},
 	{
 		path: "boards",
@@ -81,22 +96,27 @@ const routes = [
 	},
 	{
 		path: "mypage",
+		element: <MypageLayout2/>,
+	},
+	{
+		path: "mypage",
 		element: <MypageLayout />,
 		children: [
-			{ path: "info/:id", element: <Info /> },
+			{ path: "info", element: <Info /> },
 		  	{ path: "post", element: <MyPost /> },
 			{ path: "transaction", element: <Transaction /> },
-		  	{ path: "chatbox", element: <ChatBox /> },
+		  	{ path: "chatlist", element: <ReadChatList /> },
 			{ path: "wishlist", element: <Wishlists /> },
 		  	{ path: "report", element: <ReportHistory /> },
-			{ path: "withdrawal", element: <Withdrawal /> }
+			{ path: "withdrawal", element: <Withdrawal /> },
+			{ path: "chatlist", element: <ReadChatList /> },
+			{ path: "detail/:id", element: <ReadRoomBoardDetail /> },
 		],
 	},
 	{
 		path: "chat",
 		element: <ChatLayout />,
 		children: [
-			{ path: "list", element: <ReadChatList /> },
 			{ path: "detail", element: <ReadChatDetail /> },
 		],
 	},

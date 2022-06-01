@@ -1,6 +1,5 @@
 import React from "react";
 import { createStyles, makeStyles } from "@mui/styles";
-import { Avatar, deepOrange } from "@mui/material";
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -11,13 +10,13 @@ const useStyles = makeStyles((theme) =>
             display: "flex",
             justifyContent: "flex-end"
         },
-        messageBlue: {
+        messageWhite: {
             position: "relative",
             marginLeft: "20px",
             marginBottom: "10px",
             padding: "10px",
-            backgroundColor: "#A8DDFD",
-            width: "60%",
+            backgroundColor: "white",
+            width: "80%",
             //height: "50px",
             textAlign: "left",
             font: "400 .9em 'Open Sans', sans-serif",
@@ -28,7 +27,7 @@ const useStyles = makeStyles((theme) =>
                 position: "absolute",
                 width: "0",
                 height: "0",
-                borderTop: "15px solid #A8DDFD",
+                borderTop: "15px solid white",
                 borderLeft: "15px solid transparent",
                 borderRight: "15px solid transparent",
                 top: "0",
@@ -52,7 +51,7 @@ const useStyles = makeStyles((theme) =>
             marginBottom: "10px",
             padding: "10px",
             backgroundColor: "#f8e896",
-            width: "60%",
+            width: "50%",
             //height: "50px",
             textAlign: "left",
             font: "400 .9em 'Open Sans', sans-serif",
@@ -116,20 +115,12 @@ const useStyles = makeStyles((theme) =>
 export const MessageLeft = (props) => {
     const message = props.message ? props.message : "no message";
     const timestamp = props.timestamp ? props.timestamp : "";
-    const photoURL = props.photoURL ? props.photoURL : "dummy.js";
-    const displayName = props.displayName ? props.displayName : "알수없음";
     const classes = useStyles();
     return (
         <>
             <div className={classes.messageRow}>
-                <Avatar
-                    alt={displayName}
-                    className={classes.orange}
-                    src={photoURL}
-                ></Avatar>
                 <div>
-                    <div className={classes.displayName}>{displayName}</div>
-                    <div className={classes.messageBlue}>
+                    <div className={classes.messageWhite}>
                         <div>
                             <p className={classes.messageContent}>{message}</p>
                         </div>
