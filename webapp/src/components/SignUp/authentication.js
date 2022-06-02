@@ -75,7 +75,7 @@ export default function Authentication() {
     };
 
     const emptyCheck = () => {
-        if (email === undefined) {
+        if (!email) {
             return false;
         }
     };
@@ -86,28 +86,31 @@ export default function Authentication() {
             alert('이메일 주소를 입력하세요.');
             return false;
         }
-
-        let response = await Api.postEmail(email);
-        if (response.data.status === true) {
-            alert('전송 완료!');
-            setField(true);
-        } else {
-            alert('전송 실패');
+        else {
+            let response = await Api.postEmail(email);
+            console.log(response)
+            if (response.data.status === true) {
+                alert('전송 완료!');
+                setField(true);
+            } else {
+                alert(response.data.response[0]);
+            }
         }
+
     };
 
     return (
         <Container component="main" maxWidth="xs">
             <Box
                 sx={{
-                    marginTop: 8,
+                    marginTop: 10,
                     flexDirection: 'column',
                 }}
             >
-                <Typography component="h1" variant="h4" sx={{ mb: 3 }}>
+                <Typography component="h1" variant="h4" sx={{ mb: 5 }}>
                     금방에 오신 것을 환영합니다.
                 </Typography>
-                <Grid container justifyContent="center" component="p" sx={{ mt: 5 }}>
+                <Grid container justifyContent="center" component="p" sx={{ mt: 8, fontSize: "18px"}}>
                     본인 확인을 위해 학교 이메일 주소를 입력해주세요.
                 </Grid>
                 <Grid>

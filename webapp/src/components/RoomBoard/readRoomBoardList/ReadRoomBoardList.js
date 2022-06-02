@@ -1,5 +1,6 @@
 import React, { ReactDOM, useEffect, useState } from 'react';
-import styled from "styled-components";
+import PrivateRoutes from 'access/PrivateRoutes';
+import isLogin from 'access/isLogin';
 import BoardCard from 'components/RoomBoard/readRoomBoardList/BoardCard';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css"
@@ -196,7 +197,7 @@ const ReadRoomBoardList = () => {
                      {isDetail && 
                         <Container component="main"  maxWidth={'100%'} sx={{ position:'absolute', backgroundColor:'white', overflowY: "scroll", height: "calc(100vh - 80px)" }}>
                            <IconButton onClick={showDetail} color="info" sx={{marginTop:'20px'}}><ArrowBackIosIcon/></IconButton>
-                           <ReadRoomBoardDetail setX={setCordX} setY={setCordY}/>
+                           <PrivateRoutes user={isLogin()}><ReadRoomBoardDetail setX={setCordX} setY={setCordY}/></PrivateRoutes>
                         </Container>
                      }
                   </Grid>

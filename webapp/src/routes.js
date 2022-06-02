@@ -1,5 +1,5 @@
 import { Navigate } from 'react-router-dom';
-
+import isLogin from 'access/isLogin';
 import MainLayout from 'components/Layout/Main/MainLayout';
 import Main from 'components/Layout/Main/main';
 
@@ -30,11 +30,8 @@ import ReadChatDetail from 'components/Chat/readChatDetail/ReadChatDetail';
 import BoardMapLayout from 'components/RoomBoard/BoardMapLayout';
 import ReadRoomBoardDetail from 'components/RoomBoard/readRoomBoardDetail/readRoomBoardDetail';
 import ReadRoomBoardList from 'components/RoomBoard/readRoomBoardList/ReadRoomBoardList';
-import Product from 'products';
-import Dashboard from 'components/Mypage/board';
-import Map from 'components/Map/Map';
-import DatePickerComponent from 'components/Login/test';
 import ReadRoomBoardLayout from 'components/RoomBoard/readRoomBoardDetail/readRoomBoardLayout';
+import PrivateRoutes from 'access/PrivateRoutes';
 
 const routes = [
 	{
@@ -47,7 +44,7 @@ const routes = [
 	},
 	{
 		path: 'room',
-		element: <RoomBoardLayout />,
+		element: <PrivateRoutes user={isLogin()}><RoomBoardLayout /></PrivateRoutes>,
 		children: [
 			{ path: "register", element: <CreateRoomBoard /> },
 			{ path: "update", element: <UpdateRoomBoard /> },
@@ -55,7 +52,7 @@ const routes = [
 	},
 	{
 		path: 'rooms',
-		element: <ReadRoomBoardLayout />,
+		element: <PrivateRoutes user={isLogin()}><ReadRoomBoardLayout /></PrivateRoutes>,
 		children: [
 			{ path: ":id", element: <ReadRoomBoardDetail setX={()=>{}} setY={()=>{}} /> },
 		]
@@ -80,13 +77,6 @@ const routes = [
 		element: <Logout />
 	},
 	{
-		path: "boards",
-		element: <Dashboard />,
-		children: [
-		  { path: "boards", element: <Dashboard /> },
-		],
-	},
-	{
 		path: "signup",
 		element: <SignUpLayout />,
 		children: [
@@ -96,11 +86,11 @@ const routes = [
 	},
 	{
 		path: "mypage",
-		element: <MypageLayout2/>,
+		element: <PrivateRoutes user={isLogin()}><MypageLayout2/></PrivateRoutes>,
 	},
 	{
 		path: "mypage",
-		element: <MypageLayout />,
+		element:  <PrivateRoutes user={isLogin()}><MypageLayout /></PrivateRoutes>,
 		children: [
 			{ path: "info", element: <Info /> },
 		  	{ path: "post", element: <MyPost /> },
@@ -115,7 +105,7 @@ const routes = [
 	},
 	{
 		path: "chat",
-		element: <ChatLayout />,
+		element: <PrivateRoutes user={isLogin()}><ChatLayout /></PrivateRoutes>,
 		children: [
 			{ path: "detail", element: <ReadChatDetail /> },
 		],
