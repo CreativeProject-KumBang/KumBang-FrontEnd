@@ -23,7 +23,7 @@ const ChatCardContent = (props) => {
                 <div id={roomId + '-row-image'}
                     style={{
                         float: 'left',
-                        width: '20%',
+                        width: '30%',
                         height: '100%',
                         display: "grid",
                     }}>
@@ -51,7 +51,7 @@ const ChatCardContent = (props) => {
                 <div id={roomId + '-row-image'}
                     style={{
                         float: 'left',
-                        width: '20%',
+                        width: '30%',
                         height: '100%',
                         display: "grid",
                     }}>
@@ -59,16 +59,16 @@ const ChatCardContent = (props) => {
                     <img
                       src={base_url + image}
                       style={{
-                        width: "100px",
-                        height: "100px",
+                        width: "75px",
+                        height: "75px",
                         objectFit: "cover"
                       }}
                     /> :
                     <img
                       src={default_url}
                       style={{
-                        width: "100px",
-                        height: "100px",
+                        width: "75px",
+                        height: "75px",
                         objectFit: "cover"
                       }}
                     />
@@ -79,18 +79,18 @@ const ChatCardContent = (props) => {
                 <div
                     style={{
                         display: 'block',
-                        width: '80%',
+                        width: '70%',
                         height: '100%'
                     }}>
                     <div id={roomId + '-row-board-title'}>
-                        <span style={{ fontSize: "75%" }}>{title}</span>
-                        <div style={{ fontSize: "75%", color: "blue" }}>{isCompleted}{isRemoved}</div>
+                        <span style={{ fontSize: "70%" }}>{title}</span>
+                        <div style={{ fontSize: "70%", color: "blue" }}>{isCompleted}{isRemoved}</div>
                     </div>
                     <div id={roomId + '-row-user'}>
-                        <span style={{ fontSize: "70%" }}>{opponent}</span>
+                        <span style={{ fontSize: "65%" }}>{opponent}</span>
                     </div>
                     <div id={roomId + '-row-date'}>
-                        <span style={{ fontSize: "70%" }}>{date}</span>
+                        <span style={{ fontSize: "65%" }}>{date}</span>
                     </div>
                     <div id={roomId + '-row-isRead'}>
                         <span style={{ color: "grey", fontSize: "60%" }}>{lastMsg}</span>

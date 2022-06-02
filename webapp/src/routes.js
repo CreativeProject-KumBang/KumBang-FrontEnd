@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-
-=======
 import { Navigate } from 'react-router-dom';
 import isLogin from 'access/isLogin';
->>>>>>> 9205e41f9a7739e85231a852fe87a38c769771eb
 import MainLayout from 'components/Layout/Main/MainLayout';
 import Main from 'components/Layout/Main/main';
 
