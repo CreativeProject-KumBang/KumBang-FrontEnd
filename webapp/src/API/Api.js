@@ -109,9 +109,9 @@ const Api = {
 
     // Mypage--------------------------------------------------------------------------------
     // 내 정보 조회
-    getMyInfo: async (userId) => {
-        return await getRequest(`/mypage/${userId}`);
-    },
+    // getMyInfo: async () => {
+    //     return await getRequest(`/mypage/info`);
+    // },
     // 내 정보 수정
     postUpdateMyInfo: async (userId, user) => {
         return await postJsonReqest(`/mypage/${userId}`, user);
