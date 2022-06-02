@@ -118,6 +118,7 @@ const routes = [
 		element: <ChatLayout />,
 		children: [
 			{ path: "detail", element: <ReadChatDetail /> },
+			{ path: "room/:id", element: <ReadRoomBoardDetail /> },
 		],
 	},
 ];
