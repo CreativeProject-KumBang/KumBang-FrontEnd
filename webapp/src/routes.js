@@ -108,6 +108,7 @@ const routes = [
 		element: <PrivateRoutes user={isLogin()}><ChatLayout /></PrivateRoutes>,
 		children: [
 			{ path: "detail", element: <ReadChatDetail /> },
+			{ path: "room/:id", element: <ReadRoomBoardDetail /> },
 		],
 	},
 ];

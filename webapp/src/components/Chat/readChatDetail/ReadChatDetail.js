@@ -2,13 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
-import { Box, Paper, Button, TextField, Divider, Container, Grid, Hidden } from '@mui/material'
+import { Box, Button, TextField, Divider, Container, Grid, Hidden, Menu, MenuItem } from '@mui/material'
 import { MessageLeft, MessageRight } from "components/Chat/readChatDetail/Message"
 import { createStyles, makeStyles } from "@mui/styles";
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import SendSharpIcon from '@mui/icons-material/SendSharp';
-import TextInput from "components/Chat/readChatDetail/TextInput"
 import Api from "API/Api";
 import { base_url } from "API/Url"
 
@@ -76,6 +75,15 @@ const ReadChatDetail = () => {
 
    const response = async () => await Api.getMyInfo();
    const resChatHistory = async () => await Api.getChatContents(location.state.roomId);
+
+   const [anchorEl, setAnchorEl] = useState(null);
+   const open = Boolean(anchorEl);
+   const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+   };
+   const handleClose = () => {
+      setAnchorEl(null);
+   };
 
 
    // 메세지 전송 시 보낼 데이터
@@ -167,9 +175,30 @@ const ReadChatDetail = () => {
                      </Grid>
                      <Grid item xs={0} md={3}>
                         <Box>
-                           <HelpOutlineIcon sx={{ paddingTop: "4px" }}></HelpOutlineIcon>
+                           <HelpOutlineIcon
+                              sx={{ paddingTop: "4px" }}
+                              id="basic-button"
+                              aria-controls={open ? 'basic-menu' : undefined}
+                              aria-haspopup="true"
+                              aria-expanded={open ? 'true' : undefined}
+                              onClick={handleClick}></HelpOutlineIcon>
+                           <Menu
+                              id="basic-menu"
+                              anchorEl={anchorEl}
+                              open={open}
+                              onClose={handleClose}
+                              MenuListProps={{
+                                 'aria-labelledby': 'basic-button',
+                              }}
+                           >
+                              <MenuItem onClick={handleClose}>Profile</MenuItem>
+                              <MenuItem onClick={handleClose}>My account</MenuItem>
+                              <MenuItem onClick={handleClose}>Logout</MenuItem>
+                           </Menu>
                            <ArticleOutlinedIcon sx={{ paddingTop: "4px" }}></ArticleOutlinedIcon>
-                           <Button sx={{ paddingLeft: "4px" }}>방 정보</Button>
+                           <Link to={{ pathname: `/chat/room/${roomId}` }} style={{ textDecoration: "none", color: "black" }}>
+                              <Button sx={{ paddingLeft: "4px" }}>방 정보</Button>
+                           </Link>
                         </Box>
                      </Grid>
                   </Grid>
