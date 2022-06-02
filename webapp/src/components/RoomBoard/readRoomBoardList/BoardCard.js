@@ -14,33 +14,33 @@ const BoardCard = (props) => {
    const isDetail = () => props.setIsDetail;
 
    return (
-         <Box pb={2}>
-            <Grid
-               container
-               spacing={2}
-               sx={{
-                  width: '100%',
-				  height: '100%'
-               }}
-            >
-                {
-					getBody.map(row => (<
-					   BoardCardContent key={row.id}
-					   isDetail={isDetail}
-					   id={row.id}
-					   title={row.title}
-					   writer={row.author.name}
-					   image={(row.thumbnail === null) ?
-						   (default_imageurl) : (row.thumbnail.path)}
-					   price={row.price}
-					   deposit={row.deposit}
-					   durationStart={row.durationStart}
-					   durationEnd={row.durationEnd}
-					/>
-					))
-                }
-            </Grid>
-         </Box >
+      <Box pb={2}>
+         <Grid
+            container
+            spacing={2}
+            sx={{
+               width: '100%',
+               height: '100%',
+            }}
+         >
+            {
+               getBody.map(row => (<
+                  BoardCardContent key={row.id}
+                  isDetail={isDetail}
+                  id={row.id}
+                  title={row.title}
+                  writer={row.author.name}
+                  image={(row.thumbnail === null) ?
+                     (default_imageurl) : (row.thumbnail.path)}
+                  price={row.price}
+                  deposit={row.deposit}
+                  durationStart={row.durationStart}
+                  durationEnd={row.durationEnd}
+               />
+               ))
+            }
+         </Grid>
+      </Box >
    )
 }
 

@@ -5,7 +5,7 @@ import { Hidden } from '@mui/material';
 import { base_url } from 'API/Url';
 
 const ChatCardContent = (props) => {
-    const { roomId, boardId, title, image, opponent, date, isNew, lastMsg } = props;
+    const { roomId, boardId, title, image, opponent, date, isNew, lastMsg, isCompleted, isRemoved } = props;
     const [isImage, setIsImage] = useState(true); // 이미지 존재 여부 확인해서 변수에 담고 렌더링
 
     return (
@@ -27,14 +27,24 @@ const ChatCardContent = (props) => {
                         height: '100%',
                         display: "grid",
                     }}>
+                  {(image != null) ?
                     <img
-                        src={base_url + image}
-                        style={{
-                            width: "100px",
-                            height: "100px",
-                            objectFit: "cover"
-                        }}
+                      src={base_url + image}
+                      style={{
+                        width: "100px",
+                        height: "100px",
+                        objectFit: "cover"
+                      }}
+                    /> :
+                    <img
+                      src={default_url}
+                      style={{
+                        width: "100px",
+                        height: "100px",
+                        objectFit: "cover"
+                      }}
                     />
+                  }
                 </div>
                 </Hidden>
                 <Hidden mdUp>
@@ -45,14 +55,24 @@ const ChatCardContent = (props) => {
                         height: '100%',
                         display: "grid",
                     }}>
+                  {(image != null) ?
                     <img
-                        src={base_url + image}
-                        style={{
-                            width: "50px",
-                            height: "50px",
-                            objectFit: "cover"
-                        }}
+                      src={base_url + image}
+                      style={{
+                        width: "100px",
+                        height: "100px",
+                        objectFit: "cover"
+                      }}
+                    /> :
+                    <img
+                      src={default_url}
+                      style={{
+                        width: "100px",
+                        height: "100px",
+                        objectFit: "cover"
+                      }}
                     />
+                  }
                 </div>
                 </Hidden>
 
@@ -64,6 +84,7 @@ const ChatCardContent = (props) => {
                     }}>
                     <div id={roomId + '-row-board-title'}>
                         <span style={{ fontSize: "75%" }}>{title}</span>
+                        <div style={{ fontSize: "75%", color: "blue" }}>{isCompleted}{isRemoved}</div>
                     </div>
                     <div id={roomId + '-row-user'}>
                         <span style={{ fontSize: "70%" }}>{opponent}</span>

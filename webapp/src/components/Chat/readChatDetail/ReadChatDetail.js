@@ -70,6 +70,7 @@ const ReadChatDetail = () => {
    const [message, setMessage] = useState(); // sender가 작성한 하나의 message
    const [messages, setMessages] = useState([]); // sender가 보낸 message를 ui에 띄우기 위해 저장하는 list
    const [greetings, setGreetings] = useState([]); // sender의 id 값 저장
+   const [createdAt, setCreatedAt] = useState([]);
 
    const [myId, setMyId] = useState(); // 나의 id
 
@@ -108,6 +109,7 @@ const ReadChatDetail = () => {
       history_data.forEach(element => {
          setGreetings(greetings => [...greetings, element.sender.id]);
          setMessages(messages => [...messages, element.content]);
+         setCreatedAt(createdAt => [...createdAt, element.createdAt]);
       })
    }
 
@@ -123,6 +125,7 @@ const ReadChatDetail = () => {
 
             setGreetings(greetings => [...greetings, greeting_data.sender.id]); //list
             setMessages(messages => [...messages, greeting_data.content]); // list
+            setCreatedAt(createdAt => [...createdAt, greeting_data.createdAt]);
 
             const textfield = document.getElementById("standard-text");
             textfield.value = "";
@@ -191,11 +194,9 @@ const ReadChatDetail = () => {
                                  'aria-labelledby': 'basic-button',
                               }}
                            >
-                              <MenuItem onClick={handleClose}>Profile</MenuItem>
-                              <MenuItem onClick={handleClose}>My account</MenuItem>
-                              <MenuItem onClick={handleClose}>Logout</MenuItem>
+                              <span onClick={handleClose}>채팅을 통해 거래 여부를 확인하고 거래를 위한 약속 시간 및 장소를 잡으세요!</span>
                            </Menu>
-                           <ArticleOutlinedIcon sx={{ paddingTop: "4px" }}></ArticleOutlinedIcon>
+                           {/* <ArticleOutlinedIcon sx={{ paddingTop: "4px" }}></ArticleOutlinedIcon> */}
                            <Link to={{ pathname: `/chat/room/${roomId}` }} style={{ textDecoration: "none", color: "black" }}>
                               <Button sx={{ paddingLeft: "4px" }}>방 정보</Button>
                            </Link>
@@ -207,10 +208,10 @@ const ReadChatDetail = () => {
                   {greetings.map((row, id) => (
                      (greetings[id] === myId) ?
                         (<>
-                           <MessageRight message={messages[id]}></MessageRight>
+                           <MessageRight message={messages[id]} createdAt={createdAt[id]}></MessageRight>
 
                         </>) : (<>
-                           <MessageLeft message={messages[id]}></MessageLeft>
+                           <MessageLeft message={messages[id]} createdAt={createdAt[id]}></MessageLeft>
 
                         </>)
                   ))}
@@ -247,7 +248,18 @@ const ReadChatDetail = () => {
                      <Grid item xs={0} md={3}>
                         <Box>
                            <HelpOutlineIcon sx={{ paddingTop: "4px" }}></HelpOutlineIcon>
-                           <ArticleOutlinedIcon sx={{ paddingTop: "4px" }}></ArticleOutlinedIcon>
+                           <Menu
+                              id="basic-menu"
+                              anchorEl={anchorEl}
+                              open={open}
+                              onClose={handleClose}
+                              MenuListProps={{
+                                 'aria-labelledby': 'basic-button',
+                              }}
+                           >
+                              <span onClick={handleClose}>채팅을 통해 거래 여부를 확인하고 거래를 위한 약속 시간 및 장소를 잡으세요!</span>
+                           </Menu>
+                           {/* <ArticleOutlinedIcon sx={{ paddingTop: "4px" }}></ArticleOutlinedIcon> */}
                            <Button sx={{ paddingLeft: "4px" }}>방 정보</Button>
                         </Box>
                      </Grid>
@@ -257,10 +269,10 @@ const ReadChatDetail = () => {
                   {greetings.map((row, id) => (
                      (greetings[id] === myId) ?
                         (<>
-                           <MessageRight message={messages[id]}></MessageRight>
+                           <MessageRight message={messages[id]} createdAt={createdAt[id]}></MessageRight>
 
                         </>) : (<>
-                           <MessageLeft message={messages[id]}></MessageLeft>
+                           <MessageLeft message={messages[id]} createdAt={createdAt[id]}></MessageLeft>
 
                         </>)
                   ))}

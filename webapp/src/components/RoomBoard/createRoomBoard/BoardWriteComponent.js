@@ -95,51 +95,48 @@ const BoardWriteComponent = () => {
       files: pk_id[0]
    };
 
-/*
+
    async function emptyCheck() {
       if (title.trim() === '') {
          alert('제목을 입력해주세요');
-         return;
+         return false;
       } else if (location.trim() === '') {
          alert('주소를 입력해주세요');
-         return;
+         return false;
       } else if (location_detail.trim() === '') {
          alert('상세주소를 입력해주세요');
-         return;
+         return false;
       } else if (price.trim() === '') {
          alert('양도 거래 가격을 입력해주세요');
-         return;
+         return false;
       } else if (contract_deposit.trim() === '') {
          alert('원 계약보증금을 입력해주세요');
-         return;
+         return false;
       } else if (contractMonthlyFee.trim() === '') {
          alert('원 월세를 입력해주세요');
-         return;
-      }
-   }
-*/
-   const CreateRoomBoard = async () => {
-/*
-      const isEmpty = emptyCheck();
-      if (isEmpty === false) {
-         alert(
-            '필수항목란을 채워주세요'
-         );
          return false;
       }
-*/
-      console.log(postBody);
-      let response = await Api.postRoomBoard(postBody); // API
+      return false;
+   }
 
-      console.log(response);
+   const CreateRoomBoard = async () => {
 
-      if (response.data.status) {
-         alert('등록되었습니다.', response.data.status);
-         navigate('/');
+      const isEmpty = await emptyCheck();
+      if (isEmpty === false) {
+         return;
       } else {
-         alert('등록 실패하였습니다.', response.data.status);
+         console.log(postBody);
+         let response = await Api.postRoomBoard(postBody); // API
+   
+         console.log(response);
+   
+         if (response.data.status) {
+            alert('등록되었습니다.', response.data.status);
+            navigate('/');
+         } else {
+            alert('등록 실패하였습니다.', response.data.status);
+         }
       }
-
    }
 
    return (

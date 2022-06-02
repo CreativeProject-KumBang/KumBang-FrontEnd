@@ -31,49 +31,43 @@ const StyledContainer = styled.div`
     }
 `;
 
-
-const data = JSON.parse(sessionStorage.getItem('user_data'));
-
-const BoardWriteComponent = (props) => {
-   const board = props.board;
+const BoardWriteComponent = () => {
    const navigate = useNavigate();
 
    const [id, setId] = useState('');
-   const [title, setTitle] = useState(board.title); // 제목
-   const [content, setContent] = useState(board.content); // 내용
-   const [location, setLocation] = useState(board.location); // 양도 매물 주소 - 주소
-   const [location_detail, setLocation_detail] = useState(board.locationDetail); // 양도 매물 주소 - 상세 주소
+   const [title, setTitle] = useState(''); // 제목
+   const [content, setContent] = useState(''); // 내용
+   const [location, setLocation] = useState(''); // 양도 매물 주소 - 주소
+   const [location_detail, setLocation_detail] = useState(''); // 양도 매물 주소 - 상세 주소
    // 양도 기간(duraion)
-   const [startDate, setStartDate] = useState(new Date(board.durationStart)); // 시작 날짜
-   const [endDate, setEndDate] = useState(new Date(board.durationEnd)); // 종료 날짜
+   const [startDate, setStartDate] = useState(new Date()); // 시작 날짜
+   const [endDate, setEndDate] = useState(new Date()); // 종료 날짜
    const startDateFormat = dayjs(startDate).format("YYYY-MM-DD");
    const endDateFormat = dayjs(endDate).format("YYYY-MM-DD");
    // 양도 거래금액
-   const [price, setPrice] = useState(board.price);
-   const [deposit, setDeposit] = useState(board.deposit);
+   const [price, setPrice] = useState('');
+   const [deposit, setDeposit] = useState('');
    // 원 계약보증금/월세
-   const [contract_deposit, setContract_deposit] = useState(board.contractDeposit);
-   const [contractMonthlyFee, setContractMonthlyFee] = useState(board.containManageFee);
-   const [priceType, setPriceType] = useState(board.priceType);
+   const [contract_deposit, setContract_deposit] = useState('');
+   const [contractMonthlyFee, setContractMonthlyFee] = useState('');
    // 매물 정보 HomeInfo
-   const [park, setPark] = useState(board.details.parking); // 주차
-   const [elevator, setElevator] = useState(board.details.elevator); // 엘리베이터
-   const [structure, setStructure] = useState(board.details.roomStructure); // 구조
-   const [admin_expense, setAdmin_expense] = useState(board.details.admin_expense); // 관리비
-   const [area, setArea] = useState(board.details.contain_admin_expense); // 면적
-   const [contain_admin_expense, setContain_admin_expense] = useState(board.details.area); // 관리비 포함 항목
+   const [park, setPark] = useState(''); // 주차
+   const [elevator, setElevator] = useState(''); // 엘리베이터
+   const [structure, setStructure] = useState(''); // 구조
+   const [admin_expense, setAdmin_expense] = useState(''); // 관리비
+   const [area, setArea] = useState(''); // 면적
+   const [contain_admin_expense, setContain_admin_expense] = useState(''); // 관리비 포함 항목
 
    // 옵션 사용 가능 정보
    const checkList = ["에어컨", "냉장고", "세탁기", "가스레인지", "전자레인지", "책상", "책장", "옷장", "신발장"];
-   const [checked, setChecked] = React.useState(board.fixedOption);  // 에어컨, 냉장고, 세탁기, 가스레인지, 전자레인지, 책상, 책장, 옷장, 신발장
-   const [add_options, setAdd_options] = useState(board.add_options); // 옵션 사용 가능 정보 - 추가
+   const [checked, setChecked] = React.useState([0, 0, 0, 0, 0, 0, 0, 0, 0]);
+   const [options, setOptions] = useState(''); // 에어컨, 냉장고, 세탁기, 가스레인지, 전자레인지, 책상, 책장, 옷장, 신발장
+   const [add_options, setAdd_options] = useState(''); // 옵션 사용 가능 정보 - 추가
 
    // 이미지 - 컴포넌트 연결
-   const [pk_id, setPk] = useState([]); // 이미지 pk id
-   const imageUrl = useState([...board.images]);
+   const [pk_id, setPk] = useState([]);
 
    /* !--------------------------------API--------------------------------! */
-
    const postBody = {
       title: title,
       content: content,
@@ -86,7 +80,6 @@ const BoardWriteComponent = (props) => {
       deposit: deposit, // 양도 거래 보증금
       contractDeposit: contract_deposit, // 방 원래 주인이 계약한 보증금
       contractMonthlyFee: contractMonthlyFee, // 방 원래 주인이 계약한 월세
-      priceType: priceType, // 'FULL'
       contractDeposit: contract_deposit,
       contractMonthlyFee: contractMonthlyFee,
       fixedOption: checked,
@@ -99,52 +92,53 @@ const BoardWriteComponent = (props) => {
          "containManageFee": contain_admin_expense,
          "areaSize": area
       },
-      images: ["url_1", "url_2"]
+      files: pk_id[0]
    };
 
-   /*
-      async function emptyCheck() {
-         if (title.trim() === '') {
-            alert('제목을 입력해주세요');
-            return;
-         } else if (location.trim() === '') {
-            alert('주소를 입력해주세요');
-            return;
-         } else if (location_detail.trim() === '') {
-            alert('상세주소를 입력해주세요');
-            return;
-         } else if (price.trim() === '') {
-            alert('양도 거래 가격을 입력해주세요');
-            return;
-         } else if (contract_deposit.trim() === '') {
-            alert('원 계약보증금을 입력해주세요');
-            return;
-         } else if (contractMonthlyFee.trim() === '') {
-            alert('원 월세를 입력해주세요');
-            return;
-         }
+   async function emptyCheck() {
+      if (title.trim() === '') {
+         alert('제목을 입력해주세요');
+         return;
+      } else if (location.trim() === '') {
+         alert('주소를 입력해주세요');
+         return;
+      } else if (location_detail.trim() === '') {
+         alert('상세주소를 입력해주세요');
+         return;
+      } else if (price.trim() === '') {
+         alert('양도 거래 가격을 입력해주세요');
+         return;
+      } else if (contract_deposit.trim() === '') {
+         alert('원 계약보증금을 입력해주세요');
+         return;
+      } else if (contractMonthlyFee.trim() === '') {
+         alert('원 월세를 입력해주세요');
+         return;
       }
-   */
+   }
+
    const UpdateRoomBoard = async () => {
 
-      /*const isEmpty = emptyCheck();
+      const isEmpty = emptyCheck();
       if (isEmpty === false) {
          alert(
-           '필수항목란을 채워주세요'
+            '필수항목란을 채워주세요'
          );
          return false;
-      }*/
-      /*
-            let response = await Api.postUpdateRoomBoard(postBody); // API
-            navigate('/');
-             
-            if (response.status) {
-               alert('생성되었습니다.', response.status);
-               navigate('/');  
-            } else {
-               alert('생성 실패', response.status);
-            }
-      */
+      }
+
+      console.log(postBody);
+      let response = await Api.postUpdateRoomBoard(postBody); // API
+
+      console.log(response);
+
+      if (response.data.status) {
+         alert('수정되었습니다.', response.data.status);
+         navigate('/');
+      } else {
+         alert('수정 실패하였습니다.', response.data.status);
+      }
+
    }
 
    return (
@@ -381,12 +375,12 @@ const BoardWriteComponent = (props) => {
             <div>
                <StyledH4>이미지 첨부</StyledH4>
                <StyledDiv>
-                  <Images setPk={setPk} />
+                  <Images pk_id={pk_id} setPk={setPk} />
                </StyledDiv>
             </div>
 
             <StyledContainer>
-               <Button variant="outlined" color="success" sx={{float: 'right'}}
+               <Button variant="outlined" color="success" sx={{ float: 'right' }}
                   onClick={UpdateRoomBoard}>
                   수정
                </Button>

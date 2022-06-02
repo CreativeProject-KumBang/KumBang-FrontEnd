@@ -13,10 +13,11 @@ const useStyles = makeStyles((theme) =>
         messageWhite: {
             position: "relative",
             marginLeft: "20px",
-            marginBottom: "10px",
+            marginBottom: "20px",
             padding: "10px",
             backgroundColor: "white",
             width: "80%",
+            minWidth:"80px",
             //height: "50px",
             textAlign: "left",
             font: "400 .9em 'Open Sans', sans-serif",
@@ -48,7 +49,7 @@ const useStyles = makeStyles((theme) =>
         messageOrange: {
             position: "relative",
             marginRight: "20px",
-            marginBottom: "10px",
+            marginBottom: "20px",
             padding: "10px",
             backgroundColor: "#f8e896",
             width: "50%",
@@ -88,10 +89,10 @@ const useStyles = makeStyles((theme) =>
         messageTimeStampRight: {
             position: "absolute",
             fontSize: ".85em",
-            fontWeight: "300",
+            fontWeight: "500",
             marginTop: "10px",
-            bottom: "-3px",
-            right: "5px"
+            bottom: "-20px",
+            right: "-3px"
         },
 
         orange: {
@@ -113,9 +114,11 @@ const useStyles = makeStyles((theme) =>
 );
 
 export const MessageLeft = (props) => {
-    const message = props.message ? props.message : "no message";
-    const timestamp = props.timestamp ? props.timestamp : "";
     const classes = useStyles();
+    const message = props.message ? props.message : "no message";
+    const createdAt = props.createdAt ? props.createdAt : "";
+    const timestamp = createdAt.split(".");
+
     return (
         <>
             <div className={classes.messageRow}>
@@ -124,7 +127,7 @@ export const MessageLeft = (props) => {
                         <div>
                             <p className={classes.messageContent}>{message}</p>
                         </div>
-                        <div className={classes.messageTimeStampRight}>{timestamp}</div>
+                        <div className={classes.messageTimeStampRight}>{timestamp[0]}</div>
                     </div>
                 </div>
             </div>
@@ -135,12 +138,13 @@ export const MessageLeft = (props) => {
 export const MessageRight = (props) => {
     const classes = useStyles();
     const message = props.message ? props.message : "no message";
-    const timestamp = props.timestamp ? props.timestamp : "";
+    const createdAt = props.createdAt ? props.createdAt : "";
+    const timestamp = createdAt.split(".");
     return (
         <div className={classes.messageRowRight}>
             <div className={classes.messageOrange}>
                 <p className={classes.messageContent}>{message}</p>
-                <div className={classes.messageTimeStampRight}>{timestamp}</div>
+                <div className={classes.messageTimeStampRight}>{timestamp[0]}</div>
             </div>
         </div>
     );
