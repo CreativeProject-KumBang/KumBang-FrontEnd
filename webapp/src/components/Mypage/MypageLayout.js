@@ -42,7 +42,7 @@ const MypageLayout = () => {
                                 {mainListItems}
                             </List>
                         </Grid>
-                        <Grid item lg={9} md={9} sm={12} xs={12} sx={{padding: '0px' }}>
+                        <Grid item lg={9} md={9} sm={12} xs={12} sx={{padding: 3 }}>
                             <Grid >
                                 <Outlet />
                             </Grid>

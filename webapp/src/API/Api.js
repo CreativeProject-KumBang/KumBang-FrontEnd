@@ -109,9 +109,9 @@ const Api = {
 
     // Mypage--------------------------------------------------------------------------------
     // 내 정보 조회
-    // getMyInfo: async () => {
-    //     return await getRequest(`/mypage/info`);
-    // },
+    getInfo: async () => {
+        return await getRequest(`/mypage/my-info`);
+    },
     // 내 정보 수정
     postUpdateMyInfo: async (userId, user) => {
         return await postJsonReqest(`/mypage/${userId}`, user);
@@ -121,8 +121,8 @@ const Api = {
         return await getRequest(`/mypage/post`);
     },
     // 거래 내역 조회
-    getTransaction: async (transId) => {
-        return await getRequest(`/mypage/trans/${transId}`);
+    getTransaction: async () => {
+        return await getRequest(`/mypage/history`);
     },
 
     // RoomBoards--------------------------------------------------------------------------------

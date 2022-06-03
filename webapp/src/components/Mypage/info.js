@@ -21,16 +21,19 @@ const StyledTop = styled.div`
 `;
 
 const Info = () => {
-    const api = 'http://192.168.227.255:8080/api';
-    const userId = 3;
-    // const [items, setItems] = useState();
-    // const response = async () => await Api.getMyInfo(userId);
+ const [postBody, setPostBody] = useState([]);
+  const response = async () => await Api.getInfo();
 
-    // useEffect(() => {
-    //     const resBody = response();
-    //     setItems(resBody.data.response[0]);
-    // }, []); 
+  useEffect(() => {
+    const getData = async () => {
+      const resBody = await response();
+      console.log(resBody);
+      setPostBody(resBody.data.response);
+    }
+    getData();
+  }, []);
 
+ const api = 9;
     const [items, setItems] = useState([
         { id: 'name', title: '이름', value: '한새라' },
         { id: 'email', title: '이메일 주소', value: 'hsr1203@kumoh.ac.kr' },
@@ -102,7 +105,7 @@ const Info = () => {
 
         return (
             <div className='label' style={{ display: 'flex', padding: '10px' }}>
-                <div class='label1' style={{ float: 'left', width: '90%' }}>
+                <div class='label1' style={{ float: 'left', width: '80%' }}>
                     <div id={t.id + '-row-title'}>
                         <span>{t.title}</span>
                     </div>
@@ -111,7 +114,7 @@ const Info = () => {
                     </div>
                 </div>
 
-                <div class='label2' style={{ width: '10%' }}>
+                <div class='label2' style={{ display: 'flex', flexDirection: 'row-reverse', width: '20%' }}>
                     <button onClick={(e) => updateForm(e)} aria-hidden="false" id={t.id + '-row-action'}
                         style={{ cursor: 'pointer', background: 'transparent', textDecoration: 'underline', borderRadius: '4px', fontWeight: '600' }}
                         type="button" class="editBtn">
