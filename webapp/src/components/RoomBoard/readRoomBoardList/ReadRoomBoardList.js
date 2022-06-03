@@ -7,14 +7,14 @@ import "react-datepicker/dist/react-datepicker.css"
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import SearchIcon from '@mui/icons-material/Search';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import MapIcon from '@mui/icons-material/Map';
+import MapOutlinedIcon from '@mui/icons-material/MapOutlined';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import { Divider, IconButton, Typography } from '@mui/material';
 import Slider from '@mui/material/Slider';
-import { Link, Box, Button, TextField, Hidden, Grid, Container } from '@mui/material';
+import { Box, Button, TextField, Hidden, Grid, Container } from '@mui/material';
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import dayjs from "dayjs";
 import Api from 'API/Api';
@@ -23,7 +23,7 @@ import Map from 'components/Map/Map';
 import ReadRoomBoardDetail from 'components/RoomBoard/readRoomBoardDetail/readRoomBoardDetail';
 import { Outlet, useOutletContext } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Login from 'components/SignIn/Login';
+import { Link } from 'react-router-dom';
 
 
 const theme = createTheme({
@@ -50,6 +50,14 @@ const ReadRoomBoardList = () => {
    const [x, setX] = useState(128.41015);
    const [y, setY] = useState(36.13654);
    const [level, setLevel] = useState(5);
+
+   //지도 버튼
+   const [a, setA] = useState(12);
+   const [b, setB] = useState(0);
+   function changeSize() {
+      setA(b);
+      setB(a);
+   }
 
    //날짜 캘린더
    const [startDate, setStartDate] = useState(new Date()); // 시작 날짜
@@ -112,11 +120,16 @@ const ReadRoomBoardList = () => {
          <Box pt={'80px'}>
             <Header />
             <Box>
-               <Grid container >
-                  <Grid container lg={4} md={4} sm={12} xs={12} sx={{position:'relative', overflow:'hidden'}} >
+               <Grid container > 
+                  <Container sx={{ position: 'absolute' }} >
+                     <Grid item sx={{ display: { xs: 'flex', md: 'none' }, mt: 1, mr: 4, flexDirection: 'row-reverse'}} >
+                        <IconButton onClick={changeSize} ><MapOutlinedIcon sx={{ fontSize: 30, zIndex: 999 }} color="info" /></IconButton>
+                     </Grid>
+                  </Container>              
+                  <Grid container lg={4} md={4} sm={a} xs={a} sx={{position:'relative', overflow:'hidden'}} >
                      <Container component="main" maxWidth={'100%'} sx={{position:'absolute', overflowY: "scroll", height: "calc(100vh - 80px)" }}>
-                        <Box alignContent={'center'}>
-                           <img src={require("img/금방_수요자.png")} style={{ width: '30px', marginTop: '20px', objectFit: 'contain'}} />
+                        <Box >
+                           <img src={require("img/금방_수요자.png")} style={{ width: '30px', objectFit: 'contain'}} />
                            <h2 style={{display:'inline-block', marginLeft:'10px'}}>방 찾기</h2>
                         </Box>
                         <Box >
@@ -201,8 +214,8 @@ const ReadRoomBoardList = () => {
                         </Container>
                      }
                   </Grid>
-                  <Grid lg={8} md={8} sx={{ height: 'calc(100vh - 80px)' }} >
-                     <Map filter={filter} cordX={cordX} cordY={cordY} getBody={getBody} setGetBody={setGetBody} setX={setX} setY={setY} setL={setLevel} />
+                  <Grid lg={8} md={8} sm={b} xs={b} sx={{ height: 'calc(100vh - 80px)' }} >
+                     <Map filter={filter} size={b} cordX={cordX} cordY={cordY} getBody={getBody} setGetBody={setGetBody} setX={setX} setY={setY} setL={setLevel} />
                   </Grid>
                </Grid>
             </Box>

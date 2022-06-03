@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from "styled-components";
 import Divider from '@mui/material/Divider';
 import Api from 'API/Api';
@@ -35,32 +35,35 @@ const Item = styled.li`
 `;
 
 const Transaction = () => {
-  // const transId = 1;
-  // const [postBody, setPostBody] = useState([]);
-  // const response = async () => Api.getTransaction(transId);
-  
-  // useEffect(() => {
-  //     const data = response();
-  //     setPostBody(data);
-  // }, []); 
+  const [postBody, setPostBody] = useState([]);
+  const response = async () => await Api.getTransaction();
 
-  const postBody = {
-    item: [{
-      "boardId": 1,
-      "title": "신옥계 롯데리아 뒤 양도",
-      "image": "image1",
-      "userId": "북극곰",
-      "startDate": "2022-01-25",
-      "endDate": "2022-02-25"
-    }, {
-      "boardId": 2,
-      "title": "옥계중 근처 양도!",
-      "image": "image2",
-      "userId": "모나리자",
-      "startDate": "2021-07-01",
-      "endDate": "2021-08-30"
-    }]
-  };
+  useEffect(() => {
+      const getData = async () => {
+          const resBody = await response();
+          console.log(resBody);
+          setPostBody(resBody.data.response.content);
+      }
+      getData();
+  }, []);
+
+  // const postBody = {
+  //   item: [{
+  //     "boardId": 1,
+  //     "title": "신옥계 롯데리아 뒤 양도",
+  //     "image": "image1",
+  //     "userId": "북극곰",
+  //     "startDate": "2022-01-25",
+  //     "endDate": "2022-02-25"
+  //   }, {
+  //     "boardId": 2,
+  //     "title": "옥계중 근처 양도!",
+  //     "image": "image2",
+  //     "userId": "모나리자",
+  //     "startDate": "2021-07-01",
+  //     "endDate": "2021-08-30"
+  //   }]
+  // };
 
   return (
     <StyledBox>
@@ -70,7 +73,7 @@ const Transaction = () => {
       <Divider />
       <List>
         {
-          postBody.item.map(row => (
+          postBody.map(row => (
             <>
               <Item key={row.boardId}>
                 <a href={'/mypage/post/' + row.boardId}>

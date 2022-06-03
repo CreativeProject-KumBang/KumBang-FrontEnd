@@ -57,7 +57,7 @@ const Map = (props) => {
             disableClickZoom: true 
         });
     },[]);
-
+    
     /*------------------------지도 이동 시키는 함수------------------------------*/
     useEffect(()=>{
         // 이동할 위도 경도 위치를 생성합니다 
@@ -70,7 +70,19 @@ const Map = (props) => {
             mapRef.current.setLevel(2);           
         }
     },[props.cordY, props.cordX])
-    
+
+    /*------------------------지도 영역 크기 동적 변경하기------------------------------*/
+    useEffect(() => {
+        var moveLatLon = new kakao.maps.LatLng(props.cordY, props.cordX);
+        mapRef.current.panTo(moveLatLon);
+        return () => {
+            // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
+            // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다 
+            // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
+            mapRef.current.relayout();
+        }
+    }, [props.size, props.cordY, props.cordX])
+
     /*------------------------필터 조회 결과값 바뀔때마다 서버 통신------------------------------*/
     useEffect(() => {
         if(level < 5){
@@ -195,7 +207,7 @@ const Map = (props) => {
         }
         else {
             const overlayInfos = postBody.map(info => {
-                if(info.thumbnail === null) {
+                if(!info.thumbnail) {
                     return (
                       {
                         id: info.id,
