@@ -4,6 +4,8 @@ import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import { Hidden } from '@mui/material';
 import { base_url } from 'API/Url';
 
+const default_url = base_url + "/image/notfound.png";
+
 const ChatCardContent = (props) => {
     const { roomId, boardId, title, image, opponent, date, isNew, lastMsg, isCompleted, isRemoved } = props;
     const [isImage, setIsImage] = useState(true); // 이미지 존재 여부 확인해서 변수에 담고 렌더링

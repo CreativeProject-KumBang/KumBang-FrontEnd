@@ -54,7 +54,6 @@ const BoardCardContent = (props) => {
               <div
                 style={{
                   display: 'block',
-                  // width: '70%',
                   height: '100%'
                 }}>
                 <div id={id + '-row-title'}>
@@ -104,7 +103,6 @@ const BoardCardContent = (props) => {
               <div
                 style={{
                   display: 'block',
-                  // width: '70%',
                   height: '100%'
                 }}>
                 <div id={id + '-row-title'}>
