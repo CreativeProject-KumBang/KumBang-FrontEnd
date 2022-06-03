@@ -86,7 +86,7 @@ const BoardCardContent = (props) => {
                     src={base_url + image}
                     style={{
                       width: "75px",
-                      height: "150px",
+                      height: "130px",
                       objectFit: "cover"
                     }}
                   /> :
@@ -94,7 +94,7 @@ const BoardCardContent = (props) => {
                     src={default_url}
                     style={{
                       width: "75px",
-                      height: "150px",
+                      height: "130px",
                       objectFit: "cover"
                     }}
                   />
