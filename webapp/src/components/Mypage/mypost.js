@@ -91,13 +91,13 @@ const MyPost = (props) => {
 
   return (
     <StyledBox>
-      <Hidden mdDown>
+      <Hidden smDown>
         <StyledTop>
           <span style={{ fontSize: "20px", fontWeight: "bold" }}>내가 쓴 글</span>
         </StyledTop>
       </Hidden>
 
-      <Hidden mdUp>
+      <Hidden smUp>
         <StyledTopSmall>
           <span style={{ fontSize: "100%", fontWeight: "bold" }}>내가 쓴 글</span>
         </StyledTopSmall>
@@ -112,7 +112,7 @@ const MyPost = (props) => {
                 <div style={{ width: "100%", position: "relative" }}>
                   <a href={'/mypage/detail/' + row.id}>
 
-                    <Hidden mdDown>
+                    <Hidden smDown>
                       <div id={row.id + '-row-image'}
                         style={{
                           float: 'left',
@@ -154,7 +154,7 @@ const MyPost = (props) => {
                       </div>
                     </Hidden>
 
-                    <Hidden mdUp>
+                    <Hidden smUp>
                       <div id={row.id + '-row-image'}
                         style={{
                           float: 'left',

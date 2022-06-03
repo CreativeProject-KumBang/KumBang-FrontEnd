@@ -29,13 +29,13 @@ const ReadChatList = () => {
 
    return (
       <StyledBox>
-         <Hidden mdDown>
+         <Hidden smDown>
             <StyledTop>
                <span style={{ fontSize: "20px", fontWeight: "bold" }}>채팅 내역</span>
             </StyledTop>
          </Hidden>
 
-         <Hidden mdUp>
+         <Hidden smUp>
             <StyledTopSmall>
                <span style={{ fontSize: "100%", fontWeight: "bold" }}>채팅 내역</span>
             </StyledTopSmall>

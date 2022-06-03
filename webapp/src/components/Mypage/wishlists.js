@@ -60,13 +60,13 @@ const Wishlists = (props) => {
 
     return (
         <StyledBox>
-            <Hidden mdDown>
+            <Hidden smDown>
                 <StyledTop>
                     <span style={{ fontSize: "20px", fontWeight: "bold" }}>찜 내역</span>
                 </StyledTop>
             </Hidden>
 
-            <Hidden mdUp>
+            <Hidden smUp>
                 <StyledTopSmall>
                     <span style={{ fontSize: "100%", fontWeight: "bold" }}>찜 내역</span>
                 </StyledTopSmall>
@@ -151,7 +151,8 @@ const Wishlists = (props) => {
                                             style={{
                                                 display: 'block',
                                                 width: '70%',
-                                                height: '100%'
+                                                height: '100%',
+                                                paddingLeft: "10px",
                                             }}>
                                             <div id={row.id + '-row-title'}>
                                                 <span style={{ fontSize: "70%" }}>{row.title}</span>

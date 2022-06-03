@@ -82,7 +82,8 @@ const ChatCardContent = (props) => {
                     style={{
                         display: 'block',
                         width: '70%',
-                        height: '100%'
+                        height: '100%',
+                        paddingLeft: "10px",
                     }}>
                     <div id={roomId + '-row-board-title'}>
                         <span style={{ fontSize: "70%" }}>{title}</span>
