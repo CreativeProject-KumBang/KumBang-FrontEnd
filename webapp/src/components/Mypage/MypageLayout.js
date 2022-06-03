@@ -37,8 +37,8 @@ const MypageLayout = () => {
                     }}
                 >
                     <Grid container >
-                        <Grid item lg={3} md={3} sx={{ display: { md: 'block', xs: 'none' }, backgroundColor: 'rgb(254, 248, 220)' }}>
-                            <List component="nav" sx={{ paddingTop: '30px' }}>
+                        <Grid item lg={3} md={3} sx={{paddingRight: 3, display: { md: 'block', xs: 'none' } }}>
+                            <List component="nav" sx={{ paddingTop: '30px', backgroundColor: 'rgb(254, 248, 220)' }}>
                                 {mainListItems}
                             </List>
                         </Grid>
@@ -49,7 +49,6 @@ const MypageLayout = () => {
                         </Grid>
                     </Grid>
                 </Container>
-                <Footer />
             </Box>
         </ThemeProvider>
     )
