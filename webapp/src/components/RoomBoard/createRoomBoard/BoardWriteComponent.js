@@ -116,7 +116,7 @@ const BoardWriteComponent = () => {
          alert('원 월세를 입력해주세요');
          return false;
       }
-      return false;
+      return true;
    }
 
    const CreateRoomBoard = async () => {

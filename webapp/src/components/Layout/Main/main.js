@@ -9,6 +9,7 @@ import { Link, Link as RouterLink } from 'react-router-dom';
 
 const StyledMain = styled.div`
     min-height: calc(100vh - 180px);
+    background-color: rgba(241, 196, 15, 0.11); //메인 배경바꿀거면 img로 변경
 `;
 
 const StyledBoard = styled.div`
@@ -20,7 +21,6 @@ const StyledBoard = styled.div`
 const StyledBoard2 = styled.div`
     width: 100%;
     height: 100px;
-    background-color: rgba(241, 196, 15, 0.11); //메인 배경바꿀거면 img로 변경
 `;
 
 const StyledDiv = styled.div`
@@ -35,8 +35,9 @@ const StyledDiv2 = styled.div`
 
 const StyledDiv3 = styled.div`
     padding: 5% 20% 0 20%;
-    font-size: 20px;
+    font-size: 15px;
    marginBottom: 50px;
+   background-color: rgba(241, 196, 15, 0.11); //메인 배경바꿀거면 img로 변경
 `;
 
 const StyledH2 = styled.h2`
@@ -99,7 +100,7 @@ const Main = () => {
             </StyledBoard2>
          </Hidden>
          <StyledDiv3>
-            <Box >
+            <Container maxWidth="md" component="main">
                <Grid container spacing={3}>
                   <Grid item lg={6} md={6} sm={12} xs={12}>
                      <Link to="/map/list" style={{ textDecoration: 'none', color: 'black' }}>
@@ -108,6 +109,8 @@ const Main = () => {
                               boxShadow: 5,
                               justifyContent: 'center',
                               alignItems: 'center',
+                              maxWidth: "350px",
+                              maxHeight: "100px"
                            }}
                         >
                            <CardContent>
@@ -132,6 +135,8 @@ const Main = () => {
                               boxShadow: 5,
                               justifyContent: 'center',
                               alignItems: 'center',
+                              maxWidth: "350px",
+                              maxHeight: "100px"
                            }}
                         >
                            <CardContent>
@@ -150,7 +155,7 @@ const Main = () => {
                      </Link>
                   </Grid>
                </Grid>
-            </Box>
+            </Container>
          </StyledDiv3>
       </StyledMain>
    )
