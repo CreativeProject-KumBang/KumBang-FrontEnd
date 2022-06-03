@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from "styled-components";
-import { Divider, Hidden } from '@mui/material';
-import Modals from "components/Mypage/Modals"
+import { Divider, Hidden, Button } from '@mui/material';
+import TradeModals from "components/Mypage/TradeModals"
+import DeleteModals from "components/Mypage/DeleteModals"
 import Api from 'API/Api';
 import { base_url } from 'API/Url';
 
@@ -90,17 +91,17 @@ const MyPost = (props) => {
 
   return (
     <StyledBox>
-            <Hidden mdDown>
-                <StyledTop>
-                    <span style={{ fontSize: "20px", fontWeight: "bold" }}>내가 쓴 글</span>
-                </StyledTop>
-            </Hidden>
+      <Hidden mdDown>
+        <StyledTop>
+          <span style={{ fontSize: "20px", fontWeight: "bold" }}>내가 쓴 글</span>
+        </StyledTop>
+      </Hidden>
 
-            <Hidden mdUp>
-                <StyledTopSmall>
-                    <span style={{ fontSize: "100%", fontWeight: "bold" }}>내가 쓴 글</span>
-                </StyledTopSmall>
-            </Hidden>
+      <Hidden mdUp>
+        <StyledTopSmall>
+          <span style={{ fontSize: "100%", fontWeight: "bold" }}>내가 쓴 글</span>
+        </StyledTopSmall>
+      </Hidden>
 
       <Divider />
       <List>
@@ -194,20 +195,22 @@ const MyPost = (props) => {
                         </div>
                       </div>
                     </Hidden>
-                    
+
                   </a>
                 </div>
 
                 <Hidden mdDown>
                   <div style={{ marginLeft: "25px" }}>
-                    <Modals title={row.title} boardId={row.id} state={row.state}></Modals>
+                    <TradeModals title={row.title} boardId={row.id} state={row.state}></TradeModals>
+                    <DeleteModals title={row.title} boardId={row.id}></DeleteModals>
                   </div>
 
                 </Hidden>
 
                 <Hidden mdUp>
                   <div style={{ marginLeft: "10px" }}>
-                    <Modals title={row.title} boardId={row.id} state={row.state}></Modals>
+                    <TradeModals title={row.title} boardId={row.id} state={row.state}></TradeModals>
+                    <DeleteModals title={row.title} boardId={row.id}></DeleteModals>
                   </div>
                 </Hidden>
 

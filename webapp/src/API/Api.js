@@ -134,6 +134,10 @@ const Api = {
     postUpdateRoomBoard: async (boardId, board) => {
         return await postJsonReqest(`/roomboard/${boardId}`, board);
     },
+    // 방 양도 글 삭제
+    deleteRoomBoard: async (boardId) => {
+        return await deleteJsonReqest(`/board/${boardId}`);
+    },
     // 방 양도 글 상세조회
     getRoomBoard: async (board_id) => {
         return await getRequest(`/board/${board_id}`);
@@ -141,10 +145,6 @@ const Api = {
     // 방 양도 글 전체조회 {장단기,날짜선택,가격(시작, 끝, 둘다 null)}
     getAllRoomBoard: async (data) => {
         return await getRequest(`/board/list?`, data);
-    },
-    // 방 양도 글 삭제
-    deleteRoomBoard: async (boardId) => {
-        return await deleteJsonReqest(`/roomboard/${boardId}`);
     },
     // 방 양도 글 거래 완료를 위한 거래자 목록 요청
     getBuyerList: async (boardId) => {

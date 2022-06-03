@@ -53,7 +53,7 @@ const styleSmall = {
    p: 4,
 };
 
-const Modals = (props) => {
+const TradeModals = (props) => {
    const navigate = useNavigate();
    const title = props.title;
    const boardId = props.boardId;
@@ -107,4 +107,4 @@ const Modals = (props) => {
    )
 }
 
-export default Modals
+export default TradeModals

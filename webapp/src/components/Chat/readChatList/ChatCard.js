@@ -8,19 +8,6 @@ import { base_url } from 'API/Url';
 
 const default_imageurl = base_url + "default";
 
-const StyledBox = styled.div`
-    height: 100%;
-    padding: 0px 0px;
-`;
-
-const StyledTop = styled.div`
-    display: block;
-    height: 40px;
-    margin-top: 15px;
-    margin-bottom: 50px;
-    font-size: 22px;
-`;
-
 const List = styled.ul`
   list-style: none;
   margin: auto;
@@ -78,8 +65,22 @@ const ChatCard = () => {
                                         (
                                             row.lastMessage.content
                                         ) : (
-                                            " "
-                                    )}
+                                            ""
+                                        )}
+                                isCompleted={
+                                    (!(row.isCompleted === true)) ?
+                                        (
+                                            ""
+                                        ) : (
+                                            "(거래 완료되었습니다.)"
+                                        )}
+                                isRemoved={
+                                    (!(row.isRemoved === true)) ?
+                                        (
+                                            ""
+                                        ) : (
+                                            "(글이 삭제되었습니다.)"
+                                        )}
                             />
                             <Divider />
                         </>
