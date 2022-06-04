@@ -41,29 +41,11 @@ const Transaction = () => {
   useEffect(() => {
       const getData = async () => {
           const resBody = await response();
-          console.log(resBody);
-          setPostBody(resBody.data.response.content);
+          console.log(resBody.data.response[0].content);
+          setPostBody(resBody.data.response[0].content);
       }
       getData();
   }, []);
-
-  // const postBody = {
-  //   item: [{
-  //     "boardId": 1,
-  //     "title": "신옥계 롯데리아 뒤 양도",
-  //     "image": "image1",
-  //     "userId": "북극곰",
-  //     "startDate": "2022-01-25",
-  //     "endDate": "2022-02-25"
-  //   }, {
-  //     "boardId": 2,
-  //     "title": "옥계중 근처 양도!",
-  //     "image": "image2",
-  //     "userId": "모나리자",
-  //     "startDate": "2021-07-01",
-  //     "endDate": "2021-08-30"
-  //   }]
-  // };
 
   return (
     <StyledBox>
@@ -75,16 +57,16 @@ const Transaction = () => {
         {
           postBody.map(row => (
             <>
-              <Item key={row.boardId}>
-                <a href={'/mypage/post/' + row.boardId}>
-                  <div id={row.boardId + '-row-image'}
+              <Item key={row.id}>
+                <a href={'/rooms/' + row.board.boardId}>
+                  <div id={row.id + '-row-image'}
                     style={{
                       float: 'left',
                       width: '20%',
                       height: '100%'
                     }}>
                     <img
-                      src={row.image}
+                      src={row.board.files[0].path}
                       alt="profile"
                     />
                   </div>
@@ -94,14 +76,14 @@ const Transaction = () => {
                       width: '80%',
                       height: '100%'
                     }}>
-                    <div id={row.boardId + '-row-title'}>
-                      <span>{row.title}</span>
+                    <div id={row.id + '-row-title'}>
+                      <span>{row.board.title}</span>
                     </div>
-                    <div id={row.boardId + '-row-user'}>
-                      <span style={{ fontSize: 16 }}>{row.userId}</span>
+                    <div id={row.id + '-row-user'}>
+                      <span style={{ fontSize: 16 }}>{row.board.user.nickname}</span>
                     </div>
-                    <div id={row.boardId + '-row-period'}>
-                      <span style={{ fontSize: 16 }}>{row.startDate}~{row.endDate}</span>
+                    <div id={row.id + '-row-period'}>
+                      <span style={{ fontSize: 16 }}>{row.board.durationStart}~{row.board.durationEnd}</span>
                     </div>
                   </div>
                 </a>
