@@ -100,7 +100,7 @@ const routes = [
 		  	{ path: "report", element: <ReportHistory /> },
 			{ path: "withdrawal", element: <Withdrawal /> },
 			{ path: "chatlist", element: <ReadChatList /> },
-			{ path: "detail/:id", element: <ReadRoomBoardDetail /> },
+			{ path: "detail/:id", element: <ReadRoomBoardDetail setX={()=>{}} setY={()=>{}} /> },
 		],
 	},
 	{
@@ -108,7 +108,7 @@ const routes = [
 		element: <PrivateRoutes user={isLogin()}><ChatLayout /></PrivateRoutes>,
 		children: [
 			{ path: "detail", element: <ReadChatDetail /> },
-			{ path: "room/:id", element: <ReadRoomBoardDetail /> },
+			{ path: "room/:id", element: <ReadRoomBoardDetail setX={()=>{}} setY={()=>{}} /> },
 		],
 	},
 ];

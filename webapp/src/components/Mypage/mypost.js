@@ -118,7 +118,6 @@ const MyPost = (props) => {
                           float: 'left',
                           width: '30%',
                           height: '100%',
-                          display: "grid",
                         }}>
                         {(row.thumbnail != null) ?
                           <img
@@ -160,7 +159,6 @@ const MyPost = (props) => {
                           float: 'left',
                           width: '30%',
                           height: '100%',
-                          display: "grid",
                         }}>
                         {(row.thumbnail != null) ?
                           <img

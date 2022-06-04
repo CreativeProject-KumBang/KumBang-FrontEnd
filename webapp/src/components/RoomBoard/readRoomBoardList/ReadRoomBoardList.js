@@ -1,4 +1,4 @@
-import React, { ReactDOM, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PrivateRoutes from 'access/PrivateRoutes';
 import isLogin from 'access/isLogin';
 import BoardCard from 'components/RoomBoard/readRoomBoardList/BoardCard';
