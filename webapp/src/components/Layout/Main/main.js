@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from "styled-components";
-import { Hidden, Box, Container } from '@mui/material';
-import TextField from '@mui/material/TextField';
+import { Link, Link as RouterLink } from 'react-router-dom';
+import { Hidden, Box, Grid, Card, CardContent, Container, Typography, TextField, Button, Avatar } from '@mui/material';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import LocationSearchingIcon from '@mui/icons-material/LocationSearching';
-import { Grid, Card, CardContent } from '@mui/material';
-import { Link, Link as RouterLink } from 'react-router-dom';
+import HomeIcon from '@mui/icons-material/Home';
 
 const StyledMain = styled.div`
     min-height: calc(100vh - 180px);
@@ -49,115 +49,173 @@ const StyledH5 = styled.h5`
     outline: none;
 `;
 
+const theme = createTheme({
+   palette: {
+      primary: {
+         main: '#ffca00',
+      },
+      secondary: {
+         main: '#ffb000',
+      },
+   },
+});
+
 const Main = () => {
    return (
-      <StyledMain>
-         <Hidden mdDown>
-            <StyledBoard>
-               <StyledDiv>
-                  <StyledH2>
-                     어떤 방을 원하세요?
-                  </StyledH2>
-               </StyledDiv>
-               {/*<StyledDiv2>
-                  <LocationSearchingIcon sx={{ fontSize: 30 }} style={{ marginRight: '1%' }} />
-                  <TextField
-                     style={{ width: '70%' }}
-                     fullWidth
-                     hiddenLabel
-                     id="filled-hidden-label-small"
-                     variant="filled"
-                     size="small"
-                     placeholder="건물명, 도로명, 지번으로 검색하세요."
-                  />
-                  <SearchIcon sx={{ fontSize: 35 }} style={{ marginLeft: '1%' }} />
-   </StyledDiv2>*/}
+      <>
+         <ThemeProvider theme={theme}>
+            <Container component="main" maxWidth="xs">
+               <Box sx={{
+                  marginTop: 8,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+               }}>
 
-            </StyledBoard>
-         </Hidden>
-         <Hidden mdUp>
-            <StyledBoard2>
-               <StyledDiv>
-                  <StyledH5>
+                  <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
+                  <HomeIcon fontSize='large' />
+                  </Avatar>
+                  <Typography component="h1" variant="h5" sx={{ mb: 3 }}>
                      어떤 방을 원하세요?
-                  </StyledH5>
-               </StyledDiv>
-               {/*<StyledDiv2>
-                  <Hidden xsUp>
-                     <LocationSearchingIcon sx={{ fontSize: 20 }} style={{ marginRight: '1%' }} />
-                  </Hidden>
-                  <TextField
-                     style={{ width: '70%' }}
-                     fullWidth
-                     hiddenLabel
-                     id="filled-hidden-label-small"
-                     variant="filled"
-                     size="small"
-                  />
-                  <SearchIcon sx={{ fontSize: 25 }} style={{ marginLeft: '1%' }} />
-</StyledDiv2>*/}
+                  </Typography>
+                  <Box sx={{ mt: 1 }}>
+                     <Link to="/map/list" style={{ textDecoration: 'none' }}>
+                        <span style={{color: "grey", fontSize: "12px"}}>원하시는 방을 찾고 싶다면?</span>
+                        <Button
+                           fullWidth
+                           variant="contained"
+                           color="secondary"
+                           sx={{ mt: 3, mb: 2, color: "white" }}
+                        >
+                           방찾기
+                        </Button>
+                     </Link>
+                     <Link to="/room/register" style={{ textDecoration: 'none' }}>
+                        <span style={{color: "grey", fontSize: "12px"}}>방을 내놓고 싶으시다면?</span>
+                        <Button
+                           fullWidth
+                           variant="contained"
+                           color="secondary"
+                           sx={{ mt: 3, mb: 2, color: "white" }}
+                        >
+                           방내놓기
+                        </Button>
+                     </Link>
 
-            </StyledBoard2>
-         </Hidden>
-         <StyledDiv3>
-            <Container maxWidth="md" component="main">
-               <Grid container spacing={3}>
-                  <Grid item lg={6} md={6} sm={12} xs={12}>
-                     <Link to="/map/list" style={{ textDecoration: 'none', color: 'black' }}>
-                        <Card
-                           sx={{
-                              boxShadow: 5,
-                              justifyContent: 'center',
-                              alignItems: 'center',
-                              maxWidth: "350px",
-                              maxHeight: "100px"
-                           }}
-                        >
-                           <CardContent>
-                              <Box
-                                 sx={{
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    flexDirection: 'column'
-                                 }}
-                              >
-                                 <h3>방 찾기</h3>
-                              </Box>
-                           </CardContent>
-                        </Card>
-                     </Link>
-                  </Grid>
-                  <Grid item lg={6} md={6} sm={12} xs={12}>
-                     <Link to="/room/register" style={{ textDecoration: 'none', color: 'black' }}>
-                        <Card
-                           sx={{
-                              boxShadow: 5,
-                              justifyContent: 'center',
-                              alignItems: 'center',
-                              maxWidth: "350px",
-                              maxHeight: "100px"
-                           }}
-                        >
-                           <CardContent>
-                              <Box
-                                 sx={{
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    flexDirection: 'column'
-                                 }}
-                              >
-                                 <h3>방 내놓기</h3>
-                              </Box>
-                           </CardContent>
-                        </Card>
-                     </Link>
-                  </Grid>
-               </Grid>
+                  </Box>
+
+               </Box>
+
             </Container>
-         </StyledDiv3>
-      </StyledMain>
+         </ThemeProvider >
+      </>
+      //       <StyledMain>
+      //          <Hidden mdDown>
+      //             <StyledBoard>
+      //                <StyledDiv>
+      //                   <StyledH2>
+      //                      어떤 방을 원하세요?
+      //                   </StyledH2>
+      //                </StyledDiv>
+      //                {/*<StyledDiv2>
+      //                   <LocationSearchingIcon sx={{ fontSize: 30 }} style={{ marginRight: '1%' }} />
+      //                   <TextField
+      //                      style={{ width: '70%' }}
+      //                      fullWidth
+      //                      hiddenLabel
+      //                      id="filled-hidden-label-small"
+      //                      variant="filled"
+      //                      size="small"
+      //                      placeholder="건물명, 도로명, 지번으로 검색하세요."
+      //                   />
+      //                   <SearchIcon sx={{ fontSize: 35 }} style={{ marginLeft: '1%' }} />
+      //    </StyledDiv2>*/}
+
+      //             </StyledBoard>
+      //          </Hidden>
+      //          <Hidden mdUp>
+      //             <StyledBoard2>
+      //                <StyledDiv>
+      //                   <StyledH5>
+      //                      어떤 방을 원하세요?
+      //                   </StyledH5>
+      //                </StyledDiv>
+      //                {/*<StyledDiv2>
+      //                   <Hidden xsUp>
+      //                      <LocationSearchingIcon sx={{ fontSize: 20 }} style={{ marginRight: '1%' }} />
+      //                   </Hidden>
+      //                   <TextField
+      //                      style={{ width: '70%' }}
+      //                      fullWidth
+      //                      hiddenLabel
+      //                      id="filled-hidden-label-small"
+      //                      variant="filled"
+      //                      size="small"
+      //                   />
+      //                   <SearchIcon sx={{ fontSize: 25 }} style={{ marginLeft: '1%' }} />
+      // </StyledDiv2>*/}
+
+      //             </StyledBoard2>
+      //          </Hidden>
+      //          <StyledDiv3>
+      //             <Container maxWidth="md" component="main">
+      //                <Grid container spacing={3}>
+      //                   <Grid item lg={6} md={6} sm={12} xs={12}>
+      //                      <Link to="/map/list" style={{ textDecoration: 'none', color: 'black' }}>
+      //                         <Card
+      //                            sx={{
+      //                               boxShadow: 5,
+      //                               justifyContent: 'center',
+      //                               alignItems: 'center',
+      //                               maxWidth: "350px",
+      //                               maxHeight: "100px"
+      //                            }}
+      //                         >
+      //                            <CardContent>
+      //                               <Box
+      //                                  sx={{
+      //                                     display: 'flex',
+      //                                     justifyContent: 'center',
+      //                                     alignItems: 'center',
+      //                                     flexDirection: 'column'
+      //                                  }}
+      //                               >
+      //                                  <h3>방 찾기</h3>
+      //                               </Box>
+      //                            </CardContent>
+      //                         </Card>
+      //                      </Link>
+      //                   </Grid>
+      //                   <Grid item lg={6} md={6} sm={12} xs={12}>
+      //                      <Link to="/room/register" style={{ textDecoration: 'none', color: 'black' }}>
+      //                         <Card
+      //                            sx={{
+      //                               boxShadow: 5,
+      //                               justifyContent: 'center',
+      //                               alignItems: 'center',
+      //                               maxWidth: "350px",
+      //                               maxHeight: "100px"
+      //                            }}
+      //                         >
+      //                            <CardContent>
+      //                               <Box
+      //                                  sx={{
+      //                                     display: 'flex',
+      //                                     justifyContent: 'center',
+      //                                     alignItems: 'center',
+      //                                     flexDirection: 'column'
+      //                                  }}
+      //                               >
+      //                                  <h3>방 내놓기</h3>
+      //                               </Box>
+      //                            </CardContent>
+      //                         </Card>
+      //                      </Link>
+      //                   </Grid>
+      //                </Grid>
+      //             </Container>
+      //          </StyledDiv3>
+      //       </StyledMain>
    )
 }
 
