@@ -80,6 +80,24 @@ export default function Authentication() {
         }
     };
 
+    const emailCheck = () => {
+        //일반 이메일 형식의 정규표현식
+        const emailRegex =
+        /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+        //골뱅이 뒤 문자 정규표현식
+        const schoolEmailRegex = /(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})/i;
+        
+        if (emailRegex.test(email) === true) {
+            if(schoolEmailRegex.exec(email)[0] === 'kumoh.ac.kr')
+                return 2; //학교 이메일 형식입니다.
+            else 
+                return 1; //학교 이메일 형식이 아닙니다.
+        }
+        else {
+            return 0; //이메일 형식이 아닙니다.
+        }
+    }
+
     const sendMail = async () => {
         const isEmpty = emptyCheck();
         if (isEmpty === false) {
@@ -87,16 +105,26 @@ export default function Authentication() {
             return false;
         }
         else {
-            let response = await Api.postEmail(email);
-            console.log(response)
-            if (response.data.status === true) {
-                alert('전송 완료!');
-                setField(true);
-            } else {
-                alert(response.data.response[0]);
+            const isEmail = emailCheck();
+            if (isEmail === 0) {
+                alert('이메일 주소 형식이 아닙니다.');
+                return false;
+            }
+            else if (isEmail === 1) {
+                alert('학교 이메일 주소를 입력하셔야 합니다.');
+                return false;
+            }
+            else {
+                let response = await Api.postEmail(email);
+                console.log(response)
+                if (response.data.status === true) {
+                    alert('전송 완료! 학교 메일함을 확인해주세요.');
+                    setField(true);
+                } else {
+                    alert(response.data.response[0]);
+                }
             }
         }
-
     };
 
     return (
@@ -164,7 +192,7 @@ const Timer = (props) => {
         return () => clearInterval(timerId.current);
     }, []);
 
-    useEffect(() => {
+    useEffect((props) => {
         //만약 타임 아웃이 발생했을 경우
         if (time.current < 0) {
             console.log("time out!!");
