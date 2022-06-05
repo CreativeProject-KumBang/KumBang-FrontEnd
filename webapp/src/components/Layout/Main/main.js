@@ -50,7 +50,7 @@ const Main = () => {
                               금오공대
                            </Typography>
                            <Typography variant='h1' sx={{ fontSize: "90px", fontWeight: "500" }}>
-                              방 거래를
+                              방 양도를
                            </Typography>
                            <Typography variant='h1' sx={{ fontSize: "90px", fontWeight: "500" }}>
                               간편하게!
@@ -60,7 +60,7 @@ const Main = () => {
                         <Grid item lg={6} md={6} sm={12} xs={12} >
 
                            <Grid container spacing={0}>
-                              <div style={{ marginTop: "50px" }}>
+                              <div style={{ marginTop: "45px" }}>
                                  <img
                                     src={require("img/메인모델.png")}
                                     style={{
