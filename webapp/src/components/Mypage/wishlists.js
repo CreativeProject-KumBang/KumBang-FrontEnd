@@ -3,6 +3,26 @@ import styled from "styled-components";
 import { Divider, Hidden } from '@mui/material';
 import Api from 'API/Api';
 import { base_url } from 'API/Url';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#ffca00',
+    },
+    secondary: {
+      main: '#ffb000',
+    },
+  },
+});
+
+theme.typography.h1 = {
+  fontSize: '20px',
+  [theme.breakpoints.up('sm')]: {
+    fontSize: '1.5rem',
+  },
+};
 
 const default_url = base_url + "/image/notfound.png";
 
@@ -59,19 +79,15 @@ const Wishlists = (props) => {
     }, []);
 
     return (
+        <ThemeProvider theme={theme}>
         <StyledBox>
-            <Hidden smDown>
-                <StyledTop>
-                    <span style={{ fontSize: "20px", fontWeight: "bold" }}>찜 내역</span>
-                </StyledTop>
-            </Hidden>
-
-            <Hidden smUp>
-                <StyledTopSmall>
-                    <span style={{ fontSize: "100%", fontWeight: "bold" }}>찜 내역</span>
-                </StyledTopSmall>
-            </Hidden>
-
+            <Typography variant='h1' sx={{
+              display: 'block',
+              height: '40px',
+              marginTop: '30px',
+              marginBottom: '30px',
+            }}>찜 내역
+            </Typography>
             <Divider />
             <List>
                 {
@@ -170,6 +186,7 @@ const Wishlists = (props) => {
                 }
             </List>
         </StyledBox>
+        </ThemeProvider>
     );
 };
 
