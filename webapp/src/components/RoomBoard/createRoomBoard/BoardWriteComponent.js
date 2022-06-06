@@ -102,12 +102,12 @@ const BoardWriteComponent = () => {
          return false;
       } else if (location.trim() === '') {
          alert('주소를 입력해주세요');
-         return false;
-      } else if (location_detail.trim() === '') {
-         alert('상세주소를 입력해주세요');
-         return false;
+         return false; 
       } else if (price.trim() === '') {
          alert('양도 거래 가격을 입력해주세요');
+         return false;
+      } else if (deposit.trim() === '') {
+         alert('양도 거래 보증금을 입력해주세요');
          return false;
       } else if (contract_deposit.trim() === '') {
          alert('원 계약보증금을 입력해주세요');
