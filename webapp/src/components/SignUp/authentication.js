@@ -131,19 +131,19 @@ export default function Authentication() {
         <Container component="main" maxWidth="xs">
             <Box
                 sx={{
-                    marginTop: 10,
+                    marginTop: 15,
                     flexDirection: 'column',
                 }}
             >
-                <Typography component="h1" variant="h4" sx={{ mb: 5 }}>
+                <Typography variant="h1" sx={{ mb: 10 }}>
                     금방에 오신 것을 환영합니다.
                 </Typography>
-                <Grid container justifyContent="center" component="p" sx={{ mt: 8, fontSize: "18px"}}>
+                <Typography variant="p" >
                     본인 확인을 위해 학교 이메일 주소를 입력해주세요.
-                </Grid>
+                </Typography>
                 <Grid>
-                    <Grid container spacing={1} sx={{ mb: 3 }}>
-                        <Grid item xs={12} sm={8}>
+                    <Grid container spacing={1} sx={{ mt: 1, mb: 3 }}>
+                        <Grid item xs={12} sm={8} >
                             <TextField
                                 required
                                 fullWidth

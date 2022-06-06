@@ -12,6 +12,20 @@ const theme = createTheme({
     },
 });
 
+theme.typography.h1 = {
+    fontSize: '1.7rem',
+    [theme.breakpoints.up('sm')]: {
+      fontSize: '2rem',
+    },
+};
+
+theme.typography.p = {
+    fontSize: '16px',
+    [theme.breakpoints.up('sm')]: {
+      fontSize: '18px',
+    },
+};
+
 const SignUpLayout = () => {
     return (
         <ThemeProvider theme={theme}>

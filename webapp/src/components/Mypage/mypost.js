@@ -5,6 +5,26 @@ import TradeModals from "components/Mypage/TradeModals"
 import DeleteModals from "components/Mypage/DeleteModals"
 import Api from 'API/Api';
 import { base_url } from 'API/Url';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
+
+const theme = createTheme({
+    palette: {
+        primary: {
+            main: '#ffca00',
+        },
+        secondary: {
+            main: '#ffb000',
+        },
+    },
+});
+
+theme.typography.h1 = {
+    fontSize: '20px',
+    [theme.breakpoints.up('sm')]: {
+        fontSize: '1.5rem',
+    },
+};
 
 const default_url = base_url + "/image/notfound.png";
 
@@ -90,18 +110,15 @@ const MyPost = (props) => {
   }, []);
 
   return (
+    <ThemeProvider theme={theme}>
     <StyledBox>
-      <Hidden mdDown>
-        <StyledTop>
-          <span style={{ fontSize: "20px", fontWeight: "bold" }}>내가 쓴 글</span>
-        </StyledTop>
-      </Hidden>
-
-      <Hidden mdUp>
-        <StyledTopSmall>
-          <span style={{ fontSize: "100%", fontWeight: "bold" }}>내가 쓴 글</span>
-        </StyledTopSmall>
-      </Hidden>
+      <Typography variant='h1' sx={{
+        display: 'block',
+        height: '40px',
+        marginTop: '30px',
+        marginBottom: '30px',
+      }}>내가 쓴 글
+      </Typography>
 
       <Divider />
       <List>
@@ -221,6 +238,7 @@ const MyPost = (props) => {
         }
       </List>
     </StyledBox >
+    </ThemeProvider>
   );
 };
 

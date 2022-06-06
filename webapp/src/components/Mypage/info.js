@@ -3,34 +3,45 @@ import ReactDOM from 'react-dom';
 import styled from "styled-components";
 import Divider from '@mui/material/Divider';
 import Api from 'API/Api';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
+
+const theme = createTheme({
+    palette: {
+        primary: {
+            main: '#ffca00',
+        },
+        secondary: {
+            main: '#ffb000',
+        },
+    },
+});
+
+theme.typography.h1 = {
+    fontSize: '20px',
+    [theme.breakpoints.up('sm')]: {
+        fontSize: '1.5rem',
+    },
+};
 
 const StyledBox = styled.div`
     height: 100%;
     padding: 0px 0px;
 `;
 
-const StyledTop = styled.div`
-    display: block;
-    height: 40px;
-    margin-top: 15px;
-    margin-bottom: 50px;
-    font-size: 22px;
-    /*background-color: yellow;*/
-`;
-
 const Info = () => {
 
-  const [postBody, setPostBody] = useState([]);
-  const response = async () => await Api.getInfo();
+    const [postBody, setPostBody] = useState([]);
+    const response = async () => await Api.getInfo();
 
-  useEffect(() => {
-    const getData = async () => {
-      const resBody = await response();
-      console.log(resBody);
-      setPostBody(resBody.data.response);
-    }
-    getData();
-  }, []);
+    useEffect(() => {
+        const getData = async () => {
+            const resBody = await response();
+            console.log(resBody);
+            setPostBody(resBody.data.response);
+        }
+        getData();
+    }, []);
 
     // 수정 불가한 필드 (이름, 이메일)
     const FixedList = (props) => {
@@ -114,23 +125,28 @@ const Info = () => {
     }
 
     return (
-        <StyledBox>
-            <StyledTop>
-                <h2>내 정보</h2>
-            </StyledTop>
-            <FixedList item={postBody.name} title="이름" /> {/* 네임 필드 */}
-            <Divider />
-            <FixedList item={postBody.email} title="이메일" /> {/* 이메일주소 필드 */}
-            <Divider />
-            <FixedList item={postBody.nickname} title="닉네임" /> {/* 닉네임 필드 */}
-            <Divider />
-            <FixedList item={postBody.birthDate} title="생년월일" /> {/* 생년월일 필드 */}
-            <Divider />
-            <FixedList item={postBody.phoneNumber} title="전화번호" /> {/* 전화번호 필드 */}
-            <Divider />
-            <FixedList item={postBody.address} title="주소" /> {/* 주소 필드 */}
-            <Divider />
-        </StyledBox>
+        <ThemeProvider theme={theme}>
+            <StyledBox>
+                <Typography variant='h1' sx={{
+                    display: 'block',
+                    height: '40px',
+                    marginTop: '30px',
+                    marginBottom: '40px',
+                }}>내 정보
+                </Typography>
+
+                <FixedList item={postBody.name} title="이름" /> {/* 네임 필드 */}
+                <Divider />
+                <FixedList item={postBody.email} title="이메일" /> {/* 이메일주소 필드 */}
+                <Divider />
+                <FixedList item={postBody.nickname} title="닉네임" /> {/* 닉네임 필드 */}
+                <Divider />
+                <FixedList item={postBody.phoneNumber} title="전화번호" /> {/* 전화번호 필드 */}
+                <Divider />
+                <FixedList item={postBody.address} title="주소" /> {/* 주소 필드 */}
+                <Divider />
+            </StyledBox>
+        </ThemeProvider>
     );
 };
 

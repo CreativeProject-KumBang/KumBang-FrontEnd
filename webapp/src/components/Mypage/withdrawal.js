@@ -1,18 +1,30 @@
 import React from 'react';
 import styled from "styled-components";
 import Api from 'API/Api';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#ffca00',
+    },
+    secondary: {
+      main: '#ffb000',
+    },
+  },
+});
+
+theme.typography.h1 = {
+  fontSize: '20px',
+  [theme.breakpoints.up('sm')]: {
+    fontSize: '1.5rem',
+  },
+};
 
 const StyledBox = styled.div`
     height: 100%;
     padding: 0px 0px;
-`;
-
-const StyledTop = styled.div`
-    display: block;
-    height: 40px;
-    margin-top: 15px;
-    margin-bottom: 50px;
-    font-size: 22px;
 `;
 
 const StyledButton = styled.button`
@@ -57,10 +69,15 @@ const Withdrawal = (props) => {
     };
 
     return (
-        <StyledBox>
-            <StyledTop>
-                <h2>회원 탈퇴</h2>
-            </StyledTop>
+        <ThemeProvider theme={theme}>
+            <StyledBox>
+            <Typography variant='h1' sx={{
+              display: 'block',
+              height: '40px',
+              marginTop: '30px',
+              marginBottom: '30px',
+            }}>회원 탈퇴
+            </Typography>
             <p style={{ display: 'block' }}>
                 정말로 떠나시겠어요?
             </p>
@@ -70,12 +87,8 @@ const Withdrawal = (props) => {
             >
                 네
             </StyledButton>
-            <StyledButton
-            >
-                아니오
-            </StyledButton>
-            
         </StyledBox>
+        </ThemeProvider>
     );
 };
 
