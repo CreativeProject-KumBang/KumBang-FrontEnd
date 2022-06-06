@@ -112,9 +112,9 @@ const BoardWriteComponent = () => {
       } else if (contract_deposit.trim() === '') {
          alert('원 계약보증금을 입력해주세요');
          return false;
-      } else if (contractMonthlyFee.trim() === '') {
-         alert('원 월세를 입력해주세요');
-         return false;
+      // } else if (contractMonthlyFee.trim() === '') {
+      //    alert('원 월세를 입력해주세요');
+      //    return false;
       }
       return true;
    }
@@ -277,7 +277,7 @@ const BoardWriteComponent = () => {
                />
             </StyledDiv>
 
-            <StyledH4>원 월세<span style={{ fontSize: "12px", color: "red"}}>&emsp;(필수)</span></StyledH4>
+            <StyledH4>원 월세<span style={{ fontSize: "12px", color: "red"}}>&emsp;(필수, 전세일 경우 월세 입력이 필수가 아닙니다)</span></StyledH4>
             <StyledDiv>
                <TextField
                   fullWidth
