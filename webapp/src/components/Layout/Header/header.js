@@ -39,7 +39,7 @@ const StyledLi = styled.li`
 
     /* event: hover */
     &:hover{  
-        background-color: orange;
+        background-color: #ffca00;
         border-radius: 10px; /* 테두리 둥글게 */
         color: white;
     } 

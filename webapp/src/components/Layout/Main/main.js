@@ -60,7 +60,7 @@ const Main = () => {
                         <Grid item lg={6} md={6} sm={12} xs={12} >
 
                            <Grid container spacing={0}>
-                              <div style={{ marginTop: "45px" }}>
+                              <div>
                                  <img
                                     src={require("img/메인모델.png")}
                                     style={{
@@ -78,8 +78,8 @@ const Main = () => {
                                     <Button
                                        fullWidth
                                        variant="contained"
-                                       color="white"
-                                       sx={{ mt: 3, mb: 2, color: "white", fontWeight: "bolder", width: "90%", float: "right" }}
+                                       color="primary"
+                                       sx={{ mt: 3, mb: 2, color: "white", fontSize:'22px', fontWeight: "bolder", width: "90%", height:'68px', float: "right" }}
                                     >
                                        방찾기
                                     </Button>
@@ -90,8 +90,8 @@ const Main = () => {
                                     <Button
                                        fullWidth
                                        variant="contained"
-                                       color="white"
-                                       sx={{ mt: 3, mb: 2, color: "white", fontWeight: "bolder", width: "90%", marginLeft: 1, float: "right"}}
+                                       color="primary"
+                                       sx={{ mt: 3, mb: 2, color: "white", fontSize:'22px', fontWeight: "bolder", width: "90%", height:'68px', marginLeft: 1, float: "right"}}
                                     >
                                        방내놓기
                                     </Button>

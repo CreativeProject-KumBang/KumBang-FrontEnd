@@ -12,6 +12,18 @@ import Images from 'components/RoomBoard/createRoomBoard/Images'
 import DaumPost from 'components/RoomBoard/createRoomBoard/DaumPost'
 import CheckboxList from 'components/RoomBoard/createRoomBoard/CheckboxList';
 import Box from '@mui/material/Box';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+const theme = createTheme({
+    palette: {
+        primary: {
+            main: '#ffca00',
+        },
+        secondary: {
+            main: '#ffb000',
+        },
+    },
+});
 
 const StyledH4 = styled.h4``;
 const StyledH5 = styled.h5``;
@@ -247,7 +259,7 @@ const BoardWriteComponent = () => {
                />
             </StyledDiv>
 
-            <StyledH4>양도 거래금액<span style={{ fontSize: "12px", color: "red"}}>&emsp;(필수)</span></StyledH4>
+            <StyledH4>양도 거래금액 / 1박<span style={{ fontSize: "12px", color: "red"}}>&emsp;(필수)</span></StyledH4>
             <StyledDiv>
                <TextField
                   fullWidth
@@ -405,10 +417,12 @@ const BoardWriteComponent = () => {
             </div>
 
             <StyledContainer>
-               <Button variant="outlined" color="success" sx={{ float: 'right' }}
+            <ThemeProvider theme={theme}>
+               <Button variant="contained" color="primary" sx={{ float: 'right' }}
                   onClick={CreateRoomBoard}>
                   등록
                </Button>
+            </ThemeProvider>
             </StyledContainer>
          </Box>
       </Container>
