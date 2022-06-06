@@ -4,11 +4,19 @@ import { Container, Box, Chip } from '@mui/material'
 import Api from 'API/Api';
 
 const StyledH4 = styled.h4``;
+
+const StyledDiv = styled.div`
+   overflow:auto;
+   @media only screen and (min-width: 400px) {
+        width: 400px;
+    }
+`;
+
 const StyledContainer = styled.div`
    overflow:auto;
    padding: 20px 5px 0px 0px;
    @media only screen and (min-width: 400px) {
-        width: 400px;
+        width: 180px;
     }
 `;
 
@@ -37,12 +45,11 @@ const DeleteContents = (props) => {
         <Container component="main" maxWidth="xs">
             <Box sx={{
                 marginTop: 2,
-                marginRight: 2,
                 flexDirection: 'column',
                 alignItems: 'center',
             }}>
-                <StyledH4>"{title}"</StyledH4>
-                <StyledH4>게시글을 정말 삭제하시겠습니까?</StyledH4>
+                <StyledH4>해당 게시글을 </StyledH4>
+                <StyledH4>삭제하시겠습니까?</StyledH4>
                 <StyledContainer>
                     <Chip label="삭제" color="success" variant="outlined"
                         onClick={DeleteRoom} sx={{ float: 'right', marginLeft: "10px" }}>

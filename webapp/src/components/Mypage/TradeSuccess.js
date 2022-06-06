@@ -22,7 +22,7 @@ const StyledContainer = styled.div`
    overflow:auto;
    padding: 20px 5px 0px 0px;
    @media only screen and (min-width: 400px) {
-        width: 400px;
+        width: 180px;
     }
 `;
 

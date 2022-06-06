@@ -129,13 +129,12 @@ const MyPost = (props) => {
                 <div style={{ width: "100%", position: "relative" }}>
                   <a href={'/mypage/detail/' + row.id}>
 
-                    <Hidden mdDown>
+                    <Hidden smDown>
                       <div id={row.id + '-row-image'}
                         style={{
                           float: 'left',
                           width: '30%',
                           height: '100%',
-                          display: "grid",
                         }}>
                         {(row.thumbnail != null) ?
                           <img
@@ -171,13 +170,12 @@ const MyPost = (props) => {
                       </div>
                     </Hidden>
 
-                    <Hidden mdUp>
+                    <Hidden smUp>
                       <div id={row.id + '-row-image'}
                         style={{
                           float: 'left',
                           width: '30%',
                           height: '100%',
-                          display: "grid",
                         }}>
                         {(row.thumbnail != null) ?
                           <img

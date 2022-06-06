@@ -68,7 +68,7 @@ const DeleteModals = (props) => {
     return (
         <>
             <Button id={boardId} color="success" variant="outlined" size="small" sx={{float: "right"}}onClick={(event) => handleOpen()}>삭제</Button>
-            <Hidden mdDown>
+            <Hidden smDown>
                 <Modal
                     open={open}
                     onClose={handleClose}
@@ -80,7 +80,7 @@ const DeleteModals = (props) => {
                     </Box>
                 </Modal>
             </Hidden>
-            <Hidden mdUp>
+            <Hidden smUp>
                 <Modal
                     open={open}
                     onClose={handleClose}

@@ -81,13 +81,13 @@ const Wishlists = (props) => {
     return (
         <ThemeProvider theme={theme}>
         <StyledBox>
-                <Typography variant='h1' sx={{
-                  display: 'block',
-                  height: '40px',
-                  marginTop: '30px',
-                  marginBottom: '30px',
-                }}>찜 내역
-                </Typography>
+            <Typography variant='h1' sx={{
+              display: 'block',
+              height: '40px',
+              marginTop: '30px',
+              marginBottom: '30px',
+            }}>찜 내역
+            </Typography>
             <Divider />
             <List>
                 {
@@ -167,7 +167,8 @@ const Wishlists = (props) => {
                                             style={{
                                                 display: 'block',
                                                 width: '70%',
-                                                height: '100%'
+                                                height: '100%',
+                                                paddingLeft: "10px",
                                             }}>
                                             <div id={row.id + '-row-title'}>
                                                 <span style={{ fontSize: "70%" }}>{row.title}</span>

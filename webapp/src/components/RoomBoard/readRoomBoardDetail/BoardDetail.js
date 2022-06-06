@@ -219,7 +219,7 @@ const BoardDetail = (props) => {
                       board.fixedOption.map((option, id) => (
                         <StyledDiv key={id}>
                           <div>
-                            {checkList[id]}   |   {option ? "O" : "X"}
+                            {checkList[id]}   |   {(option==="1") ? "O" : "X"}
                           </div>
                         </StyledDiv>
                       ))

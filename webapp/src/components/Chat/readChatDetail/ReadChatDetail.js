@@ -196,7 +196,6 @@ const ReadChatDetail = () => {
                            >
                               <span onClick={handleClose}>채팅을 통해 거래 여부를 확인하고 거래를 위한 약속 시간 및 장소를 잡으세요!</span>
                            </Menu>
-                           {/* <ArticleOutlinedIcon sx={{ paddingTop: "4px" }}></ArticleOutlinedIcon> */}
                            <Link to={{ pathname: `/chat/room/${roomId}` }} style={{ textDecoration: "none", color: "black" }}>
                               <Button sx={{ paddingLeft: "4px" }}>방 정보</Button>
                            </Link>
@@ -247,7 +246,13 @@ const ReadChatDetail = () => {
                      </Grid>
                      <Grid item xs={0} md={3}>
                         <Box>
-                           <HelpOutlineIcon sx={{ paddingTop: "4px" }}></HelpOutlineIcon>
+                           <HelpOutlineIcon
+                              sx={{ paddingTop: "4px" }}
+                              id="basic-button"
+                              aria-controls={open ? 'basic-menu' : undefined}
+                              aria-haspopup="true"
+                              aria-expanded={open ? 'true' : undefined}
+                              onClick={handleClick}></HelpOutlineIcon>
                            <Menu
                               id="basic-menu"
                               anchorEl={anchorEl}
@@ -259,8 +264,9 @@ const ReadChatDetail = () => {
                            >
                               <span onClick={handleClose}>채팅을 통해 거래 여부를 확인하고 거래를 위한 약속 시간 및 장소를 잡으세요!</span>
                            </Menu>
-                           {/* <ArticleOutlinedIcon sx={{ paddingTop: "4px" }}></ArticleOutlinedIcon> */}
-                           <Button sx={{ paddingLeft: "4px" }}>방 정보</Button>
+                           <Link to={{ pathname: `/chat/room/${roomId}` }} style={{ textDecoration: "none", color: "black" }}>
+                              <Button sx={{ paddingLeft: "4px" }}>방 정보</Button>
+                           </Link>
                         </Box>
                      </Grid>
                   </Grid>

@@ -43,15 +43,18 @@ const Images = (props) => {
       formData.append('files', fileList[i]);
     }
 
+    /*
     for (var pair of formData.entries()) {
       console.log(pair[0] + ', ' + pair[1]);
     }
+    */
 
     let resBody = await Api.getReadFile(formData); // API File_pk 요청
 
     let pk_id_test = resBody.data.response;
     setPk(pk_id_test); // 부모에게 pk값 전달
-
+    console.log(pk_id_test);
+    console.log(resBody);
 
     if (resBody.data.status) {
       setIsUpload(true); // 업로드 완료 상태 저장
@@ -68,6 +71,7 @@ const Images = (props) => {
     const dummy = fileListUI.filter((_, index) => index !== id);
     setFileList(dummy);
     setFileListUI(dummy);
+    console.log(dummy);
      
     // api 코드 - 삭제
     if (isUpload) {
@@ -89,8 +93,6 @@ const Images = (props) => {
     } else {
       console.log("업로드 전 이미지 삭제 완료");
     }
-    console.log(fileList, fileListUI);
-    console.log(pk_id);
   };
 
   return (
@@ -104,7 +106,7 @@ const Images = (props) => {
       {fileListUI.map((image, id) => (
         <div key={id}>
           <StyleImg src={image} alt={`${image}-${id}`} />
-          <Button variant="outlined" onClick={() => handleDeleteImage(id)}>❌</Button>
+          {/* <Button variant="outlined" onClick={() => handleDeleteImage(id)}>❌</Button> */}
         </div>
       ))}
     </div>

@@ -78,7 +78,7 @@ const TradeModals = (props) => {
          ) : (
             <Button id={boardId} color="success" variant="outlined" size="small"  onClick={(event) => handleOpen(event.target.id)}>거래 완료</Button>
          )}
-         <Hidden mdDown>
+         <Hidden smDown>
             <Modal
                open={open}
                onClose={handleClose}
@@ -90,7 +90,7 @@ const TradeModals = (props) => {
                </Box>
             </Modal>
          </Hidden>
-         <Hidden mdUp>
+         <Hidden smUp>
             <Modal
                open={open}
                onClose={handleClose}
