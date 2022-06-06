@@ -5,7 +5,7 @@ import styled from "styled-components";
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
-import { Button, TextField, Container } from '@mui/material'
+import { Button, TextField, Container, Divider } from '@mui/material'
 import dayjs from "dayjs";
 import Api from 'API/Api';
 import Images from 'components/RoomBoard/createRoomBoard/Images'
@@ -147,7 +147,7 @@ const BoardWriteComponent = () => {
             flexDirection: 'column',
             alignItems: 'center',
          }}>
-            <StyledH4>제목</StyledH4>
+            <StyledH4>제목<span style={{ fontSize: "12px", color: "red"}}>&emsp;(필수)</span></StyledH4>
             <StyledDiv>
                <TextField
                   fullWidth
@@ -175,7 +175,11 @@ const BoardWriteComponent = () => {
                />
             </StyledDiv>
 
-            <StyledH4>주소</StyledH4>
+            <br></br>
+            <Divider variant="middle" />
+            <br></br>
+
+            <StyledH4>주소<span style={{ fontSize: "12px", color: "red"}}>&emsp;(필수)</span></StyledH4>
             <StyledDiv>
                <DaumPost setLocation={setLocation}></DaumPost>
                <StyledH5>{location}</StyledH5>
@@ -193,8 +197,13 @@ const BoardWriteComponent = () => {
                   onChange={(event) => setLocation_detail(event.target.value)}
                />
             </StyledDiv>
+            
+            <br></br>
+            <br></br>
+            <Divider variant="middle" />
+            <br></br>
 
-            <StyledH4>양도 기간</StyledH4>
+            <StyledH4>양도 기간<span style={{ fontSize: "12px", color: "red"}}>&emsp;(필수)</span></StyledH4>
 
             <StyledH5>시작일 : </StyledH5>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -219,20 +228,13 @@ const BoardWriteComponent = () => {
                />
             </LocalizationProvider>
 
-            <StyledH4>양도 거래금액</StyledH4>
-            <StyledDiv>
-               <TextField
-                  fullWidth
-                  hiddenLabel
-                  id="filled-hidden-label-small"
-                  variant="filled"
-                  size="small"
-                  placeholder="ex) 30000"
-                  onChange={(event) => setPrice(event.target.value)}
-               />
-            </StyledDiv>
+            <br></br>
+            <br></br>
+            <br></br>
+            <Divider variant="middle" />
+            <br></br>
 
-            <StyledH4>양도 거래 보증금</StyledH4>
+            <StyledH4>양도 거래 보증금<span style={{ fontSize: "12px", color: "red"}}>&emsp;(필수)</span></StyledH4>
             <StyledDiv>
                <TextField
                   fullWidth
@@ -245,7 +247,24 @@ const BoardWriteComponent = () => {
                />
             </StyledDiv>
 
-            <StyledH4>원 계약보증금</StyledH4>
+            <StyledH4>양도 거래금액<span style={{ fontSize: "12px", color: "red"}}>&emsp;(필수)</span></StyledH4>
+            <StyledDiv>
+               <TextField
+                  fullWidth
+                  hiddenLabel
+                  id="filled-hidden-label-small"
+                  variant="filled"
+                  size="small"
+                  placeholder="ex) 30000"
+                  onChange={(event) => setPrice(event.target.value)}
+               />
+            </StyledDiv>
+
+            <br></br>
+            <Divider variant="middle" />
+            <br></br>
+
+            <StyledH4>원 계약보증금<span style={{ fontSize: "12px", color: "red"}}>&emsp;(필수)</span></StyledH4>
             <StyledDiv>
                <TextField
                   fullWidth
@@ -258,7 +277,7 @@ const BoardWriteComponent = () => {
                />
             </StyledDiv>
 
-            <StyledH4>원 월세</StyledH4>
+            <StyledH4>원 월세<span style={{ fontSize: "12px", color: "red"}}>&emsp;(필수)</span></StyledH4>
             <StyledDiv>
                <TextField
                   fullWidth
@@ -270,6 +289,10 @@ const BoardWriteComponent = () => {
                   onChange={(event) => setContractMonthlyFee(event.target.value)}
                />
             </StyledDiv>
+
+            <br></br>
+            <Divider variant="middle" />
+            <br></br>
 
             <h4>매물 정보</h4>
 
@@ -351,6 +374,10 @@ const BoardWriteComponent = () => {
                   onChange={(event) => setContain_admin_expense(event.target.value)}
                />
             </StyledDiv>
+
+            <br></br>
+            <Divider variant="middle" />
+            <br></br>
 
             <StyledH4>옵션 사용 가능 정보</StyledH4>
             <StyledDiv>
