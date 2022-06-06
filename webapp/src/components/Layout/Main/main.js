@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from "styled-components";
 import { Link, Link as RouterLink } from 'react-router-dom';
-import { Hidden, Box, Grid, Container, Typography, Button, Avatar } from '@mui/material';
+import { Hidden, Box, Grid, Container, Typography, Button, Avatar, Fade, Grow } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import HomeIcon from '@mui/icons-material/Home';
 
@@ -39,7 +39,10 @@ const Main = () => {
                         overflow: 'auto',
                      }}
                   >
+                     {/* <Fade in={true} timeout={2000}> */}
                      <Grid container sx={{ paddingTop: '130px', paddingBottom: 10 }}>
+                     <Fade in={true} timeout={2000} >
+
                         <Grid item lg={6} md={6} sx={{ paddingRight: 2, display: { md: 'block', xs: 'none' } }}>
                            <Typography variant='h3' component="h1" sx={{ paddingLeft: 1, paddingBottom: 3, fontWeight: "bolder" }}>
                
@@ -56,10 +59,12 @@ const Main = () => {
                               간편하게!
                            </Typography>
                         </Grid>
+                     </Fade>
 
                         <Grid item lg={6} md={6} sm={12} xs={12} >
 
                            <Grid container spacing={0}>
+                              <Grow in={true} timeout={2000}>
                               <div>
                                  <img
                                     src={require("img/메인모델.png")}
@@ -70,10 +75,9 @@ const Main = () => {
                                     }}
                                  />
                               </div>
-
+                              </Grow>
+                              <Grow in={true} timeout={3000}>
                               <Grid item lg={6} md={6} sm={12} xs={12} marginTop={0}>
-
-
                                  <Link to="/map/list" style={{ textDecoration: 'none', color: 'black' }}>
                                     <Button
                                        fullWidth
@@ -85,6 +89,8 @@ const Main = () => {
                                     </Button>
                                  </Link>
                               </Grid>
+                              </Grow>
+                              <Grow in={true} timeout={3000}>
                               <Grid item lg={6} md={6} sm={12} xs={12} marginTop={0}>
                                  <Link to="/room/register" style={{ textDecoration: 'none', color: 'black' }}>
                                     <Button
@@ -97,9 +103,11 @@ const Main = () => {
                                     </Button>
                                  </Link>
                               </Grid>
+                              </Grow>
                            </Grid>
                         </Grid>
                      </Grid>
+                     {/* </Fade> */}
                   </Container>
                </Box>
             </ThemeProvider>
