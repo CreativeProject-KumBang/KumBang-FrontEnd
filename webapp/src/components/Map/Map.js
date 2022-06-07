@@ -67,7 +67,7 @@ const Map = (props) => {
         mapRef.current.panTo(moveLatLon); 
         return () => {
             // 매물과 가까이 레벨 지정
-            mapRef.current.setLevel(2);           
+            mapRef.current.setLevel(1);           
         }
     },[props.cordY, props.cordX])
 
