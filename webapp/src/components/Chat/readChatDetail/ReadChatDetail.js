@@ -96,10 +96,10 @@ const ReadChatDetail = () => {
 
    // 입력한 키가 Enter일 경우 가입하기 버튼 클릭한 것과 동일한 동작 실행
    const onCheckEnter = (e) => {
-      e.preventDefault();
-      if (e.key === 'Enter') {
-         sendMessage()
-      }
+      // e.preventDefault();
+      // if (e.key === 'Enter') {
+      //    sendMessage()
+      // }
    }
 
    async function showHistory() {
