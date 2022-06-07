@@ -289,7 +289,13 @@ const BoardWriteComponent = () => {
                />
             </StyledDiv>
 
-            <StyledH4>원 월세<span style={{ fontSize: "12px", color: "red"}}>&emsp;(필수, 전세일 경우 월세 입력이 필수가 아닙니다)</span></StyledH4>
+            <StyledH4>원 월세
+               <span style={{ fontSize: "12px", color: "red"}}>&emsp;(필수, </span>
+               <span style={{ fontSize: "12px", color: "blue"}}>전세</span>
+               <span style={{ fontSize: "12px", color: "black"}}>인 경우엔 </span>
+               <span style={{ fontSize: "12px", color: "blue"}}>숫자 '0'</span>
+               <span style={{ fontSize: "12px", color: "black"}}>을 입력하세요)</span>
+            </StyledH4>
             <StyledDiv>
                <TextField
                   fullWidth
